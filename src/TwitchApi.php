@@ -6,7 +6,7 @@ use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
 class TwitchApi extends Request
 {
-    const AVAILABLE_API_VERSIONS = [3, 5];
+    const SUPPORTED_API_VERSIONS = [3, 5];
 
     /**
      * @var string
@@ -49,7 +49,7 @@ class TwitchApi extends Request
      */
     public function setApiVersion($apiVersion)
     {
-        if (!in_array($apiVersion = intval($apiVersion), self::AVAILABLE_API_VERSIONS)) {
+        if (!in_array($apiVersion = intval($apiVersion), self::SUPPORTED_API_VERSIONS)) {
             throw new UnsupportedApiVersionException();
         }
 
