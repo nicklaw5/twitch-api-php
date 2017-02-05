@@ -18,7 +18,6 @@
         "phpunit/phpunit": "^6.0"
     },
     "autoload": {
-        "files": ["src/functions_include.php"],
         "psr-4": {
             "TwitchApi\\": "src/"
         }
