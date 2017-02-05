@@ -115,24 +115,4 @@ class TwitchRequest
     {
         return $this->timeout;
     }
-
-    /**
-     * Set base URI
-     *
-     * @param string
-     */
-    public function setBaseUri($baseUri)
-    {
-        $this->baseUri = (string) $baseUri;
-    }
-
-    /**
-     * Get base URI
-     *
-     * @return string
-     */
-    public function getBaseUri()
-    {
-        return $this->baseUri;
-    }
 }
