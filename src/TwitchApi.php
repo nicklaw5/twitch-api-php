@@ -2,10 +2,12 @@
 
 namespace TwitchApi;
 
+use TwitchApi\Exceptions\InvalidScopeTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
-class TwitchApi extends Request
+class TwitchApi extends TwitchRequest
 {
+    const DEFAULT_API_VERSION = 5;
     const SUPPORTED_API_VERSIONS = [3, 5];
 
     /**
@@ -21,7 +23,7 @@ class TwitchApi extends Request
     /**
      * @var int
      */
-    protected $apiVersion = 5;
+    protected $apiVersion;
 
     /**
      * @var string
@@ -31,21 +33,68 @@ class TwitchApi extends Request
     /**
      * @var array
      */
-    protected $scope = [];
+    protected $scope;
 
-    public function __construct(array $options = [])
+    /**
+     * @var string
+     */
+    protected $state;
+
+    /**
+     * @var string
+     */
+    protected $accessToken;
+
+
+    /**
+     * Instantiate a new TwitchApi instance
+     *
+     * @param array $options
+     */
+    public function __construct(array $options)
     {
-        $this->clientId = $options['client_id'] ?? null;
-        $this->clientSecret = $options['client_secrect'] ?? null;
-        $this->apiVersion = $options['api_version'] ? $this->setApiVersion($options['api_version']) : $this->apiVersion;
-        $this->redirectUri = $options['redirect_uri'] ?? null;
-        $this->scope = $options['scope'] ?? $this->scope;
+        $this->setScope(isset($options['scope']) ? $options['scope'] : []);
+        $this->setClientId(isset($options['client_id']) ? $options['client_id'] : null);
+        $this->setRedirectUri(isset($options['redirect_uri']) ? $options['redirect_uri'] : null);
+        $this->setClientSecret(isset($options['client_secret']) ? $options['client_secret'] : null);
+        $this->setApiVersion(isset($options['api_version']) ? $options['api_version'] : self::DEFAULT_API_VERSION);
     }
 
     /**
-     * Set the API version to use for each API request.
+     * Set client ID
+     *
+     * @param string
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = (string) $clientId;
+    }
+
+    /**
+     * Get client ID
+     *
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * Set client secret
+     *
+     * @param string $clientSecret
+     */
+    public function setClientSecret($clientSecret)
+    {
+        $this->clientSecret = (string) $clientSecret;
+    }
+
+    /**
+     * Set API version
      *
      * @param string|int $apiVersion
+     * @throws UnsupportedApiVersionException
      */
     public function setApiVersion($apiVersion)
     {
@@ -54,5 +103,60 @@ class TwitchApi extends Request
         }
 
         $this->apiVersion = $apiVersion;
+    }
+
+    /**
+     * Get API version
+     *
+     * @return int
+     */
+    public function getApiVersion()
+    {
+        return $this->apiVersion;
+    }
+
+    /**
+     * Set redirect URI
+     *
+     * @param string $redirectUri
+     */
+    public function setRedirectUri($redirectUri)
+    {
+        $this->redirectUri = (string) $redirectUri;
+    }
+
+    /**
+     * Get redirect URI
+     *
+     * @return string
+     */
+    public function getRedirectUri()
+    {
+        return $this->redirectUri;
+    }
+
+    /**
+     * Set scope
+     *
+     * @param array $scope
+     * @throws InvalidScopeTypeException
+     */
+    public function setScope($scope)
+    {
+        if (!is_array($scope)) {
+            throw new InvalidScopeTypeException(gettype($scope));
+        }
+
+        $this->scope = $scope;
+    }
+
+    /**
+     * Get scope
+     *
+     * @return array
+     */
+    public function getScope()
+    {
+        return $this->scope;
     }
 }
