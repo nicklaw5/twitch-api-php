@@ -20,6 +20,11 @@ class TwitchRequest
     protected $timeout = 5.0;
 
     /**
+     * @var bool
+     */
+    protected $httpErrors = false;
+
+    /**
      * Send the request
      *
      * @param string $method
@@ -46,6 +51,7 @@ class TwitchRequest
     protected function getNewHttpClient($params, $accessToken = null)
     {
         $config = [
+            'http_errors' => $this->getHttpErrors(),
             'base_uri' => $this->baseUri,
             'timeout' => $this->getTimeout(),
             'headers' => [
@@ -109,5 +115,25 @@ class TwitchRequest
     public function getTimeout()
     {
         return $this->timeout;
+    }
+
+    /**
+     * Set HTTP errors
+     *
+     * @param bool $httpErrors
+     */
+    public function setHttpErrors($httpErrors)
+    {
+        $this->httpErrors = boolval($httpErrors);
+    }
+
+    /**
+     * Get HTTP errors
+     *
+     * @return bool
+     */
+    public function getHttpErrors()
+    {
+        return $this->httpErrors;
     }
 }
