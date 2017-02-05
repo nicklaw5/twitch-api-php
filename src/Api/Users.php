@@ -2,7 +2,7 @@
 
 namespace TwitchApi\Api;
 
-use TwitchApi\Exceptions\InvalidUserIdentifierException;
+use TwitchApi\Exceptions\InvalidIdentifierException;
 
 trait Users
 {
@@ -21,6 +21,7 @@ trait Users
      * Get a user
      *
      * @param string|int $userIdentifier
+     * @throws InvalidIdentifierException
      * @return array
      */
     public function getUser($userIdentifier)
