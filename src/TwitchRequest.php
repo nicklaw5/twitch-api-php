@@ -3,14 +3,9 @@
 namespace TwitchApi;
 
 use GuzzleHttp\Client;
-use TwitchApi\Api\Users;
-use TwitchApi\Api\Authentication;
 
 class TwitchRequest
 {
-    use Users;
-    use Authentication;
-
     const GET_METHOD = 'GET';
     const POST_METHOD = 'POST';
 
@@ -51,7 +46,7 @@ class TwitchRequest
     protected function getNewHttpClient($params, $accessToken = null)
     {
         $config = [
-            'base_uri' => $this->getBaseUri(),
+            'base_uri' => $this->baseUri,
             'timeout' => $this->getTimeout(),
             'headers' => [
                 'Client-ID' => $this->getClientId(),

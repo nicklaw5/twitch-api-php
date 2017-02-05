@@ -2,11 +2,16 @@
 
 namespace TwitchApi;
 
+use TwitchApi\Api\Users;
+use TwitchApi\Api\Authentication;
 use TwitchApi\Exceptions\InvalidScopeTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
 class TwitchApi extends TwitchRequest
 {
+    use Users;
+    use Authentication;
+
     const DEFAULT_API_VERSION = 5;
     const SUPPORTED_API_VERSIONS = [3, 5];
 
