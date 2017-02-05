@@ -164,4 +164,18 @@ class TwitchApi extends TwitchRequest
     {
         return $this->scope;
     }
+
+    /**
+     * Returns true if the set API version is greate than v4
+     *
+     * @return bool
+     */
+    protected function apiVersionIsGreaterThanV4()
+    {
+        if ($this->getApiVersion() > 4) {
+            return true;
+        }
+
+        return false;
+    }
 }
