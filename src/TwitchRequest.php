@@ -25,6 +25,11 @@ class TwitchRequest
     protected $httpErrors = false;
 
     /**
+     * @var bool
+     */
+    protected $returnJson = false;
+
+    /**
      * Send the request
      *
      * @param string $method
@@ -37,8 +42,9 @@ class TwitchRequest
     {
         $client = $this->getNewHttpClient($params, $accessToken);
         $response = $client->request($method, $endpoint);
+        $responseBody = $response->getBody()->getContents();
 
-        return json_decode($response->getBody(), true);
+        return $this->getReturnJson() ? $responseBody : json_decode($responseBody, true);
     }
 
     /**
@@ -135,5 +141,25 @@ class TwitchRequest
     public function getHttpErrors()
     {
         return $this->httpErrors;
+    }
+
+    /**
+     * Get return as JSON
+     *
+     * @param bool $returnJson
+     */
+    public function setReturnJson($returnJson)
+    {
+        $this->returnJson = boolval($returnJson);
+    }
+
+    /**
+     * Get return as JSON
+     *
+     * @return bool
+     */
+    public function getReturnJson()
+    {
+        return $this->returnJson;
     }
 }
