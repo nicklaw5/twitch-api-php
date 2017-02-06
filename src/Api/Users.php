@@ -123,4 +123,27 @@ trait Users
             'sortby' => $sortby,
         ]);
     }
+
+    /**
+     * Check if a user follows a channel
+     *
+     * @param string|int $userIdentifier
+     * @param string|int $channelIdentifier
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function checkUserFollowsChannel($userIdentifier, $channelIdentifier)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($userIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+
+            if (!is_numeric($channelIdentifier)) {
+                throw new InvalidIdentifierException('channel');
+            }
+        }
+
+        return $this->get(sprintf('users/%s/follows/channels/%s', (string) $userIdentifier, (string) $channelIdentifier));
+    }
 }
