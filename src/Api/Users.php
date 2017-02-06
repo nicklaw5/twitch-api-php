@@ -13,7 +13,7 @@ trait Users
      * Get a user from their access token
      *
      * @param string $accessToken
-     * @return array
+     * @return array|json
      */
     public function getAuthenticatedUser($accessToken)
     {
@@ -25,7 +25,7 @@ trait Users
      *
      * @param string|int $userIdentifier
      * @throws InvalidIdentifierException
-     * @return array
+     * @return array|json
      */
     public function getUser($userIdentifier)
     {
@@ -42,7 +42,7 @@ trait Users
      * @param string|int $userIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array
+     * @return array|json
      */
     public function getUserEmotes($userIdentifier, $accessToken)
     {
@@ -60,7 +60,7 @@ trait Users
      * @param string|int $channelIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array
+     * @return array|json
      */
     public function checkUserSubscriptionToChannel($userIdentifier, $channelIdentifier, $accessToken)
     {
@@ -89,7 +89,7 @@ trait Users
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
      * @throws UnsupportedOptionException
-     * @return array
+     * @return array|json
      */
     public function getUsersFollowedChannels($userIdentifier, $limit = 25, $offset = 0, $direction = 'desc', $sortby = 'created_at')
     {

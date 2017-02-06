@@ -29,19 +29,17 @@ trait Authentication
      *
      * @param string $code
      * @param string $state
-     * @return array
+     * @return array|json
      */
     public function getAccessCredentials($code, $state = null)
     {
-        $params = [
+        return $this->post('oauth2/token', [
             'client_id' => $this->clientId,
             'client_secret' => $this->clientSecret,
             'grant_type' => 'authorization_code',
             'redirect_uri' => $this->redirectUri,
             'code' => $code,
             'state' => $state,
-        ];
-
-        return $this->post('oauth2/token', $params);
+        ]);
     }
 }
