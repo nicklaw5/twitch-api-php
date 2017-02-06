@@ -178,4 +178,34 @@ class TwitchApi extends TwitchRequest
 
         return false;
     }
+
+    /**
+     * Return true is the provided limit is valid
+     *
+     * @param mixed $limit
+     * @return bool
+     */
+    protected function isValidLimit($limit)
+    {
+        if (is_numeric($limit) && $limit > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return true is the provided offset is valid
+     *
+     * @param mixed $offset
+     * @return bool
+     */
+    protected function isValidOffset($offset)
+    {
+        if (is_numeric($offset) && $offset > -1) {
+            return true;
+        }
+
+        return false;
+    }
 }
