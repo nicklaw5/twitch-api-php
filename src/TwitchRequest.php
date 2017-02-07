@@ -9,6 +9,7 @@ class TwitchRequest
     const GET_METHOD = 'GET';
     const PUT_METHOD = 'PUT';
     const POST_METHOD = 'POST';
+    const DELETE_METHOD = 'DELETE';
 
     /**
      * @var string
@@ -36,8 +37,8 @@ class TwitchRequest
      * @param string $method
      * @param string $endpoint
      * @param array  $params
-     * @param bool   $attachAccessToken
-     * @return array|json
+     * @param bool   $accessToken
+     * @return mixed
      */
     protected function sendRequest($method, $endpoint, $params = [], $accessToken = null)
     {
@@ -51,7 +52,7 @@ class TwitchRequest
     /**
      * Get a new HTTP Client
      *
-     * @param array $params
+     * @param array  $params
      * @param string $accessToken
      * @return Client
      */
@@ -83,7 +84,7 @@ class TwitchRequest
      *
      * @param string $endpoint
      * @param array  $params
-     * @param bool   $$attachAccessToken
+     * @param bool   $accessToken
      * @return array|json
      */
     protected function get($endpoint, $params = [], $accessToken = null)
@@ -96,7 +97,7 @@ class TwitchRequest
      *
      * @param string $endpoint
      * @param array  $params
-     * @param bool   $attachAccessToken
+     * @param bool   $accessToken
      * @return array|json
      */
     protected function post($endpoint, $params = [], $accessToken = null)
@@ -109,12 +110,25 @@ class TwitchRequest
      *
      * @param string $endpoint
      * @param array  $params
-     * @param bool   $attachAccessToken
+     * @param bool   $accessToken
      * @return array|json
      */
     protected function put($endpoint, $params = [], $accessToken = null)
     {
         return $this->sendRequest(self::PUT_METHOD, $endpoint, $params, $accessToken);
+    }
+
+    /**
+     * Send a DELETE request
+     *
+     * @param string $endpoint
+     * @param array  $params
+     * @param bool   $accessToken
+     * @return null|array|json
+     */
+    protected function delete($endpoint, $params = [], $accessToken = null)
+    {
+        return $this->sendRequest(self::DELETE_METHOD, $endpoint, $params, $accessToken);
     }
 
     /**

@@ -149,7 +149,7 @@ trait Users
     }
 
     /**
-     * Check if a user follows a channel
+     * Have a user follow a channel
      *
      * @param string|int $userIdentifier
      * @param string|int $channelIdentifier
@@ -180,5 +180,29 @@ trait Users
             ['notifications' => $notifications],
             $accessToken
         );
+    }
+
+    /**
+     * Have a user unfollow a channel
+     *
+     * @param string|int $userIdentifier
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @return null|array|json
+     */
+    public function unfollowChannel($userIdentifier, $channelIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($userIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+
+            if (!is_numeric($channelIdentifier)) {
+                throw new InvalidIdentifierException('channel');
+            }
+        }
+
+        return $this->delete(sprintf('users/%s/follows/channels/%s', $userIdentifier, $channelIdentifier), [], $accessToken);
     }
 }
