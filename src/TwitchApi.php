@@ -4,7 +4,7 @@ namespace TwitchApi;
 
 use TwitchApi\Api\Users;
 use TwitchApi\Api\Authentication;
-use TwitchApi\Exceptions\InvalidScopeTypeException;
+use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
 class TwitchApi extends TwitchRequest
@@ -49,7 +49,6 @@ class TwitchApi extends TwitchRequest
      * @var string
      */
     protected $accessToken;
-
 
     /**
      * Instantiate a new TwitchApi instance
@@ -144,12 +143,12 @@ class TwitchApi extends TwitchRequest
      * Set scope
      *
      * @param array $scope
-     * @throws InvalidScopeTypeException
+     * @throws InvalidTypeException
      */
     public function setScope($scope)
     {
         if (!is_array($scope)) {
-            throw new InvalidScopeTypeException(gettype($scope));
+            throw new InvalidTypeException('Scope', 'array', gettype($scope));
         }
 
         $this->scope = $scope;

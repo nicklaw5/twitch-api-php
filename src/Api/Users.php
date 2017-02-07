@@ -2,6 +2,7 @@
 
 namespace TwitchApi\Api;
 
+use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\InvalidLimitException;
 use TwitchApi\Exceptions\InvalidOffsetException;
 use TwitchApi\Exceptions\InvalidIdentifierException;
