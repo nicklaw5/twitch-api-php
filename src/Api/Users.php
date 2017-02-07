@@ -33,7 +33,7 @@ trait Users
             throw new InvalidIdentifierException('user');
         }
 
-        return $this->get(sprintf('users/%s', (string) $userIdentifier));
+        return $this->get(sprintf('users/%s', $userIdentifier));
     }
 
     /**
@@ -50,7 +50,7 @@ trait Users
             throw new InvalidIdentifierException('user');
         }
 
-        return $this->get(sprintf('users/%s/emotes', (string) $userIdentifier), [], $accessToken);
+        return $this->get(sprintf('users/%s/emotes', $userIdentifier), [], $accessToken);
     }
 
     /**
@@ -74,7 +74,7 @@ trait Users
             }
         }
 
-        return $this->get(sprintf('users/%s/subscriptions/%s', (string) $userIdentifier, (string) $channelIdentifier), [], $accessToken);
+        return $this->get(sprintf('users/%s/subscriptions/%s', $userIdentifier, $channelIdentifier), [], $accessToken);
     }
 
     /**
@@ -116,7 +116,7 @@ trait Users
             throw new UnsupportedOptionException('sortby', $availableSortBys);
         }
 
-        return $this->get(sprintf('users/%s/follows/channels', (string) $userIdentifier), [
+        return $this->get(sprintf('users/%s/follows/channels', $userIdentifier), [
             'limit' => intval($limit),
             'offset' => intval($offset),
             'direction' => $direction,
@@ -144,6 +144,6 @@ trait Users
             }
         }
 
-        return $this->get(sprintf('users/%s/follows/channels/%s', (string) $userIdentifier, (string) $channelIdentifier));
+        return $this->get(sprintf('users/%s/follows/channels/%s', $userIdentifier, $channelIdentifier));
     }
 }
