@@ -205,4 +205,38 @@ trait Users
 
         return $this->delete(sprintf('users/%s/follows/channels/%s', $userIdentifier, $channelIdentifier), [], $accessToken);
     }
+
+    /**
+     * Get a user’s block list
+     *
+     * @param string|int $userIdentifier
+     * @param string     $accessToken
+     * @param int        $limit
+     * @param int        $offset
+     * @throws InvalidIdentifierException
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @return array|json
+     */
+    public function getUserBlockList($userIdentifier, $accessToken, $limit = 25, $offset = 0)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
+            throw new InvalidIdentifierException('user');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        $params = [
+            'limit' => $limit,
+            'offset' => $offset,
+        ];
+
+        return $this->get(sprintf('users/%s/blocks', $userIdentifier), $params, $accessToken);
+    }
 }
