@@ -147,4 +147,38 @@ trait Users
 
         return $this->get(sprintf('users/%s/follows/channels/%s', $userIdentifier, $channelIdentifier));
     }
+
+    /**
+     * Check if a user follows a channel
+     *
+     * @param string|int $userIdentifier
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @param bool       $notifications
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function followChannel($userIdentifier, $channelIdentifier, $accessToken, $notifications = false)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($userIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+
+            if (!is_numeric($channelIdentifier)) {
+                throw new InvalidIdentifierException('channel');
+            }
+        }
+
+        if (!is_bool($notifications)) {
+            throw new InvalidTypeException('Notifications', 'boolean', gettype($notifications));
+        }
+
+        return $this->put(
+            sprintf('users/%s/follows/channels/%s', $userIdentifier, $channelIdentifier),
+            ['notifications' => $notifications],
+            $accessToken
+        );
+    }
 }

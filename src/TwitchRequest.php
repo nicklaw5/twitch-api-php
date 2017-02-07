@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 class TwitchRequest
 {
     const GET_METHOD = 'GET';
+    const PUT_METHOD = 'PUT';
     const POST_METHOD = 'POST';
 
     /**
@@ -36,7 +37,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $attachAccessToken
-     * @return array
+     * @return array|json
      */
     protected function sendRequest($method, $endpoint, $params = [], $accessToken = null)
     {
@@ -83,7 +84,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $$attachAccessToken
-     * @return array
+     * @return array|json
      */
     protected function get($endpoint, $params = [], $accessToken = null)
     {
@@ -96,11 +97,24 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $attachAccessToken
-     * @return array
+     * @return array|json
      */
     protected function post($endpoint, $params = [], $accessToken = null)
     {
         return $this->sendRequest(self::POST_METHOD, $endpoint, $params, $accessToken);
+    }
+
+    /**
+     * Send a PUT request
+     *
+     * @param string $endpoint
+     * @param array  $params
+     * @param bool   $attachAccessToken
+     * @return array|json
+     */
+    protected function put($endpoint, $params = [], $accessToken = null)
+    {
+        return $this->sendRequest(self::PUT_METHOD, $endpoint, $params, $accessToken);
     }
 
     /**
