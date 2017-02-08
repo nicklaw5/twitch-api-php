@@ -2,15 +2,17 @@
 
 namespace TwitchApi;
 
-use TwitchApi\Api\Users;
 use TwitchApi\Api\Authentication;
+use TwitchApi\Api\Channels;
+use TwitchApi\Api\Users;
 use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
 class TwitchApi extends TwitchRequest
 {
-    use Users;
     use Authentication;
+    use Channels;
+    use Users;
 
     const DEFAULT_API_VERSION = 5;
     const SUPPORTED_API_VERSIONS = [3, 5];

@@ -2,10 +2,10 @@
 
 namespace TwitchApi\Api;
 
-use TwitchApi\Exceptions\InvalidTypeException;
+use TwitchApi\Exceptions\InvalidIdentifierException;
 use TwitchApi\Exceptions\InvalidLimitException;
 use TwitchApi\Exceptions\InvalidOffsetException;
-use TwitchApi\Exceptions\InvalidIdentifierException;
+use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\UnsupportedOptionException;
 
 trait Users
