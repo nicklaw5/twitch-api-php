@@ -239,4 +239,44 @@ trait Users
 
         return $this->get(sprintf('users/%s/blocks', $userIdentifier), $params, $accessToken);
     }
+
+    /**
+     * Block a user
+     *
+     * @param string|int $userIdentifier
+     * @param string|int $userToBlockIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function blockUser($userIdentifier, $userToBlockIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($userIdentifier) || !is_numeric($userToBlockIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+        }
+
+        return $this->put(sprintf('users/%s/blocks/%s', $userIdentifier, $userToBlockIdentifier), [], $accessToken);
+    }
+
+    /**
+     * Unblock a user
+     *
+     * @param string|int $userIdentifier
+     * @param string|int $userToBlockIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @return null|array|json
+     */
+    public function unblockUser($userIdentifier, $userToUnlockIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($userIdentifier) || !is_numeric($userToUnlockIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+        }
+
+        return $this->delete(sprintf('users/%s/blocks/%s', $userIdentifier, $userToUnlockIdentifier), [], $accessToken);
+    }
 }
