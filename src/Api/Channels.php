@@ -215,4 +215,28 @@ trait Channels
 
         return $this->get(sprintf('channels/%s/subscriptions', $channelIdentifier), $params, $accessToken);
     }
+
+    /**
+     * Check a user's subscription to a channel
+     *
+     * @param string|int $channelIdentifier
+     * @param string|int $userIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function checkChannelSubscriptionByUser($channelIdentifier, $userIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4()) {
+            if (!is_numeric($channelIdentifier)) {
+                throw new InvalidIdentifierException('channel');
+            }
+
+            if (!is_numeric($userIdentifier)) {
+                throw new InvalidIdentifierException('user');
+            }
+        }
+
+        return $this->get(sprintf('channels/%s/subscriptions/%s', $channelIdentifier, $userIdentifier), [], $accessToken);
+    }
 }
