@@ -2,7 +2,7 @@
 
 namespace TwitchApi\Exceptions;
 
-class InvalidLimitException extends InvalidTypeException
+class InvalidLimitException extends TwitchApiException
 {
     public function __construct()
     {

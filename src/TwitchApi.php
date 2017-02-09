@@ -183,7 +183,7 @@ class TwitchApi extends TwitchRequest
     /**
      * Return true is the provided limit is valid
      *
-     * @param mixed $limit
+     * @param string|int $limit
      * @return bool
      */
     protected function isValidLimit($limit)
@@ -198,12 +198,29 @@ class TwitchApi extends TwitchRequest
     /**
      * Return true is the provided offset is valid
      *
-     * @param mixed $offset
+     * @param string|int $offset
      * @return bool
      */
     protected function isValidOffset($offset)
     {
         if (is_numeric($offset) && $offset > -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return true is the provided direction is valid
+     *
+     * @param string $direction
+     * @return bool
+     */
+    protected function isValidDirection($direction)
+    {
+        $validDirections = ['asc', 'desc'];
+
+        if (in_array(strtolower($direction), $validDirections)) {
             return true;
         }
 

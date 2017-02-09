@@ -2,7 +2,7 @@
 
 namespace TwitchApi\Exceptions;
 
-class InvalidOffsetException extends InvalidTypeException
+class InvalidOffsetException extends TwitchApiException
 {
     public function __construct()
     {

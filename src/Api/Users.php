@@ -94,7 +94,6 @@ trait Users
      */
     public function getUsersFollowedChannels($userIdentifier, $limit = 25, $offset = 0, $direction = 'desc', $sortby = 'created_at')
     {
-        $availableDirections = ['asc', 'desc'];
         $availableSortBys = ['created_at', 'last_broadcast', 'login'];
 
         if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
@@ -109,8 +108,8 @@ trait Users
             throw new InvalidOffsetException();
         }
 
-        if (!in_array($direction = strtolower($direction), $availableDirections)) {
-            throw new UnsupportedOptionException('direction', $availableDirections);
+        if (!$this->isValidDirection($direction)) {
+            throw new InvalidDirectionException();
         }
 
         if (!in_array($sortby = strtolower($sortby), $availableSortBys)) {
@@ -233,8 +232,8 @@ trait Users
         }
 
         $params = [
-            'limit' => $limit,
-            'offset' => $offset,
+            'limit' => intval($limit),
+            'offset' => intval($offset),
         ];
 
         return $this->get(sprintf('users/%s/blocks', $userIdentifier), $params, $accessToken);

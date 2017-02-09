@@ -2,6 +2,7 @@
 
 namespace TwitchApi\Api;
 
+use TwitchApi\Exceptions\InvalidDirectionException;
 use TwitchApi\Exceptions\InvalidIdentifierException;
 use TwitchApi\Exceptions\InvalidLimitException;
 use TwitchApi\Exceptions\InvalidOffsetException;
@@ -100,7 +101,7 @@ trait Channels
      * Get channel editors
      *
      * @param string|int $channelIdentifier
-     * @param string|int $accessToken
+     * @param string     $accessToken
      * @throws InvalidIdentifierException
      * @return array|json
      */
@@ -130,8 +131,6 @@ trait Channels
      */
     public function getChannelFollowers($channelIdentifier, $limit = 25, $offset = 0, $cursor = null, $direction = 'desc')
     {
-        $availableDirections = ['asc', 'desc'];
-
         if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
@@ -148,8 +147,8 @@ trait Channels
             throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
         }
 
-        if (!in_array($direction = strtolower($direction), $availableDirections)) {
-            throw new UnsupportedOptionException('direction', $availableDirections);
+        if (!$this->isValidDirection($direction)) {
+            throw new InvalidDirectionException();
         }
 
         return $this->get(sprintf('channels/%s/follows', $channelIdentifier), [
