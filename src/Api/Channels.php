@@ -160,4 +160,19 @@ trait Channels
         ]);
     }
 
+    /**
+     * Get channel teams
+     *
+     * @param string|int $channelIdentifier
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function getChannelTeams($channelIdentifier)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->get(sprintf('channels/%s/teams', $channelIdentifier));
+    }
 }
