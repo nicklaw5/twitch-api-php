@@ -3,8 +3,11 @@
 namespace TwitchApi\Api;
 
 use TwitchApi\Exceptions\InvalidIdentifierException;
+use TwitchApi\Exceptions\InvalidLimitException;
+use TwitchApi\Exceptions\InvalidOffsetException;
 use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\TwitchApiException;
+use TwitchApi\Exceptions\UnsupportedOptionException;
 
 trait Channels
 {
@@ -91,6 +94,70 @@ trait Channels
         }
 
         return $this->put(sprintf('channels/%s', $channelIdentifier), $params, $accessToken);
+    }
+
+    /**
+     * Get channel editors
+     *
+     * @param string|int $channelIdentifier
+     * @param string|int $accessToken
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function getChannelEditors($channelIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->get(sprintf('channels/%s/editors', $channelIdentifier), [], $accessToken);
+    }
+
+    /**
+     * Get channel followers
+     *
+     * @param string|int $channelIdentifier
+     * @param int        $limit
+     * @param int        $offset
+     * @param string     $cursor
+     * @param string     $direction
+     * @throws InvalidIdentifierException
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @throws InvalidTypeException
+     * @throws UnsupportedOptionException
+     * @return array|json
+     */
+    public function getChannelFollowers($channelIdentifier, $limit = 25, $offset = 0, $cursor = null, $direction = 'desc')
+    {
+        $availableDirections = ['asc', 'desc'];
+
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
+        }
+
+        if (!in_array($direction = strtolower($direction), $availableDirections)) {
+            throw new UnsupportedOptionException('direction', $availableDirections);
+        }
+
+        return $this->get(sprintf('channels/%s/follows', $channelIdentifier), [
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+            'cursor' => $cursor,
+            'direction' => $direction,
+        ]);
     }
 
 }
