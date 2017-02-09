@@ -174,4 +174,45 @@ trait Channels
 
         return $this->get(sprintf('channels/%s/teams', $channelIdentifier));
     }
+
+    /**
+     * Get channel subscribers
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @param int        $limit
+     * @param int        $offset
+     * @param string     $direction
+     * @throws InvalidIdentifierException
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @throws InvalidDirectionException
+     * @return array|json
+     */
+    public function getChannelSubscribers($channelIdentifier, $accessToken, $limit = 25, $offset = 0, $direction = 'desc')
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        if (!$this->isValidDirection($direction)) {
+            throw new InvalidDirectionException();
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+            'direction' => $direction,
+        ];
+
+        return $this->get(sprintf('channels/%s/subscriptions', $channelIdentifier), $params, $accessToken);
+    }
 }
