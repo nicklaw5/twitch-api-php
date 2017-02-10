@@ -126,7 +126,7 @@ trait Channels
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
      * @throws InvalidTypeException
-     * @throws UnsupportedOptionException
+     * @throws InvalidDirectionException
      * @return array|json
      */
     public function getChannelFollowers($channelIdentifier, $limit = 25, $offset = 0, $cursor = null, $direction = 'desc')
@@ -238,5 +238,65 @@ trait Channels
         }
 
         return $this->get(sprintf('channels/%s/subscriptions/%s', $channelIdentifier, $userIdentifier), [], $accessToken);
+    }
+
+    /**
+     * Get channel videos
+     *
+     * @param string|int $channelIdentifier
+     * @param int        $limit
+     * @param int        $offset
+     * @param string     $broadcastType (comma-seperated list)
+     * @param string     $language (comma-seperated list)
+     * @param string     $sort
+     * @throws InvalidIdentifierException
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @throws UnsupportedOptionException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function getChannelVideos($channelIdentifier, $limit = 10, $offset = 0, $broadcastType = 'highlight', $language = null, $sort = 'time')
+    {
+        $validSort = ['views', 'time'];
+        $validBroadcastTypes = ['archive', 'highlight', 'upload'];
+
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        $broadcastType = trim($broadcastType, ', ');
+        $broadcastTypeArray = explode(',', $broadcastType);
+        foreach ($broadcastTypeArray as $type) {
+            if (!in_array($type, $validBroadcastTypes)) {
+                throw new UnsupportedOptionException('broadcastType', $validBroadcastTypes);
+            }
+        }
+
+        if ($language && !is_string($language)) {
+            throw new InvalidTypeException('language', 'string', gettype($language));
+        }
+
+        if (!in_array($sort = strtolower($sort), $validSort)) {
+            throw new UnsupportedOptionException('sort', $validSort);
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+            'broadcast_type' => $broadcastType,
+            'language' => $language,
+            'sort' => $sort,
+        ];
+
+        return $this->get(sprintf('channels/%s/videos', $channelIdentifier), $params);
     }
 }
