@@ -74,4 +74,40 @@ trait Videos
 
         return $this->get('videos/top', $params);
     }
+
+    /**
+     * Get the videos from channels followed by the authenticated user
+     *
+     * @param string $accessToken
+     * @param int    $limit
+     * @param int    $offset
+     * @param string $broadcastType (comma-seperated list)
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @throws UnsupportedOptionException
+     * @return array|json
+     */
+    public function getFollowedChannelsVideos($accessToken, $limit = 10, $offset = 0, $broadcastType = 'highlight')
+    {
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        $broadcastType = trim($broadcastType, ', ');
+        if (!$this->isValidBroadcastType($broadcastType)) {
+            throw new UnsupportedOptionException('broadcastType', $validBroadcastTypes);
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+            'broadcast_type' => $broadcastType,
+        ];
+
+        return $this->get('videos/followed', $params, $accessToken);
+    }
 }
