@@ -324,4 +324,21 @@ trait Channels
 
         return $this->post(sprintf('channels/%s/commercial', $channelIdentifier), ['length' => $length], $accessToken);
     }
+
+    /**
+     * Reset a channel's stream key
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @return array|json
+     */
+    public function resetChannelStreamKey($channelIdentifier, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->delete(sprintf('channels/%s/stream_key', $channelIdentifier), [], $accessToken);
+    }
 }
