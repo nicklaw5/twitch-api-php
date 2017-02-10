@@ -299,4 +299,29 @@ trait Channels
 
         return $this->get(sprintf('channels/%s/videos', $channelIdentifier), $params);
     }
+
+    /**
+     * Run a channel commercial
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @param int        $length
+     * @throws InvalidIdentifierException
+     * @throws UnsupportedOptionException
+     * @return array|json
+     */
+    public function startChannelCommercial($channelIdentifier, $accessToken, $length = 30)
+    {
+        $validLengths = [30, 60, 90, 120, 150, 180];
+
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!in_array($length = intval($length), $validLengths)) {
+            throw new UnsupportedOptionException('length', $validLengths);
+        }
+
+        return $this->post(sprintf('channels/%s/commercial', $channelIdentifier), ['length' => $length], $accessToken);
+    }
 }
