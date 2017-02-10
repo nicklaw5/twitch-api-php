@@ -187,7 +187,7 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
-     * Return true is the provided limit is valid
+     * Return true if the provided limit is valid
      *
      * @param string|int $limit
      * @return bool
@@ -202,7 +202,7 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
-     * Return true is the provided offset is valid
+     * Return true if the provided offset is valid
      *
      * @param string|int $offset
      * @return bool
@@ -217,7 +217,7 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
-     * Return true is the provided direction is valid
+     * Return true if the provided direction is valid
      *
      * @param string $direction
      * @return bool
@@ -231,5 +231,25 @@ class TwitchApi extends TwitchRequest
         }
 
         return false;
+    }
+
+    /**
+     * Return true if the provided broadcast type is valid
+     *
+     * @param string $broadcastType
+     * @return bool
+     */
+    protected function isValidBroadcastType($broadcastType)
+    {
+        $validBroadcastTypes = ['archive', 'highlight', 'upload'];
+
+        $broadcastTypeArray = explode(',', $broadcastType);
+        foreach ($broadcastTypeArray as $type) {
+            if (!in_array($type, $validBroadcastTypes)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -259,7 +259,6 @@ trait Channels
     public function getChannelVideos($channelIdentifier, $limit = 10, $offset = 0, $broadcastType = 'highlight', $language = null, $sort = 'time')
     {
         $validSort = ['views', 'time'];
-        $validBroadcastTypes = ['archive', 'highlight', 'upload'];
 
         if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
@@ -274,11 +273,8 @@ trait Channels
         }
 
         $broadcastType = trim($broadcastType, ', ');
-        $broadcastTypeArray = explode(',', $broadcastType);
-        foreach ($broadcastTypeArray as $type) {
-            if (!in_array($type, $validBroadcastTypes)) {
-                throw new UnsupportedOptionException('broadcastType', $validBroadcastTypes);
-            }
+        if (!$this->isValidBroadcastType($broadcastType)) {
+            throw new UnsupportedOptionException('broadcastType', $validBroadcastTypes);
         }
 
         if ($language && !is_string($language)) {
