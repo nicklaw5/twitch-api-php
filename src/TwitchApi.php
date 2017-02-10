@@ -7,6 +7,7 @@ use TwitchApi\Api\Channels;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
 use TwitchApi\Api\Users;
+use TwitchApi\Api\Videos;
 use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
@@ -17,6 +18,7 @@ class TwitchApi extends TwitchRequest
     use Games;
     use Ingests;
     use Users;
+    use Videos;
 
     const DEFAULT_API_VERSION = 5;
     const SUPPORTED_API_VERSIONS = [3, 5];
