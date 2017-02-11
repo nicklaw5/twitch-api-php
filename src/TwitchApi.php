@@ -7,6 +7,7 @@ use TwitchApi\Api\Channels;
 use TwitchApi\Api\Chat;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
+use TwitchApi\Api\Teams;
 use TwitchApi\Api\Users;
 use TwitchApi\Api\Videos;
 use TwitchApi\Exceptions\InvalidTypeException;
@@ -19,6 +20,7 @@ class TwitchApi extends TwitchRequest
     use Chat;
     use Games;
     use Ingests;
+    use Teams;
     use Users;
     use Videos;
 
