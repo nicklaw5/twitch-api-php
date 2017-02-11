@@ -27,7 +27,7 @@ class TwitchApi extends TwitchRequest
     use Videos;
 
     const DEFAULT_API_VERSION = 5;
-    const SUPPORTED_API_VERSIONS = [3, 5];
+    const SUPPORTED_API_VERSIONS = [3, 4, 5];
 
     /**
      * @var string
