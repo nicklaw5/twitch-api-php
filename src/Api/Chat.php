@@ -40,4 +40,14 @@ trait Chat
 
         return $this->get(sprintf('chat/emoticon_images?emotesets=%s', $emotesets));
     }
+
+    /**
+     * Get all chat emotes
+     *
+     * @return array|json
+     */
+    public function getAllChatEmoticons()
+    {
+        return $this->get('chat/emoticons?limit=10');
+    }
 }
