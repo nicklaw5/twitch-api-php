@@ -47,4 +47,25 @@ trait Search
 
         return $this->get('search/channels', $params);
     }
+
+    /**
+     * Search for games by name
+     *
+     * @param string $query
+     * @throws InvalidTypeException
+     * @throws TwitchApiException
+     * @return array|json
+     */
+    public function searchGames($query)
+    {
+        if (!is_string($query)) {
+            throw new InvalidTypeException('Query', 'string', gettype($query));
+        }
+
+        if (empty($query)) {
+            throw new TwitchApiException('A \'query\' parameter is required.');
+        }
+
+        return $this->get('search/games', ['query' => $query]);
+    }
 }
