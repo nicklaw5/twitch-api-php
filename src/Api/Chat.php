@@ -3,6 +3,8 @@
 namespace TwitchApi\Api;
 
 use TwitchApi\Exceptions\InvalidIdentifierException;
+use TwitchApi\Exceptions\InvalidTypeException;
+
 trait Chat
 {
     /**
@@ -19,5 +21,23 @@ trait Chat
         }
 
         return $this->get(sprintf('chat/%s/badges', $channelIdentifier));
+    }
+
+    /**
+     * Get chat emoticons by set
+     *
+     * @param string $emotesets (comma-seperated list)
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function getChatEmoticonSets($emotesets = null)
+    {
+        if ($emotesets && !is_string($emotesets)) {
+            throw new InvalidTypeException('emotesets', 'string', gettype($emotesets));
+        }
+
+        $emotesets = trim($emotesets, ', ');
+
+        return $this->get(sprintf('chat/emoticon_images?emotesets=%s', $emotesets));
     }
 }
