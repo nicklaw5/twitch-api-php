@@ -199,7 +199,7 @@ class TwitchRequest
     }
 
     /**
-     * Get return as JSON
+     * Set return as JSON
      *
      * @param bool $returnJson
      */
