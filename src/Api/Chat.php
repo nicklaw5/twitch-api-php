@@ -38,7 +38,7 @@ trait Chat
 
         $emotesets = trim($emotesets, ', ');
 
-        return $this->get(sprintf('chat/emoticon_images?emotesets=%s', $emotesets));
+        return $this->get('chat/emoticon_images', ['emotesets' => $emotesets]);
     }
 
     /**
@@ -48,6 +48,6 @@ trait Chat
      */
     public function getAllChatEmoticons()
     {
-        return $this->get('chat/emoticons?limit=10');
+        return $this->get('chat/emoticons');
     }
 }

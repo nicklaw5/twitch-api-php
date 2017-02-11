@@ -42,7 +42,7 @@ class TwitchRequest
      */
     protected function sendRequest($method, $endpoint, $params = [], $accessToken = null)
     {
-        $client = $this->getNewHttpClient($params, $accessToken);
+        $client = $this->getNewHttpClient($method, $params, $accessToken);
         $response = $client->request($method, $endpoint);
         $responseBody = $response->getBody()->getContents();
 
@@ -52,11 +52,12 @@ class TwitchRequest
     /**
      * Get a new HTTP Client
      *
-     * @param array  $params
-     * @param string $accessToken
+     * @param strring $method
+     * @param array   $params
+     * @param string  $accessToken
      * @return Client
      */
-    protected function getNewHttpClient($params, $accessToken = null)
+    protected function getNewHttpClient($method, $params, $accessToken = null)
     {
         $config = [
             'http_errors' => $this->getHttpErrors(),
@@ -73,7 +74,7 @@ class TwitchRequest
         }
 
         if (!empty($params)) {
-            $config['json'] = $params;
+            $config[($method == self::GET_METHOD) ? 'query' : 'json'] = $params;
         }
 
         return new Client($config);
