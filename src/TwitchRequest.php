@@ -2,7 +2,7 @@
 
 namespace TwitchApi;
 
-use GuzzleHttp\Client;
+use GuzzleHttp;
 
 class TwitchRequest
 {
@@ -20,6 +20,11 @@ class TwitchRequest
      * @var float
      */
     protected $timeout = 5.0;
+
+    /**
+     * @var string
+     */
+    protected $userAgent;
 
     /**
      * @var bool
@@ -66,6 +71,7 @@ class TwitchRequest
             'headers' => [
                 'Client-ID' => $this->getClientId(),
                 'Accept' => sprintf('application/vnd.twitchtv.v%d+json', $this->getApiVersion()),
+                'User-Agent' => ($this->getUserAgent() !== null) ? $this->getUserAgent() : GuzzleHttp\default_user_agent(),
             ],
         ];
 
@@ -77,7 +83,7 @@ class TwitchRequest
             $config[($method == self::GET_METHOD) ? 'query' : 'json'] = $params;
         }
 
-        return new Client($config);
+        return new GuzzleHttp\Client($config);
     }
 
     /**
@@ -150,6 +156,26 @@ class TwitchRequest
     public function getTimeout()
     {
         return $this->timeout;
+    }
+
+    /**
+     * Set user agent
+     *
+     * @param string $userAgent
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = (string) $userAgent;
+    }
+
+    /**
+     * Get user agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
     }
 
     /**
