@@ -151,12 +151,14 @@ trait Channels
             throw new InvalidDirectionException();
         }
 
-        return $this->get(sprintf('channels/%s/follows', $channelIdentifier), [
+        $params = [
             'limit' => intval($limit),
             'offset' => intval($offset),
             'cursor' => $cursor,
             'direction' => $direction,
-        ]);
+        ];
+
+        return $this->get(sprintf('channels/%s/follows', $channelIdentifier), $params);
     }
 
     /**

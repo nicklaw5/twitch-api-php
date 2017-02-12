@@ -8,6 +8,7 @@ use TwitchApi\Api\Chat;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
 use TwitchApi\Api\Search;
+use TwitchApi\Api\Streams;
 use TwitchApi\Api\Teams;
 use TwitchApi\Api\Users;
 use TwitchApi\Api\Videos;
@@ -22,6 +23,7 @@ class TwitchApi extends TwitchRequest
     use Games;
     use Ingests;
     use Search;
+    use Streams;
     use Teams;
     use Users;
     use Videos;
@@ -257,5 +259,22 @@ class TwitchApi extends TwitchRequest
         }
 
         return true;
+    }
+
+    /**
+     * Return true if the provided stream type is valid
+     *
+     * @param string $streamType
+     * @return bool
+     */
+    protected function isValidStreamType($streamType)
+    {
+        $validStreamTypes = ['live', 'playlist', 'all'];
+
+        if (in_array(strtolower($streamType), $validStreamTypes)) {
+            return true;
+        }
+
+        return false;
     }
 }
