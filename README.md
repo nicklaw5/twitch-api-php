@@ -28,7 +28,7 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [ ] Pub/Sub (ie. Bits & Whispers)
 - [ ] Video Upload
 
-** Additional Integrations:**
+**Additional Integrations:**
 - [ ] [StreamsLabs:](https://twitchalerts.readme.io/docs/getting-started)
   - [ ] Alerts
   - [ ] Authentication
