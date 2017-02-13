@@ -96,4 +96,20 @@ trait Streams
 
         return $this->get('streams', $params);
     }
+
+    /**
+     * Gets a summary of live streams
+     *
+     * @param string $game
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function getStreamsSummary($game = null)
+    {
+        if ($game && !is_string($game)) {
+            throw new InvalidTypeException('game', 'string', gettype($game));
+        }
+
+        return $this->get('streams/summary', ['game' => $game]);
+    }
 }
