@@ -5,6 +5,7 @@ namespace TwitchApi;
 use TwitchApi\Api\Authentication;
 use TwitchApi\Api\Channels;
 use TwitchApi\Api\Chat;
+use TwitchApi\Api\Clips;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
 use TwitchApi\Api\Search;
@@ -20,6 +21,7 @@ class TwitchApi extends TwitchRequest
     use Authentication;
     use Channels;
     use Chat;
+    use Clips;
     use Games;
     use Ingests;
     use Search;
