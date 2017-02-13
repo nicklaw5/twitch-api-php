@@ -18,7 +18,7 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [x] Games
 - [x] Ingests
 - [x] Search
-- [ ] Streams
+- [x] Streams
 - [x] Teams
 - [x] Users
 - [x] Videos

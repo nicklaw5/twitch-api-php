@@ -139,4 +139,38 @@ trait Streams
 
         return $this->get('streams/featured', $params);
     }
+
+    /**
+     * Get followed streams
+     *
+     * @param string $streamType
+     * @param int    $limit
+     * @param int    $offset
+     * @throws InvalidStreamTypeException
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @return array|json
+     */
+    public function getFollowedStreams($asccessToken, $streamType = 'live', $limit = 25, $offset = 0)
+    {
+        if (!$this->isValidStreamType($streamType)) {
+            throw new InvalidStreamTypeException();
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        $params = [
+            'stream_type' => $streamType,
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+        ];
+
+        return $this->get('streams/followed', $params, $asccessToken);
+    }
 }
