@@ -97,4 +97,38 @@ trait Clips
 
         return $this->get('clips/top', $params);
     }
+
+    /**
+     * Get clips from channels followed
+     *
+     * @param string  $accessToken
+     * @param int     $limit
+     * @param string  $cursor
+     * @param boolean $trending
+     * @throws InvalidTypeException
+     * @throws InvalidLimitException
+     * @return array|json
+     */
+    public function getFollowedClips($accessToken, $limit = 10, $cursor = null, $trending = false)
+    {
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('cursor', 'string', gettype($cursor));
+        }
+
+        if (!is_bool($trending)) {
+            throw new InvalidTypeException('trending', 'boolean', gettype($trending));
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'cursor' => $cursor,
+            'trending' => $trending ? 'true' : 'false',
+        ];
+
+        return $this->get('clips/followed', $params, $accessToken);
+    }
 }

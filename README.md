@@ -13,7 +13,7 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [ ] Channel Feed
 - [x] Channels
 - [x] Chat
-- [ ] Clips
+- [x] Clips
 - [ ] Communities
 - [x] Games
 - [x] Ingests
