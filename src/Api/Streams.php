@@ -112,4 +112,31 @@ trait Streams
 
         return $this->get('streams/summary', ['game' => $game]);
     }
+
+    /**
+     * Get a list of all featured live streams
+     *
+     * @param int $limit
+     * @param int $offset
+     * @throws InvalidLimitException
+     * @throws InvalidOffsetException
+     * @return array|json
+     */
+    public function getFeaturedStreams($limit = 25, $offset = 0)
+    {
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if (!$this->isValidOffset($offset)) {
+            throw new InvalidOffsetException();
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'offset' => intval($offset),
+        ];
+
+        return $this->get('streams/featured', $params);
+    }
 }
