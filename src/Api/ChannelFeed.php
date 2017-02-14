@@ -47,4 +47,36 @@ trait ChannelFeed
 
         return $this->get(sprintf('feed/%s/posts', $channelIdentifier), $params, $accessToken);
     }
+
+    /**
+     * Get a specific post from a specific channel feed
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @param int        $comments
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function getFeedPost($channelIdentifier, $postId, $accessToken, $comments = 5)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'integer', gettype($postId));
+        }
+
+        if (!is_int($comments)) {
+            throw new InvalidTypeException('Comments', 'integer', gettype($comments));
+        }
+
+        $params = [
+            'comments' => $comments,
+        ];
+
+        return $this->get(sprintf('feed/%s/posts/%s', $channelIdentifier, $postId), $params, $accessToken);
+    }
 }
