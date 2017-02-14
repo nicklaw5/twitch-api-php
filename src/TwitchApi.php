@@ -3,6 +3,7 @@
 namespace TwitchApi;
 
 use TwitchApi\Api\Authentication;
+use TwitchApi\Api\ChannelFeed;
 use TwitchApi\Api\Channels;
 use TwitchApi\Api\Chat;
 use TwitchApi\Api\Clips;
@@ -19,6 +20,7 @@ use TwitchApi\Exceptions\UnsupportedApiVersionException;
 class TwitchApi extends TwitchRequest
 {
     use Authentication;
+    use ChannelFeed;
     use Channels;
     use Chat;
     use Clips;
