@@ -9,7 +9,7 @@ use TwitchApi\Exceptions\InvalidTypeException;
 trait ChannelFeed
 {
     /**
-     * Get posts from a specific channel feed
+     * Get multiple feed posts
      *
      * @param string|int $channelIdentifier
      * @param string     $accessToken
@@ -49,7 +49,7 @@ trait ChannelFeed
     }
 
     /**
-     * Get a specific post from a specific channel feed
+     * Get a feed post
      *
      * @param string|int $channelIdentifier
      * @param string     $postId
@@ -81,7 +81,7 @@ trait ChannelFeed
     }
 
     /**
-     * Create a post in a specific channel feed
+     * Create a fedd post
      *
      * @param string|int $channelIdentifier
      * @param string     $accessToken
@@ -115,7 +115,7 @@ trait ChannelFeed
     }
 
     /**
-     * Delete a specific post from a specific channel feed
+     * Delete a feed post
      *
      * @param string|int $channelIdentifier
      * @param string     $postId
@@ -138,7 +138,7 @@ trait ChannelFeed
     }
 
     /**
-     * Create a reaction to a specific post in a specific channel feed
+     * Create a reaction to a feed post
      *
      * @param string|int $channelIdentifier
      * @param string     $postId
@@ -171,7 +171,7 @@ trait ChannelFeed
     }
 
     /**
-     * Delete a reaction to a specific post in a specific channel feed
+     * Delete a reaction to a feed post
      *
      * @param string|int $channelIdentifier
      * @param string     $postId
@@ -201,5 +201,44 @@ trait ChannelFeed
         ];
 
         return $this->delete(sprintf('feed/%s/posts/%s/reactions', $channelIdentifier, $postId), $params, $accessToken);
+    }
+
+    /**
+     * Get comments from a feed post
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @param int        $limit
+     * @param string     $cursor
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @throws InvalidLimitException
+     * @return array|json
+     */
+    public function getFeedComments($channelIdentifier, $postId, $accessToken, $limit = 10, $cursor = null)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'cursor' => $cursor,
+        ];
+
+        return $this->get(sprintf('feed/%s/posts/%s/comments', $channelIdentifier, $postId), $params, $accessToken);
     }
 }
