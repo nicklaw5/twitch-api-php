@@ -79,4 +79,38 @@ trait ChannelFeed
 
         return $this->get(sprintf('feed/%s/posts/%s', $channelIdentifier, $postId), $params, $accessToken);
     }
+
+    /**
+     * Create a post in a specific channel feed
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @param string     $content
+     * @param boolean    $share
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @throws TwitchApiException
+     * @return array|json
+     */
+    public function createFeedPost($channelIdentifier, $accessToken, $content, $share = false)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($content)) {
+            throw new InvalidTypeException('Content', 'string', gettype($content));
+        }
+
+        if (!is_bool($share)) {
+            throw new InvalidTypeException('Share', 'boolean', gettype($share));
+        }
+
+        $params = [
+            'share' => $share,
+            'content' => $content,
+        ];
+
+        return $this->post(sprintf('feed/%s/posts', $channelIdentifier), $params, $accessToken);
+    }
 }
