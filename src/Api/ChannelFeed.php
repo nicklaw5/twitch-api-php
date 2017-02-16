@@ -66,7 +66,7 @@ trait ChannelFeed
         }
 
         if (!is_string($postId)) {
-            throw new InvalidTypeException('Post ID', 'integer', gettype($postId));
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
         }
 
         if (!is_int($comments)) {
@@ -112,5 +112,28 @@ trait ChannelFeed
         ];
 
         return $this->post(sprintf('feed/%s/posts', $channelIdentifier), $params, $accessToken);
+    }
+
+    /**
+     * Delete a specific post from a specific channel feed
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function deleteFeedPost($channelIdentifier, $postId, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
+        }
+
+        return $this->delete(sprintf('feed/%s/posts/%s', $channelIdentifier, $postId), [], $accessToken);
     }
 }
