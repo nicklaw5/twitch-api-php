@@ -241,4 +241,32 @@ trait ChannelFeed
 
         return $this->get(sprintf('feed/%s/posts/%s/comments', $channelIdentifier, $postId), $params, $accessToken);
     }
+
+    /**
+     * Create a feed post comment
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @param string     $comment
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function createFeedComment($channelIdentifier, $postId, $accessToken, $comment)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($comment)) {
+            throw new InvalidTypeException('Comment', 'string', gettype($comment));
+        }
+
+        $params = [
+            'content' => $comment,
+        ];
+
+        return $this->post(sprintf('feed/%s/posts/%s/comments', $channelIdentifier, $postId), $params, $accessToken);
+    }
 }
