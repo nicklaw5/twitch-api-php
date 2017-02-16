@@ -169,4 +169,37 @@ trait ChannelFeed
 
         return $this->post(sprintf('feed/%s/posts/%s/reactions', $channelIdentifier, $postId), $params, $accessToken);
     }
+
+    /**
+     * Delete a reaction to a specific post in a specific channel feed
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @param string     $emoteId
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @throws TwitchApiException
+     * @return array|json
+     */
+    public function deleteFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
+        }
+
+        if (!is_string($emoteId)) {
+            throw new InvalidTypeException('Reaction', 'string', gettype($emoteId));
+        }
+
+        $params = [
+            'emote_id' => $emoteId,
+        ];
+
+        return $this->delete(sprintf('feed/%s/posts/%s/reactions', $channelIdentifier, $postId), $params, $accessToken);
+    }
 }
