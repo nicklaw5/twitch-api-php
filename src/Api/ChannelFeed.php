@@ -89,7 +89,6 @@ trait ChannelFeed
      * @param boolean    $share
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @throws TwitchApiException
      * @return array|json
      */
     public function createFeedPost($channelIdentifier, $accessToken, $content, $share = false)
@@ -146,7 +145,6 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @throws TwitchApiException
      * @return array|json
      */
     public function createFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
@@ -179,7 +177,6 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @throws TwitchApiException
      * @return array|json
      */
     public function deleteFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
@@ -288,5 +285,71 @@ trait ChannelFeed
         }
 
         return $this->delete(sprintf('feed/%s/posts/%s/comments/%s', $channelIdentifier, $postId, $commentId), [], $accessToken);
+    }
+
+    /**
+     * Create a reaction to a feed comment
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string|int $commentId
+     * @param string     $accessToken
+     * @param string     $emoteId
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function createFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
+        }
+
+        if (!is_string($emoteId)) {
+            throw new InvalidTypeException('Reaction', 'string', gettype($emoteId));
+        }
+
+        $params = [
+            'emote_id' => $emoteId,
+        ];
+
+        return $this->post(sprintf('feed/%s/posts/%s/comments/%s/reactions', $channelIdentifier, $postId, $commentId), $params, $accessToken);
+    }
+
+    /**
+     * Delete a reaction to a feed comment
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string|int $commentId
+     * @param string     $accessToken
+     * @param string     $emoteId
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function deleteFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        if (!is_string($postId)) {
+            throw new InvalidTypeException('Post ID', 'string', gettype($postId));
+        }
+
+        if (!is_string($emoteId)) {
+            throw new InvalidTypeException('Reaction', 'string', gettype($emoteId));
+        }
+
+        $params = [
+            'emote_id' => $emoteId,
+        ];
+
+        return $this->delete(sprintf('feed/%s/posts/%s/comments/%s/reactions', $channelIdentifier, $postId, $commentId), $params, $accessToken);
     }
 }
