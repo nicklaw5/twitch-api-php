@@ -269,4 +269,24 @@ trait ChannelFeed
 
         return $this->post(sprintf('feed/%s/posts/%s/comments', $channelIdentifier, $postId), $params, $accessToken);
     }
+
+    /**
+     * Delete a feed post comment
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $postId
+     * @param string     $accessToken
+     * @param string|int $commentId
+     * @throws InvalidIdentifierException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function deleteFeedComment($channelIdentifier, $postId, $commentId, $accessToken)
+    {
+        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->delete(sprintf('feed/%s/posts/%s/comments/%s', $channelIdentifier, $postId, $commentId), [], $accessToken);
+    }
 }
