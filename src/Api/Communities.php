@@ -2,8 +2,9 @@
 
 namespace TwitchApi\Api;
 
-use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\EndpointNotSupportedByApiVersionException;
+use TwitchApi\Exceptions\InvalidParameterLengthException;
+use TwitchApi\Exceptions\InvalidTypeException;
 
 trait Communities
 {
@@ -48,4 +49,49 @@ trait Communities
 
         return $this->get(sprintf('communities/%s', $id));
     }
+
+    /**
+     * Create a community
+     *
+     * @param string $name
+     * @param string $summary
+     * @param string $description
+     * @param string $rules
+     * @param string $accessToken
+     * @throws InvalidParameterLengthException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function createCommunity($name, $summary, $description, $rules, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (strlen($name) < 3 || strlen($name) > 25) {
+            throw new InvalidParameterLengthException('name');
+        }
+
+        if (strlen($summary) > 160) {
+            throw new InvalidParameterLengthException('summary');
+        }
+
+        if (strlen($description) > 1572864) { // 1.5MB
+            throw new InvalidParameterLengthException('description');
+        }
+
+        if (strlen($rules) > 1572864) { // 1.5MB
+            throw new InvalidParameterLengthException('rules');
+        }
+
+        $params = [
+            'name' => $name,
+            'summary' => $summary,
+            'description' => $description,
+            'rules' => $rules,
+        ];
+
+        return $this->post('communities', $params, $accessToken);
+    }
+
 }
