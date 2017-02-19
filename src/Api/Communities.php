@@ -147,4 +147,36 @@ trait Communities
 
         return $this->put(sprintf('communities/%s', $communityId), $params, $accessToken);
     }
+
+    /**
+     * Get top communities
+     *
+     * @param int    $limit
+     * @param string $cursor
+     * @throws InvalidLimitException
+     * @throws InvalidTypeException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function getTopCommunities($limit = 10, $cursor = null)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'cursor' => $cursor,
+        ];
+
+        return $this->get('communities/top', $params);
+    }
 }
