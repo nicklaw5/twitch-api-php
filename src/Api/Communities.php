@@ -179,4 +179,38 @@ trait Communities
 
         return $this->get('communities/top', $params);
     }
+
+    /**
+     * Get banned community users
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @param int    $limit
+     * @param string $cursor
+     * @throws InvalidLimitException
+     * @throws InvalidTypeException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function getBannedCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'cursor' => $cursor,
+        ];
+
+        return $this->get(sprintf('communities/%s/bans', $communityId), $params, $accessToken);
+    }
 }
