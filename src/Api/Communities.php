@@ -213,4 +213,22 @@ trait Communities
 
         return $this->get(sprintf('communities/%s/bans', $communityId), $params, $accessToken);
     }
+
+    /**
+     * Ban a community user
+     *
+     * @param string $communityId
+     * @param string $userId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function banCommunityUser($communityId, $userId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->put(sprintf('communities/%s/bans/%s', $communityId, $userId), [], $accessToken);
+    }
 }
