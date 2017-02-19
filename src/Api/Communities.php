@@ -3,6 +3,7 @@
 namespace TwitchApi\Api;
 
 use TwitchApi\Exceptions\EndpointNotSupportedByApiVersionException;
+use TwitchApi\Exceptions\InvalidEmailAddressException;
 use TwitchApi\Exceptions\InvalidParameterLengthException;
 use TwitchApi\Exceptions\InvalidTypeException;
 
@@ -94,4 +95,56 @@ trait Communities
         return $this->post('communities', $params, $accessToken);
     }
 
+    /**
+     * Update a community
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @param string $summary
+     * @param string $description
+     * @param string $rules
+     * @param string $email
+     * @throws InvalidParameterLengthException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidEmailAddressException
+     * @return array|json
+     */
+    public function updateCommunity($communityId, $accessToken, $summary = null, $description = null, $rules = null, $email = null)
+    {
+        $params = [];
+
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if ($summary) {
+            if (strlen($summary) > 160) {
+                throw new InvalidParameterLengthException('summary');
+            }
+            $params['summary'] = $summary;
+        }
+
+        if ($description) {
+            if (strlen($description) > 1572864) { // 1.5MB
+                throw new InvalidParameterLengthException('description');
+            }
+            $params['description'] = $description;
+        }
+
+        if ($rules) {
+            if (strlen($rules) > 1572864) { // 1.5MB
+                throw new InvalidParameterLengthException('rules');
+            }
+            $params['rules'] = $rules;
+        }
+
+        if ($email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                throw new InvalidEmailAddressException();
+            }
+            $params['email'] = $email;
+        }
+
+        return $this->put(sprintf('communities/%s', $communityId), $params, $accessToken);
+    }
 }
