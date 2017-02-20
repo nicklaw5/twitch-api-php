@@ -381,4 +381,21 @@ trait Communities
 
         return $this->delete(sprintf('communities/%s/moderators/%s', $communityId, $userId), [], $accessToken);
     }
+
+    /**
+     * Get community permissions
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function getCommunityPermissions($communityId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->get(sprintf('communities/%s/permissions', $communityId), [], $accessToken);
+    }
 }
