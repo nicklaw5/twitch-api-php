@@ -4,6 +4,7 @@ namespace TwitchApi\Api;
 
 use TwitchApi\Exceptions\EndpointNotSupportedByApiVersionException;
 use TwitchApi\Exceptions\InvalidEmailAddressException;
+use TwitchApi\Exceptions\InvalidIdentifierException;
 use TwitchApi\Exceptions\InvalidParameterLengthException;
 use TwitchApi\Exceptions\InvalidTypeException;
 
@@ -397,5 +398,27 @@ trait Communities
         }
 
         return $this->get(sprintf('communities/%s/permissions', $communityId), [], $accessToken);
+    }
+
+    /**
+     * Report a community channel violation
+     *
+     * @param string $communityId
+     * @param int    $channelId
+     * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
+     * @return null|array|json
+     */
+    public function reportCommunityViolation($communityId, $channelId)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($channelId)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->post(sprintf('communities/%s/report_channel', $communityId), ['channel_id' => $channelId]);
     }
 }
