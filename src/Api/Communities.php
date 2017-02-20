@@ -312,4 +312,21 @@ trait Communities
 
         return $this->post(sprintf('communities/%s/images/cover', $communityId), ['cover_image' => $image], $accessToken);
     }
+
+    /**
+     * Delete a community cover image
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function deleteCommunityCoverImage($communityId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->delete(sprintf('communities/%s/images/cover', $communityId), [], $accessToken);
+    }
 }
