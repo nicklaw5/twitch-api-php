@@ -329,4 +329,20 @@ trait Communities
 
         return $this->delete(sprintf('communities/%s/images/cover', $communityId), [], $accessToken);
     }
+
+    /**
+     * Get community moderators
+     *
+     * @param string $communityId
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function getCommunityModerators($communityId)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->get(sprintf('communities/%s/moderators', $communityId));
+    }
 }
