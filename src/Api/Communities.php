@@ -289,4 +289,27 @@ trait Communities
 
         return $this->delete(sprintf('communities/%s/images/avatar', $communityId), [], $accessToken);
     }
+
+    /**
+     * Upload a community cover image (1200x180px)
+     *
+     * @param string $communityId
+     * @param string $image (base64 encoded)
+     * @param string $accessToken
+     * @throws InvalidTypeException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function createCommunityCoverImage($communityId, $image, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_string($image)) {
+            throw new InvalidTypeException('Cover image', 'string', gettype($image));
+        }
+
+        return $this->post(sprintf('communities/%s/images/cover', $communityId), ['cover_image' => $image], $accessToken);
+    }
 }
