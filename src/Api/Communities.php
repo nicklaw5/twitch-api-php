@@ -345,4 +345,40 @@ trait Communities
 
         return $this->get(sprintf('communities/%s/moderators', $communityId));
     }
+
+    /**
+     * Add a community moderator
+     *
+     * @param string $communityId
+     * @param int    $userId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function addCommunityModerator($communityId, $userId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->put(sprintf('communities/%s/moderators/%s', $communityId, $userId), [], $accessToken);
+    }
+
+    /**
+     * Delete a community moderator
+     *
+     * @param string $communityId
+     * @param int    $userId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function deleteCommunityModerator($communityId, $userId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->delete(sprintf('communities/%s/moderators/%s', $communityId, $userId), [], $accessToken);
+    }
 }
