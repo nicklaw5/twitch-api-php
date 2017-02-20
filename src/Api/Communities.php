@@ -249,4 +249,27 @@ trait Communities
 
         return $this->delete(sprintf('communities/%s/bans/%s', $communityId, $userId), [], $accessToken);
     }
+
+    /**
+     * Upload a community avatar image (600x800px)
+     *
+     * @param string $communityId
+     * @param string $avatar (base64 encoded)
+     * @param string $accessToken
+     * @throws InvalidTypeException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function createCommunityAvatar($communityId, $avatar, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_string($avatar)) {
+            throw new InvalidTypeException('Avatar', 'string', gettype($avatar));
+        }
+
+        return $this->post(sprintf('communities/%s/images/avatar', $communityId), ['avatar_image' => $avatar], $accessToken);
+    }
 }
