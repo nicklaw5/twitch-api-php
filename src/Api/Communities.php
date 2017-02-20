@@ -272,4 +272,21 @@ trait Communities
 
         return $this->post(sprintf('communities/%s/images/avatar', $communityId), ['avatar_image' => $avatar], $accessToken);
     }
+
+    /**
+     * Delete a community avatar image
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function deleteCommunityAvatar($communityId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        return $this->delete(sprintf('communities/%s/images/avatar', $communityId), [], $accessToken);
+    }
 }
