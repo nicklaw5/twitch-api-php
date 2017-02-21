@@ -421,4 +421,36 @@ trait Communities
 
         return $this->post(sprintf('communities/%s/report_channel', $communityId), ['channel_id' => $channelId]);
     }
+
+    /**
+     * Get timed-out community users
+     *
+     * @param string $communityId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidLimitException
+     * @throws InvalidTypeException
+     * @return array|json
+     */
+    public function getTimedOutCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!$this->isValidLimit($limit)) {
+            throw new InvalidLimitException();
+        }
+
+        if ($cursor && !is_string($cursor)) {
+            throw new InvalidTypeException('Cursor', 'string', gettype($cursor));
+        }
+
+        $params = [
+            'limit' => intval($limit),
+            'cursor' => $cursor,
+        ];
+
+        return $this->get(sprintf('communities/%s/timeouts', $communityId), $params, $accessToken);
+    }
 }
