@@ -14,7 +14,7 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [x] Channels
 - [x] Chat
 - [x] Clips
-- [ ] Communities
+- [x] Communities
 - [x] Games
 - [x] Ingests
 - [x] Search
@@ -22,6 +22,8 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [x] Teams
 - [x] Users
 - [x] Videos
+
+Any endpoints missing? Open an [issue here](https://github.com/nicklaw5/twitch-api-php/issues).
 
 **Other Features:**
 - [ ] IRC Client

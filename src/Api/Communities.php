@@ -34,22 +34,22 @@ trait Communities
     /**
      * Get community by ID
      *
-     * @param string $id
+     * @param string $communityId
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
      * @return array|json
      */
-    public function getCommunityById($id)
+    public function getCommunityById($communityId)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
             throw new EndpointNotSupportedByApiVersionException('communities');
         }
 
-        if (!is_string($id)) {
-            throw new InvalidTypeException('ID', 'string', gettype($id));
+        if (!is_string($communityId)) {
+            throw new InvalidTypeException('Community ID', 'string', gettype($communityId));
         }
 
-        return $this->get(sprintf('communities/%s', $id));
+        return $this->get(sprintf('communities/%s', $communityId));
     }
 
     /**
@@ -222,12 +222,17 @@ trait Communities
      * @param string $userId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
      * @return array|json
      */
     public function banCommunityUser($communityId, $userId, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
             throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
         }
 
         return $this->put(sprintf('communities/%s/bans/%s', $communityId, $userId), [], $accessToken);
@@ -240,12 +245,17 @@ trait Communities
      * @param string $userId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
      * @return array|json
      */
     public function unbanCommunityUser($communityId, $userId, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
             throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
         }
 
         return $this->delete(sprintf('communities/%s/bans/%s', $communityId, $userId), [], $accessToken);
@@ -348,12 +358,13 @@ trait Communities
     }
 
     /**
-     * Add a community moderator
+     * Give a community user moderator permissions
      *
      * @param string $communityId
      * @param int    $userId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
      * @return null|array|json
      */
     public function addCommunityModerator($communityId, $userId, $accessToken)
@@ -362,22 +373,31 @@ trait Communities
             throw new EndpointNotSupportedByApiVersionException('communities');
         }
 
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
+        }
+
         return $this->put(sprintf('communities/%s/moderators/%s', $communityId, $userId), [], $accessToken);
     }
 
     /**
-     * Delete a community moderator
+     * Remove moderator permission from a community user
      *
      * @param string $communityId
      * @param int    $userId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
      * @return null|array|json
      */
-    public function deleteCommunityModerator($communityId, $userId, $accessToken)
+    public function removeCommunityModerator($communityId, $userId, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
             throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
         }
 
         return $this->delete(sprintf('communities/%s/moderators/%s', $communityId, $userId), [], $accessToken);
