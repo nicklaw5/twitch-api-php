@@ -2,7 +2,7 @@
     "name": "nicklaw5/twitch-api-php",
     "type": "library",
     "description": "A Twitch API client for PHP.",
-    "keywords": ["twitch", "api"],
+    "keywords": ["twitch", "twitch.tv", "twitch-tv", "twitch-api" "api"],
     "homepage": "http://github.com/nicklaw5/twitch-api-php",
     "license": "MIT",
     "authors": [

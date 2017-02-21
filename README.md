@@ -68,7 +68,7 @@ $ composer require nicklaw5/twitch-api-php
 ```
 or add the following dependency to your `composer.json` file:
 ```json
-"nicklaw5/twitch-api-php": "dev-master"
+"nicklaw5/twitch-api-php": "0.1.*"
 ```
 
 ## Documentation
