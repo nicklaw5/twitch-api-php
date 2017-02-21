@@ -453,4 +453,42 @@ trait Communities
 
         return $this->get(sprintf('communities/%s/timeouts', $communityId), $params, $accessToken);
     }
+
+    /**
+     * Timeout a community user
+     *
+     * @param string $communityId
+     * @param int    $userId
+     * @param string $accessToken
+     * @param int    $duration
+     * @param string $reason
+     * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidTypeException
+     * @return null|array|json
+     */
+    public function timeoutCommunityUser($communityId, $userId, $accessToken, $duration, $reason = null)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
+        }
+
+        if (!is_numeric($duration)) {
+            throw new InvalidTypeException('Duration', 'integer', gettype($duration));
+        }
+
+        if ($reason && !is_string($reason)) {
+            throw new InvalidTypeException('Reason', 'string', gettype($reason));
+        }
+
+        $params = [
+            'duration' => intval($duration),
+            'reason' => $reason,
+        ];
+
+        return $this->put(sprintf('communities/%s/timeouts/%s', $communityId, $userId), $params, $accessToken);
+    }
 }
