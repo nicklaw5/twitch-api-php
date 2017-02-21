@@ -491,4 +491,27 @@ trait Communities
 
         return $this->put(sprintf('communities/%s/timeouts/%s', $communityId, $userId), $params, $accessToken);
     }
+
+    /**
+     * Remove a timeout from a community user
+     *
+     * @param string $communityId
+     * @param int    $userId
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @throws InvalidIdentifierException
+     * @return null|array|json
+     */
+    public function removeCommunityUserTimeout($communityId, $userId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($userId)) {
+            throw new InvalidIdentifierException('user');
+        }
+
+        return $this->delete(sprintf('communities/%s/timeouts/%s', $communityId, $userId), [], $accessToken);
+    }
 }
