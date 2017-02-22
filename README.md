@@ -56,19 +56,24 @@ $user = $twitchApi->getUser(26490481);
 // If you want to switch between API versions on the fly:
 $twitchApi->setApiVersion(3);
 $user = $twitchApi->getUser('summit1g');
-
 ```
 
 See the [examples](examples) directory for more common use cases.
 
+## Requirements
+
+PHP 5.6 or higher is required.
+
 ## Installation
 
 Either pull in the library via composer:
+
 ```bash
 $ composer require nicklaw5/twitch-api-php
 
 ```
 or add the following dependency to your `composer.json` file:
+
 ```json
 "nicklaw5/twitch-api-php": "0.1.*"
 ```
