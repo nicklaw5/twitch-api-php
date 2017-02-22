@@ -34,10 +34,10 @@ trait Authentication
     public function getAccessCredentials($code, $state = null)
     {
         return $this->post('oauth2/token', [
-            'client_id' => $this->clientId,
-            'client_secret' => $this->clientSecret,
+            'client_id' => $this->getClientId(),
+            'client_secret' => $this->getClientSecret(),
             'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->redirectUri,
+            'redirect_uri' => $this->getRedirectUri(),
             'code' => $code,
             'state' => $state,
         ]);

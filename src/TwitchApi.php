@@ -34,8 +34,15 @@ class TwitchApi extends TwitchRequest
     use Users;
     use Videos;
 
-    const DEFAULT_API_VERSION = 5;
-    const SUPPORTED_API_VERSIONS = [3, 4, 5];
+    /**
+     * @var int
+     */
+    protected $defaultApiVersion = 5;
+
+    /**
+     * @var array
+     */
+    protected $supportedApiVersions = [3, 4, 5];
 
     /**
      * @var string
@@ -79,11 +86,31 @@ class TwitchApi extends TwitchRequest
      */
     public function __construct(array $options)
     {
-        $this->setScope(isset($options['scope']) ? $options['scope'] : []);
         $this->setClientId(isset($options['client_id']) ? $options['client_id'] : null);
-        $this->setRedirectUri(isset($options['redirect_uri']) ? $options['redirect_uri'] : null);
         $this->setClientSecret(isset($options['client_secret']) ? $options['client_secret'] : null);
-        $this->setApiVersion(isset($options['api_version']) ? $options['api_version'] : self::DEFAULT_API_VERSION);
+        $this->setRedirectUri(isset($options['redirect_uri']) ? $options['redirect_uri'] : null);
+        $this->setApiVersion(isset($options['api_version']) ? $options['api_version'] : $this->getDefaultApiVersion());
+        $this->setScope(isset($options['scope']) ? $options['scope'] : []);
+    }
+
+    /**
+     * Get defaultApiVersion
+     *
+     * @return int
+     */
+    public function getDefaultApiVersion()
+    {
+        return $this->defaultApiVersion;
+    }
+
+    /**
+     * Get supportedApiVersions
+     *
+     * @return array
+     */
+    public function getSupportedApiVersions()
+    {
+        return $this->supportedApiVersions;
     }
 
     /**
@@ -117,6 +144,16 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
+     * Get client secret
+     *
+     * @return string
+     */
+    public function getClientSecret()
+    {
+        return $this->clientSecret;
+    }
+
+    /**
      * Set API version
      *
      * @param string|int $apiVersion
@@ -124,7 +161,7 @@ class TwitchApi extends TwitchRequest
      */
     public function setApiVersion($apiVersion)
     {
-        if (!in_array($apiVersion = intval($apiVersion), self::SUPPORTED_API_VERSIONS)) {
+        if (!in_array($apiVersion = intval($apiVersion), $this->getSupportedApiVersions())) {
             throw new UnsupportedApiVersionException();
         }
 
