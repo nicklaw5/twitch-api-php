@@ -15,6 +15,7 @@ use TwitchApi\Api\Streams;
 use TwitchApi\Api\Teams;
 use TwitchApi\Api\Users;
 use TwitchApi\Api\Videos;
+use TwitchApi\Exceptions\ClientIdRequiredException;
 use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\UnsupportedApiVersionException;
 
@@ -86,7 +87,11 @@ class TwitchApi extends TwitchRequest
      */
     public function __construct(array $options)
     {
-        $this->setClientId(isset($options['client_id']) ? $options['client_id'] : null);
+        if (!isset($options['client_id'])) {
+            throw new ClientIdRequiredException();
+        }
+
+        $this->setClientId($options['client_id']);
         $this->setClientSecret(isset($options['client_secret']) ? $options['client_secret'] : null);
         $this->setRedirectUri(isset($options['redirect_uri']) ? $options['redirect_uri'] : null);
         $this->setApiVersion(isset($options['api_version']) ? $options['api_version'] : $this->getDefaultApiVersion());
