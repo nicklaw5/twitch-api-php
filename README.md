@@ -2,6 +2,8 @@
 
 A Twitch API client for PHP.
 
+<img src="https://travis-ci.org/nicklaw5/twitch-api-php.svg?branch=master" alt="build:passed">
+
 ## Supported APIs
 
 This library aims to support `v3`, `v4` and `v5` of the Twitch API until each one becomes [deprecated](https://dev.twitch.tv/docs#which-api-version-can-you-use). If an API version is not specified, `v5` will be used as the default.
