@@ -72,21 +72,26 @@ Either pull in the library via composer:
 $ composer require nicklaw5/twitch-api-php
 
 ```
-or add the following dependency to your `composer.json` file:
+
+or add the following dependency to your `composer.json` file and run `composer install`:
 
 ```json
 "nicklaw5/twitch-api-php": "0.1.*"
 ```
 
+## Tests
+
+All unit tests can be run with the following command:
+
+```bash
+$ vendor/bin/phpunit # or simply "phpunit" if you have it installed globally
+```
+
 ## Documentation
 
-The API docs for each version can be found in their respective locations:
+The Twitch API docs can be found [here](https://dev.twitch.tv/docs).
 
-- v3 docs can be found [here](https://dev.twitch.tv/docs/v3).
-- v4 was not officially documented by the Twicth staff. Mostly it incorporates the v3 API, but some documentation for the [Clips API](https://dev.twitch.tv/docs/v5/guides/clips-discovery/), for example, can be found on Twitch's developer website.
-- v5 docs can be found on the [Twitch's developer website](https://dev.twitch.tv/docs/).
-
-As for the documentation of this library, that is still on the to-do list. In the meantime, most modern IDEs by default or through the use of plugins, will provide class property and method auto-completion. Or you can simple look through the [source](src) code.
+As for the documentation of this library, that is still on the to-do list. In the meantime, most modern IDEs by default, or through the use of plugins, will provide class property and method auto-completion. Or you can simple look through the [source](src) code.
 
 ## License
 
