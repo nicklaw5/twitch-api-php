@@ -229,7 +229,7 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
-     * Returns true if the set API version is greate than v4
+     * Returns true if the set API version is greater than v4
      *
      * @return bool
      */

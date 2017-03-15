@@ -11,6 +11,20 @@ class TwitchApiTest extends TestCase
     {
         $twitchApi = new TwitchApi(['client_id' => 'CLIENT-ID']);
         $this->assertInstanceOf(TwitchApi::class, $twitchApi);
+
+        return $twitchApi;
+    }
+
+    /**
+     * @depends testCanCreateClassWithMinimumOptions
+     */
+    public function testCanSetClientId(TwitchApi $twitchApi)
+    {
+        $options = [
+            'client_id' => 'TEST_CLIENT_ID',
+        ];
+        $twitchApi->setClientId($options['client_id']);
+        $this->assertEquals($twitchApi->getClientId(), $options['client_id']);
     }
 
     public function testCreateClassWithoutClientIdThrowsException()
@@ -46,13 +60,11 @@ class TwitchApiTest extends TestCase
         $this->assertEquals($twitchApi->getScope(), $options['scope']);
     }
 
-    public function testApiVersionDefaultsTo5IfNotSpecificallySet()
+    /**
+     * @depends testCanCreateClassWithMinimumOptions
+     */
+    public function testApiVersionDefaultsTo5IfNotSpecificallySet(TwitchApi $twitchApi)
     {
-        $options = [
-            'client_id' => 'CLIENT_ID',
-            'api_version' => 5,
-        ];
-        $twitchApi = new TwitchApi($options);
         $this->assertEquals($twitchApi->getApiVersion(), 5);
     }
 
