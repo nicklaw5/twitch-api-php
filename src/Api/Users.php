@@ -2,6 +2,7 @@
 
 namespace TwitchApi\Api;
 
+use TwitchApi\Exceptions\EndpointNotSupportedByApiVersionException;
 use TwitchApi\Exceptions\InvalidIdentifierException;
 use TwitchApi\Exceptions\InvalidLimitException;
 use TwitchApi\Exceptions\InvalidOffsetException;
@@ -277,5 +278,58 @@ trait Users
         }
 
         return $this->delete(sprintf('users/%s/blocks/%s', $userIdentifier, $userToUnlockIdentifier), [], $accessToken);
+    }
+
+    /**
+     * Creates a connection between a user and VHS
+     *
+     * @param string $identifier
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function createUserVHSConnection($identifier, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('vhs');
+        }
+
+        $params = [
+            'identifier' => $identifier,
+        ];
+
+        return $this->put('user/vhs', $params, $accessToken);
+    }
+
+    /**
+     * Check whether an authenticated Twitch user is connected to VHS
+     *
+     * @param string     $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function checkUserVHSConnection($accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('vhs');
+        }
+
+        return $this->get('user/vhs', [], $accessToken);
+    }
+
+    /**
+     * Delete the connection between an authenticated Twitch user and VHS
+     *
+     * @param string $accessToken
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function deleteUserVHSConnection($accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('vhs');
+        }
+
+        return $this->delete('user/vhs', [], $accessToken);
     }
 }
