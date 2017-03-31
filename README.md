@@ -12,10 +12,12 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 
 **Main API Endpoints:**
 - [x] Authentication
+- [x] Bits
 - [x] Channel Feed
 - [x] Channels
 - [x] Chat
 - [x] Clips
+- [ ] Collections
 - [x] Communities
 - [x] Games
 - [x] Ingests
