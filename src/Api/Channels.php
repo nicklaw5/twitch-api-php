@@ -2,6 +2,7 @@
 
 namespace TwitchApi\Api;
 
+use TwitchApi\Exceptions\EndpointNotSupportedByApiVersionException;
 use TwitchApi\Exceptions\InvalidDirectionException;
 use TwitchApi\Exceptions\InvalidIdentifierException;
 use TwitchApi\Exceptions\InvalidLimitException;
@@ -338,5 +339,71 @@ trait Channels
         }
 
         return $this->delete(sprintf('channels/%s/stream_key', $channelIdentifier), [], $accessToken);
+    }
+
+    /**
+     * Get the community for a channel
+     *
+     * @param string|int $channelIdentifier
+     * @throws InvalidIdentifierException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null|array|json
+     */
+    public function getChannelCommunity($channelIdentifier)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->get(sprintf('channels/%s/community', $channelIdentifier));
+    }
+
+    /**
+     * Set the community for a channel
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $communityId
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null
+     */
+    public function setChannelCommunity($channelIdentifier, $communityId, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->put(sprintf('channels/%s/community/%s', $channelIdentifier, $communityId), [], $accessToken);
+    }
+
+    /**
+     * Remove a channel form a community
+     *
+     * @param string|int $channelIdentifier
+     * @param string     $accessToken
+     * @throws InvalidIdentifierException
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return null
+     */
+    public function deleteChannelFromCommunity($channelIdentifier, $accessToken)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('communities');
+        }
+
+        if (!is_numeric($channelIdentifier)) {
+            throw new InvalidIdentifierException('channel');
+        }
+
+        return $this->delete(sprintf('channels/%s/community', $channelIdentifier), [], $accessToken);
     }
 }
