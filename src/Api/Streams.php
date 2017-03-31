@@ -57,7 +57,7 @@ trait Streams
 
             $channel = trim($channel, ', ');
             if ($this->apiVersionIsGreaterThanV4()) {
-                foreach ($channel as $chan) {
+                foreach (explode(',', $channel) as $chan) {
                     if (!is_numeric($chan)) {
                         throw new InvalidIdentifierException('channel');
                     }
