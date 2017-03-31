@@ -8,6 +8,7 @@ use TwitchApi\Api\ChannelFeed;
 use TwitchApi\Api\Channels;
 use TwitchApi\Api\Chat;
 use TwitchApi\Api\Clips;
+use TwitchApi\Api\Collections;
 use TwitchApi\Api\Communities;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
@@ -28,6 +29,7 @@ class TwitchApi extends TwitchRequest
     use Channels;
     use Chat;
     use Clips;
+    use Collections;
     use Communities;
     use Games;
     use Ingests;
