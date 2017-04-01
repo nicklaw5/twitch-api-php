@@ -39,6 +39,26 @@ trait Users
     }
 
     /**
+     * Get a user from their username
+     *
+     * @param string $username
+     * @throws EndpointNotSupportedByApiVersionException
+     * @return array|json
+     */
+    public function getUserByUsername($username)
+    {
+        if (!$this->apiVersionIsGreaterThanV4()) {
+            throw new EndpointNotSupportedByApiVersionException('users');
+        }
+
+        $params = [
+            'login' => $username,
+        ];
+
+        return $this->get('users', $params);
+    }
+
+    /**
      * Get a user's emotes
      *
      * @param string|int $userIdentifier
