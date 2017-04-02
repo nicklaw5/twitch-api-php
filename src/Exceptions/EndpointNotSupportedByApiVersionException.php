@@ -9,6 +9,6 @@ class EndpointNotSupportedByApiVersionException extends TwitchApiException
      */
     public function __construct()
     {
-        parent::__construct(sprintf('This endpoint is not supported by the set API version.', $endpoint));
+        parent::__construct('This endpoint is not supported by the set API version.');
     }
 }
