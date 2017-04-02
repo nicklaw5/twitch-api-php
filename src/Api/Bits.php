@@ -15,7 +15,7 @@ trait Bits
      * @throws EndpointNotSupportedByApiVersionException
      * @return array|json
      */
-    public function getCheernmotes($channelIdentifier = null)
+    public function getCheermotes($channelIdentifier = null)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
             throw new EndpointNotSupportedByApiVersionException();
