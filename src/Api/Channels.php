@@ -352,7 +352,7 @@ trait Channels
     public function getChannelCommunity($channelIdentifier)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('communities');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_numeric($channelIdentifier)) {
@@ -375,7 +375,7 @@ trait Channels
     public function setChannelCommunity($channelIdentifier, $communityId, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('communities');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_numeric($channelIdentifier)) {
@@ -397,7 +397,7 @@ trait Channels
     public function deleteChannelFromCommunity($channelIdentifier, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('communities');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_numeric($channelIdentifier)) {

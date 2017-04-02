@@ -20,7 +20,7 @@ trait Collections
     public function getCollectionMetadata($collectionId)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('collections');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         return $this->get(sprintf('collections/%s', $collectionId));
@@ -38,7 +38,7 @@ trait Collections
     public function getCollection($collectionId, $includeAllItems = false)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('collections');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_bool($includeAllItems)) {
@@ -68,7 +68,7 @@ trait Collections
     public function getChannelCollection($channelIdentifier, $limit = 10, $cursor = null, $containingItem = null)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('collections');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_numeric($channelIdentifier)) {
@@ -110,7 +110,7 @@ trait Collections
     public function createCollection($channelIdentifier, $title, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('collections');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if (!is_numeric($channelIdentifier)) {

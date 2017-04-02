@@ -18,7 +18,7 @@ trait Bits
     public function getCheernmotes($channelIdentifier = null)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('bits');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         if ($channelIdentifier && !is_numeric($channelIdentifier)) {

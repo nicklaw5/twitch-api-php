@@ -48,7 +48,7 @@ trait Users
     public function getUserByUsername($username)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('users');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         $params = [
@@ -311,7 +311,7 @@ trait Users
     public function createUserVHSConnection($identifier, $accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('vhs');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         $params = [
@@ -331,7 +331,7 @@ trait Users
     public function checkUserVHSConnection($accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('vhs');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         return $this->get('user/vhs', [], $accessToken);
@@ -347,7 +347,7 @@ trait Users
     public function deleteUserVHSConnection($accessToken)
     {
         if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException('vhs');
+            throw new EndpointNotSupportedByApiVersionException();
         }
 
         return $this->delete('user/vhs', [], $accessToken);
