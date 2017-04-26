@@ -12,6 +12,7 @@ use TwitchApi\Api\Collections;
 use TwitchApi\Api\Communities;
 use TwitchApi\Api\Games;
 use TwitchApi\Api\Ingests;
+use TwitchApi\Api\Root;
 use TwitchApi\Api\Search;
 use TwitchApi\Api\Streams;
 use TwitchApi\Api\Teams;
@@ -33,6 +34,7 @@ class TwitchApi extends TwitchRequest
     use Communities;
     use Games;
     use Ingests;
+    use Root;
     use Search;
     use Streams;
     use Teams;
