@@ -42,15 +42,10 @@ trait Users
      * Get a user from their username
      *
      * @param string $username
-     * @throws EndpointNotSupportedByApiVersionException
      * @return array|json
      */
     public function getUserByUsername($username)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
-            throw new EndpointNotSupportedByApiVersionException();
-        }
-
         $params = [
             'login' => $username,
         ];
