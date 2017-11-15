@@ -42,4 +42,20 @@ trait Authentication
             'state' => $state,
         ]);
     }
+
+    /**
+     * Get a new access token
+     *
+     * @param string $refreshToken
+     * @return array|json
+     */
+    public function refreshToken($refreshToken)
+    {
+        return $this->post('oauth2/token', [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refreshToken,
+            'client_id' => $this->getClientId(),
+            'client_secret' => $this->getClientSecret(),
+        ]);
+    }
 }
