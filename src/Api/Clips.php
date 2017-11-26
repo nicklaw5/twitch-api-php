@@ -54,7 +54,7 @@ trait Clips
             }
 
             $channel = trim($channel, ', ');
-            if ($count = count(explode(',', $channel) > 10)) {
+            if (($count = count(explode(',', $channel)) > 10)) {
                 throw new TwitchApiException(sprintf('Only a maximum of 10 channels can be queried. %d requested.', $count));
             }
         }
