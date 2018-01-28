@@ -11,6 +11,7 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 ## Features Completed
 
 **Main API Endpoints:**
+
 - [x] Authentication
 - [x] Bits
 - [x] Channel Feed
@@ -28,18 +29,6 @@ This library aims to support `v3`, `v4` and `v5` of the Twitch API until each on
 - [x] Videos
 
 Any endpoints missing? Open an [issue here](https://github.com/nicklaw5/twitch-api-php/issues).
-
-**Other Features:**
-- [ ] IRC Client
-- [ ] Pub/Sub (ie. Bits & Whispers)
-- [ ] Video Upload
-
-**Additional Integrations:**
-- [ ] [StreamsLabs:](https://twitchalerts.readme.io/docs/getting-started)
-  - [ ] Alerts
-  - [ ] Authentication
-  - [ ] Donations
-  - [ ] Users
 
 ## Basic Example
 
@@ -71,7 +60,7 @@ PHP 5.6 or higher is required.
 Either pull in the library via composer:
 
 ```bash
-$ composer require nicklaw5/twitch-api-php
+composer require nicklaw5/twitch-api-php
 
 ```
 
@@ -86,7 +75,7 @@ or add the following dependency to your `composer.json` file and run `composer i
 All unit tests can be run with the following command:
 
 ```bash
-$ vendor/bin/phpunit # or simply "phpunit" if you have it installed globally
+vendor/bin/phpunit # or simply "phpunit" if you have it installed globally
 ```
 
 ## Documentation
