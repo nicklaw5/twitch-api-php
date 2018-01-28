@@ -16,7 +16,7 @@ trait Chat
      */
     public function getChannelChatBadges($channelIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 

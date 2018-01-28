@@ -49,7 +49,7 @@ class TwitchApi extends TwitchRequest
     /**
      * @var array
      */
-    protected $supportedApiVersions = [3, 4, 5];
+    protected $supportedApiVersions = [3, 5];
 
     /**
      * @var string
@@ -235,17 +235,13 @@ class TwitchApi extends TwitchRequest
     }
 
     /**
-     * Returns true if the set API version is greater than v4
+     * Returns true if the set API version is greater than v3
      *
      * @return bool
      */
-    protected function apiVersionIsGreaterThanV4()
+    protected function apiVersionIsGreaterThanV3()
     {
-        if ($this->getApiVersion() > 4) {
-            return true;
-        }
-
-        return false;
+        return $this->getApiVersion() > 3;
     }
 
     /**
@@ -256,11 +252,7 @@ class TwitchApi extends TwitchRequest
      */
     protected function isValidLimit($limit)
     {
-        if (is_numeric($limit) && $limit > 0) {
-            return true;
-        }
-
-        return false;
+        return is_numeric($limit) && $limit > 0;
     }
 
     /**
@@ -271,11 +263,7 @@ class TwitchApi extends TwitchRequest
      */
     protected function isValidOffset($offset)
     {
-        if (is_numeric($offset) && $offset > -1) {
-            return true;
-        }
-
-        return false;
+        return is_numeric($offset) && $offset > -1;
     }
 
     /**
@@ -286,13 +274,7 @@ class TwitchApi extends TwitchRequest
      */
     protected function isValidDirection($direction)
     {
-        $validDirections = ['asc', 'desc'];
-
-        if (in_array(strtolower($direction), $validDirections)) {
-            return true;
-        }
-
-        return false;
+        return in_array(strtolower($direction), ['asc', 'desc']);
     }
 
     /**
@@ -323,12 +305,6 @@ class TwitchApi extends TwitchRequest
      */
     protected function isValidStreamType($streamType)
     {
-        $validStreamTypes = ['live', 'playlist', 'all'];
-
-        if (in_array(strtolower($streamType), $validStreamTypes)) {
-            return true;
-        }
-
-        return false;
+        return in_array(strtolower($streamType), ['live', 'playlist', 'all']);
     }
 }

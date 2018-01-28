@@ -21,7 +21,7 @@ trait Streams
      */
     public function getStreamByUser($userIdendifier, $streamType = 'live')
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdendifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($userIdendifier)) {
             throw new InvalidIdentifierException('user');
         }
 
@@ -56,7 +56,7 @@ trait Streams
             }
 
             $channel = trim($channel, ', ');
-            if ($this->apiVersionIsGreaterThanV4()) {
+            if ($this->apiVersionIsGreaterThanV3()) {
                 foreach (explode(',', $channel) as $chan) {
                     if (!is_numeric($chan)) {
                         throw new InvalidIdentifierException('channel');

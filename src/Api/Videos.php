@@ -18,7 +18,7 @@ trait Videos
      */
     public function getVideo($videoIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($videoIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($videoIdentifier)) {
             throw new InvalidIdentifierException('video');
         }
 

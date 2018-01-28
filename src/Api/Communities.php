@@ -20,7 +20,7 @@ trait Communities
      */
     public function getCommunityByName($name)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -41,7 +41,7 @@ trait Communities
      */
     public function getCommunityById($communityId)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -66,7 +66,7 @@ trait Communities
      */
     public function createCommunity($name, $summary, $description, $rules, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -114,7 +114,7 @@ trait Communities
     {
         $params = [];
 
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -161,7 +161,7 @@ trait Communities
      */
     public function getTopCommunities($limit = 10, $cursor = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -195,7 +195,7 @@ trait Communities
      */
     public function getBannedCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -227,7 +227,7 @@ trait Communities
      */
     public function banCommunityUser($communityId, $userId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -250,7 +250,7 @@ trait Communities
      */
     public function unbanCommunityUser($communityId, $userId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -273,7 +273,7 @@ trait Communities
      */
     public function createCommunityAvatar($communityId, $avatar, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -294,7 +294,7 @@ trait Communities
      */
     public function deleteCommunityAvatar($communityId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -313,7 +313,7 @@ trait Communities
      */
     public function createCommunityCoverImage($communityId, $image, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -334,7 +334,7 @@ trait Communities
      */
     public function deleteCommunityCoverImage($communityId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -350,7 +350,7 @@ trait Communities
      */
     public function getCommunityModerators($communityId)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -369,7 +369,7 @@ trait Communities
      */
     public function addCommunityModerator($communityId, $userId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -392,7 +392,7 @@ trait Communities
      */
     public function removeCommunityModerator($communityId, $userId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -413,7 +413,7 @@ trait Communities
      */
     public function getCommunityPermissions($communityId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -431,7 +431,7 @@ trait Communities
      */
     public function reportCommunityViolation($communityId, $channelId)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -454,7 +454,7 @@ trait Communities
      */
     public function getTimedOutCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -488,7 +488,7 @@ trait Communities
      */
     public function timeoutCommunityUser($communityId, $userId, $accessToken, $duration, $reason = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -524,7 +524,7 @@ trait Communities
      */
     public function removeCommunityUserTimeout($communityId, $userId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 

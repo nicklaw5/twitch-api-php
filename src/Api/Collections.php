@@ -19,7 +19,7 @@ trait Collections
      */
     public function getCollectionMetadata($collectionId)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -37,7 +37,7 @@ trait Collections
      */
     public function getCollection($collectionId, $includeAllItems = false)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -67,7 +67,7 @@ trait Collections
      */
     public function getChannelCollection($channelIdentifier, $limit = 10, $cursor = null, $containingItem = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -109,7 +109,7 @@ trait Collections
      */
     public function createCollection($channelIdentifier, $title, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -140,7 +140,7 @@ trait Collections
      */
     public function updateCollection($collectionId, $title, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -166,7 +166,7 @@ trait Collections
      */
     public function createCollectionThumbnail($collectionId, $itemId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -192,7 +192,7 @@ trait Collections
      */
     public function deleteCollection($collectionId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -212,7 +212,7 @@ trait Collections
      */
     public function addCollectionItem($collectionId, $itemId, $itemType = 'video', $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -244,7 +244,7 @@ trait Collections
      */
     public function deleteCollectionItem($collectionId, $itemId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -269,7 +269,7 @@ trait Collections
      */
     public function moveCollectionThumbnail($collectionId, $itemId, $position, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 

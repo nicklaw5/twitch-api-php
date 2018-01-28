@@ -23,7 +23,7 @@ trait ChannelFeed
      */
     public function getMultipleFeedPosts($channelIdentifier, $accessToken, $limit = 10, $cursor = null, $comments = 5)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -61,7 +61,7 @@ trait ChannelFeed
      */
     public function getFeedPost($channelIdentifier, $postId, $accessToken, $comments = 5)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -93,7 +93,7 @@ trait ChannelFeed
      */
     public function createFeedPost($channelIdentifier, $accessToken, $content, $share = false)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -125,7 +125,7 @@ trait ChannelFeed
      */
     public function deleteFeedPost($channelIdentifier, $postId, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -149,7 +149,7 @@ trait ChannelFeed
      */
     public function createFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -181,7 +181,7 @@ trait ChannelFeed
      */
     public function deleteFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -215,7 +215,7 @@ trait ChannelFeed
      */
     public function getFeedComments($channelIdentifier, $postId, $accessToken, $limit = 10, $cursor = null)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -252,7 +252,7 @@ trait ChannelFeed
      */
     public function createFeedComment($channelIdentifier, $postId, $accessToken, $comment)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -280,7 +280,7 @@ trait ChannelFeed
      */
     public function deleteFeedComment($channelIdentifier, $postId, $commentId, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -301,7 +301,7 @@ trait ChannelFeed
      */
     public function createFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -334,7 +334,7 @@ trait ChannelFeed
      */
     public function deleteFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 

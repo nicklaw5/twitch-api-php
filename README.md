@@ -1,12 +1,12 @@
 # twitch-api-php
 
-A Twitch API client for PHP.
+A Twitch Kraken API client for PHP.
 
 [![Build Status](https://travis-ci.org/nicklaw5/twitch-api-php.svg?branch=master)](https://travis-ci.org/nicklaw5/twitch-api-php)
 
 ## Supported APIs
 
-This library aims to support `v3`, `v4` and `v5` of the Twitch API until each one becomes [deprecated](https://dev.twitch.tv/docs#which-api-version-can-you-use). If an API version is not specified, `v5` will be used as the default.
+This library aims to support `v3` and `v5` of the Twitch API until each one becomes [deprecated](https://dev.twitch.tv/docs/v5). If an API version is not specified, `v5` will be used as the default.
 
 ## Features Completed
 

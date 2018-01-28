@@ -31,7 +31,7 @@ trait Users
      */
     public function getUser($userIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($userIdentifier)) {
             throw new InvalidIdentifierException('user');
         }
 
@@ -47,7 +47,7 @@ trait Users
      */
     public function getUserByUsername($username)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -68,7 +68,7 @@ trait Users
      */
     public function getUserEmotes($userIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($userIdentifier)) {
             throw new InvalidIdentifierException('user');
         }
 
@@ -86,7 +86,7 @@ trait Users
      */
     public function checkUserSubscriptionToChannel($userIdentifier, $channelIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -117,7 +117,7 @@ trait Users
     {
         $availableSortBys = ['created_at', 'last_broadcast', 'login'];
 
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($userIdentifier)) {
             throw new InvalidIdentifierException('user');
         }
 
@@ -155,7 +155,7 @@ trait Users
      */
     public function checkUserFollowsChannel($userIdentifier, $channelIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -181,7 +181,7 @@ trait Users
      */
     public function followChannel($userIdentifier, $channelIdentifier, $accessToken, $notifications = false)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -213,7 +213,7 @@ trait Users
      */
     public function unfollowChannel($userIdentifier, $channelIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -240,7 +240,7 @@ trait Users
      */
     public function getUserBlockList($userIdentifier, $accessToken, $limit = 25, $offset = 0)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($userIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($userIdentifier)) {
             throw new InvalidIdentifierException('user');
         }
 
@@ -271,7 +271,7 @@ trait Users
      */
     public function blockUser($userIdentifier, $userToBlockIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier) || !is_numeric($userToBlockIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -291,7 +291,7 @@ trait Users
      */
     public function unblockUser($userIdentifier, $userToUnlockIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($userIdentifier) || !is_numeric($userToUnlockIdentifier)) {
                 throw new InvalidIdentifierException('user');
             }
@@ -310,7 +310,7 @@ trait Users
      */
     public function createUserVHSConnection($identifier, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -330,7 +330,7 @@ trait Users
      */
     public function checkUserVHSConnection($accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -346,7 +346,7 @@ trait Users
      */
     public function deleteUserVHSConnection($accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 

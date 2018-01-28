@@ -33,7 +33,7 @@ trait Channels
      */
     public function getChannel($channelIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -59,7 +59,7 @@ trait Channels
         $params = [];
         $params['channel'] = [];
 
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -108,7 +108,7 @@ trait Channels
      */
     public function getChannelEditors($channelIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -132,7 +132,7 @@ trait Channels
      */
     public function getChannelFollowers($channelIdentifier, $limit = 25, $offset = 0, $cursor = null, $direction = 'desc')
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -171,7 +171,7 @@ trait Channels
      */
     public function getChannelTeams($channelIdentifier)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -194,7 +194,7 @@ trait Channels
      */
     public function getChannelSubscribers($channelIdentifier, $accessToken, $limit = 25, $offset = 0, $direction = 'desc')
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -230,7 +230,7 @@ trait Channels
      */
     public function checkChannelSubscriptionByUser($channelIdentifier, $userIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4()) {
+        if ($this->apiVersionIsGreaterThanV3()) {
             if (!is_numeric($channelIdentifier)) {
                 throw new InvalidIdentifierException('channel');
             }
@@ -263,7 +263,7 @@ trait Channels
     {
         $validSort = ['views', 'time'];
 
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -313,7 +313,7 @@ trait Channels
     {
         $validLengths = [30, 60, 90, 120, 150, 180];
 
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -334,7 +334,7 @@ trait Channels
      */
     public function resetChannelStreamKey($channelIdentifier, $accessToken)
     {
-        if ($this->apiVersionIsGreaterThanV4() && !is_numeric($channelIdentifier)) {
+        if ($this->apiVersionIsGreaterThanV3() && !is_numeric($channelIdentifier)) {
             throw new InvalidIdentifierException('channel');
         }
 
@@ -351,7 +351,7 @@ trait Channels
      */
     public function getChannelCommunity($channelIdentifier)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -374,7 +374,7 @@ trait Channels
      */
     public function setChannelCommunity($channelIdentifier, $communityId, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
@@ -396,7 +396,7 @@ trait Channels
      */
     public function deleteChannelFromCommunity($channelIdentifier, $accessToken)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 

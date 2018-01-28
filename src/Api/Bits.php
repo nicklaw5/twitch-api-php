@@ -17,7 +17,7 @@ trait Bits
      */
     public function getCheermotes($channelIdentifier = null)
     {
-        if (!$this->apiVersionIsGreaterThanV4()) {
+        if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
         }
 
