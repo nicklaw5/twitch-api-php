@@ -58,4 +58,18 @@ trait Authentication
             'client_secret' => $this->getClientSecret(),
         ]);
     }
+
+    /**
+     * Revoke an access token
+     *
+     * @param string $accessToken
+     * @return array|json
+     */
+    public function revokeToken($accessToken)
+    {
+        return $this->post('oauth2/revoke', [
+            'client_id' => $this->getClientId(),
+            'token' => $accessToken,
+        ]);
+    }
 }
