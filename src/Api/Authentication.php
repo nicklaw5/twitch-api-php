@@ -14,7 +14,7 @@ trait Authentication
     public function getAuthenticationUrl($state = null, $forceVerify = false)
     {
         return implode('', [
-            sprintf('%soauth2/authorize', $this->baseUri),
+            sprintf('%soauth2/authorize', $this->authUri),
             '?response_type=code',
             sprintf('&client_id=%s', $this->getClientId()),
             sprintf('&redirect_uri=%s', $this->getRedirectUri()),

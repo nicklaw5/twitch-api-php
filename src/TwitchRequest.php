@@ -14,7 +14,12 @@ class TwitchRequest
     /**
      * @var string
      */
-    protected $baseUri = 'https://api.twitch.tv/kraken/';
+    protected $apiUri = 'https://api.twitch.tv/kraken/';
+
+    /**
+     * @var string
+     */
+    protected $authUri = 'https://id.twitch.tv/';
 
     /**
      * @var float
@@ -47,7 +52,7 @@ class TwitchRequest
      */
     protected function sendRequest($method, $endpoint, $params = [], $accessToken = null)
     {
-        $client = $this->getNewHttpClient($method, $params, $accessToken);
+        $client = $this->getNewHttpClient($method, $params, $endpoint, $accessToken);
         $response = $client->request($method, $endpoint);
         $responseBody = $response->getBody()->getContents();
 
@@ -59,14 +64,15 @@ class TwitchRequest
      *
      * @param strring $method
      * @param array   $params
+     * @param string  $endpoint
      * @param string  $accessToken
-     * @return Client
+     * @return GuzzleHttp\Client
      */
-    protected function getNewHttpClient($method, $params, $accessToken = null)
+    protected function getNewHttpClient($method, $params, $endpoint, $accessToken = null)
     {
         $config = [
             'http_errors' => $this->getHttpErrors(),
-            'base_uri' => $this->baseUri,
+            'base_uri' => $this->getBaseUri($endpoint),
             'timeout' => $this->getTimeout(),
             'headers' => [
                 'Client-ID' => $this->getClientId(),
@@ -84,6 +90,21 @@ class TwitchRequest
         }
 
         return new GuzzleHttp\Client($config);
+    }
+
+    /**
+     * Returns the correct base URL depending on the provided endpoint
+     *
+     * @param string $endpoint
+     * @return string
+     */
+    private function getBaseUri($endpoint)
+    {
+        if(strpos($endpoint, 'oauth2') !== false) {
+            return $this->authUri;
+        }
+
+        return $this->apiUri;
     }
 
     /**
