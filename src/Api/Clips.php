@@ -49,7 +49,7 @@ trait Clips
         $validPeriods = ['day', 'week', 'month', 'all'];
 
         if ($channel) {
-             if (!is_string($channel)) {
+            if (!is_string($channel)) {
                 throw new InvalidTypeException('channel', 'string', gettype($channel));
             }
 
@@ -64,13 +64,13 @@ trait Clips
         }
 
         if ($game) {
-             if (!is_string($game)) {
+            if (!is_string($game)) {
                 throw new InvalidTypeException('game', 'string', gettype($game));
             }
 
             $game = trim($game, ', ');
-            if ($count = count(explode(',', $game) > 10)) {
-                throw new TwitchApiException(sprintf('Only a maximum of 10 gamess can be queried. %d requested.', $count));
+            if ($count = count(explode(',', $game)) > 10) {
+                throw new TwitchApiException(sprintf('Only a maximum of 10 games can be queried. %d requested.', $count));
             }
         }
 
