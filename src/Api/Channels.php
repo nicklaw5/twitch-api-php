@@ -91,7 +91,7 @@ trait Channels
             $params['channel']['channel_feed_enabled'] = $channelFeedEnabled;
         }
 
-        if (empty($params['channels'])) {
+        if (empty($params['channel'])) {
             throw new TwitchApiException('At least one of the following parameters must be set: status, game, delay or channelFeedEnabled.');
         }
 
