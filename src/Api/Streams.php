@@ -41,6 +41,7 @@ trait Streams
      * @param string $streamType
      * @param int    $limit
      * @param int    $offset
+     * @param string $broadcaster_language
      * @throws InvalidTypeException
      * @throws InvalidIdentifierException
      * @throws InvalidStreamTypeException
@@ -48,7 +49,7 @@ trait Streams
      * @throws InvalidOffsetException
      * @return array|json
      */
-    public function getLiveStreams($channel = null, $game = null, $language = null, $streamType = 'live', $limit = 25, $offset = 0)
+    public function getLiveStreams($channel = null, $game = null, $language = null, $streamType = 'live', $limit = 25, $offset = 0, $broadcaster_language = null)
     {
         if ($channel) {
             if (!is_string($channel)) {
@@ -73,6 +74,10 @@ trait Streams
             throw new InvalidTypeException('language', 'string', gettype($language));
         }
 
+        if ($broadcaster_language && !is_string($broadcaster_language)) {
+            throw new InvalidTypeException('broadcaster_language', 'string', gettype($broadcaster_language));
+        }
+
         if (!$this->isValidStreamType($streamType)) {
             throw new InvalidStreamTypeException();
         }
@@ -89,6 +94,7 @@ trait Streams
             'channel' => $channel,
             'game' => $game,
             'language' => $language,
+            'broadcaster_language' => $broadcaster_language,
             'stream_type' => $streamType,
             'limit' => intval($limit),
             'offset' => intval($offset),
