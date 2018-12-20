@@ -16,12 +16,8 @@ class UsersTest extends PHPUnit_Framework_TestCase
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $requestResponse = $users->getUserById(44322889);
+        $response = $users->getUserById(44322889);
 
-        $request = $requestResponse->getRequest();
-        $this->assertEquals('users?id=44322889', $request->getUri());
-
-        $response = $requestResponse->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
         $this->assertEquals('dallas', $contents->data[0]->login);
@@ -31,12 +27,8 @@ class UsersTest extends PHPUnit_Framework_TestCase
     {
 
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $requestResponse = $users->getUserByUsername('dallas');
+        $response = $users->getUserByUsername('dallas');
 
-        $request = $requestResponse->getRequest();
-        $this->assertEquals('users?login=dallas', $request->getUri());
-
-        $response = $requestResponse->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
         $this->assertEquals(44322889, $contents->data[0]->id);
