@@ -15,13 +15,10 @@ class WebhooksApi extends AbstractResource
      */
     public function getWebhookSubscriptions(string $accessToken, int $first = null, string $after = null): ResponseInterface
     {
-        $queryParamsMap = [];
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
+        $queryParamsMap = [
+            'first' => $first,
+            'after' => $after,
+        ];
 
         return $this->callApi('webhooks/subscriptions', $queryParamsMap, $accessToken);
     }

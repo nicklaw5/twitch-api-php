@@ -29,33 +29,26 @@ class StreamsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
-    public function getStreams(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-        foreach ($userIds as $id) {
-            $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
-        }
-        foreach ($usernames as $username) {
-            $queryParamsMap[] = ['key' => 'user_login', 'value' => $username];
-        }
-        foreach ($gameIds as $gameId) {
-            $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
-        }
-        foreach ($communityIds as $communityId) {
-            $queryParamsMap[] = ['key' => 'community_id', 'value' => $communityId];
-        }
-        foreach ($languages as $language) {
-            $queryParamsMap[] = ['key' => 'language', 'value' => $language];
-        }
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-        if ($before) {
-            $queryParamsMap[] = ['key' => 'before', 'value' => $before];
-        }
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
+    public function getStreams(
+        array $userIds = [],
+        array $usernames = [],
+        array $gameIds = [],
+        array $communityIds = [],
+        array $languages = [],
+        int $first = null,
+        string $before = null,
+        string $after = null
+    ): ResponseInterface {
+        $queryParamsMap = [
+            'user_id' => $userIds,
+            'user_login' => $usernames,
+            'game_id' => $gameIds,
+            'community_id' => $communityIds,
+            'language' => $languages,
+            'first' => $first,
+            'before' => $before,
+            'after' => $after,
+        ];
 
         return $this->callApi('streams', $queryParamsMap);
     }

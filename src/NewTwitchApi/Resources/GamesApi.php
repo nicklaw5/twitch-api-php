@@ -15,13 +15,10 @@ class GamesApi extends AbstractResource
      */
     public function getGames(array $ids = [], array $names = []): ResponseInterface
     {
-        $queryParamsMap = [];
-        foreach ($ids as $id) {
-            $queryParamsMap[] = ['key' => 'id', 'value' => $id];
-        }
-        foreach ($names as $name) {
-            $queryParamsMap[] = ['key' => 'name', 'value' => $name];
-        }
+        $queryParamsMap = [
+            'id' => $ids,
+            'name' => $names,
+        ];
 
         return $this->callApi('games', $queryParamsMap);
     }

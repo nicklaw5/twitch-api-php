@@ -39,16 +39,11 @@ class UsersApi extends AbstractResource
      */
     public function getUsers(array $ids = [], array $usernames = [], bool $includeEmail = false, string $bearer = null): ResponseInterface
     {
-        $queryParamsMap = [];
-        foreach ($ids as $id) {
-            $queryParamsMap[] = ['key' => 'id', 'value' => $id];
-        }
-        foreach ($usernames as $username) {
-            $queryParamsMap[] = ['key' => 'login', 'value' => $username];
-        }
-        if ($includeEmail) {
-            $queryParamsMap[] = ['key' => 'scope', 'value' => 'user:read:email'];
-        }
+        $queryParamsMap = [
+            'id' => $ids,
+            'login' => $usernames,
+            'scope' => true === $includeEmail ? 'user:read:email' : '',
+        ];
 
         return $this->callApi('users', $queryParamsMap, $bearer);
     }
@@ -59,19 +54,12 @@ class UsersApi extends AbstractResource
      */
     public function getUsersFollows(int $followerId = null, int $followedUserId = null, int $first = null, string $after = null): ResponseInterface
     {
-        $queryParamsMap = [];
-        if ($followerId) {
-            $queryParamsMap[] = ['key' => 'from_id', 'value' => $followerId];
-        }
-        if ($followedUserId) {
-            $queryParamsMap[] = ['key' => 'to_id', 'value' => $followedUserId];
-        }
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
+        $queryParamsMap = [
+            'from_id' => $followerId,
+            'to_id' => $followedUserId,
+            'first' => $first,
+            'after' => $after,
+        ];
 
         return $this->callApi('users/follows', $queryParamsMap);
     }
