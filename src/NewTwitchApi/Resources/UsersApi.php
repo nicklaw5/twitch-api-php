@@ -12,37 +12,36 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserByAccessToken(string $accessToken, bool $includeEmail = false): ResponseInterface
+    public function getUserByAccessToken(string $accessToken): ResponseInterface
     {
-        return $this->getUsers([], [], $includeEmail, $accessToken);
+        return $this->getUsers([], [], $accessToken);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getUserById(int $id, bool $includeEmail = false): ResponseInterface
+    public function getUserById(int $id): ResponseInterface
     {
-        return $this->getUsers([$id], [], $includeEmail);
+        return $this->getUsers([$id], []);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getUserByUsername(string $username, bool $includeEmail = false): ResponseInterface
+    public function getUserByUsername(string $username): ResponseInterface
     {
-        return $this->getUsers([], [$username], $includeEmail);
+        return $this->getUsers([], [$username]);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users
      */
-    public function getUsers(array $ids = [], array $usernames = [], bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUsers(array $ids = [], array $usernames = [], string $bearer = null): ResponseInterface
     {
         $queryParamsMap = [
             'id' => $ids,
             'login' => $usernames,
-            'scope' => true === $includeEmail ? 'user:read:email' : '',
         ];
 
         return $this->callApi('users', $queryParamsMap, $bearer);
