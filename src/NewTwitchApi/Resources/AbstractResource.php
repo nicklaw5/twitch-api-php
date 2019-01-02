@@ -54,47 +54,54 @@ abstract class AbstractResource
         $queryStringParams = '';
 
         foreach ($queryParamsMap as $key => $value) {
-            switch (gettype($value)) {
-                case 'string':
-                    $this->appendStringToQuery($queryStringParams, $key, $value);
-                    break;
-                case 'integer':
-                    $this->appendIntegerToQuery($queryStringParams, $key, $value);
-                    break;
-                case 'boolean':
-                    $this->appendBooleanToQuery($queryStringParams, $key, $value);
-                    break;
-                case 'array':
-                    $this->appendArrayToQuery($queryStringParams, $key, $value);
-                    break;
-                default:
-                    break;
-            }
+            $queryStringParams .= $this->generateQueryStringFragment($key, $value);
         }
 
         return $queryStringParams ? '?' . substr($queryStringParams, 1) : '';
     }
 
-    private function appendStringToQuery(string &$queryStringParams, string $key, string $value): void
+    /**
+     * @param mixed $value
+     */
+    private function generateQueryStringFragment(string $key, $value): string
     {
-        if ($value !== '') {
-            $queryStringParams .= sprintf('&%s=%s', $key, $value);
+        switch (gettype($value)) {
+            case 'string':
+                return $this->generateStringFragment($key, $value);
+            case 'integer':
+                return $this->generateIntegerFragment($key, $value);
+            case 'boolean':
+                return $this->generateBooleanFragment($key, $value);
+            case 'array':
+                return $this->generateArrayFragement($key, $value);
+            default:
+                return '';
         }
     }
 
-    private function appendIntegerToQuery(string &$queryStringParams, string $key, int $value): void
+    private function generateStringFragment(string $key, string $value): string
     {
-        $queryStringParams .= sprintf('&%s=%d', $key, $value);
+        if ($value !== '') {
+            return sprintf('&%s=%s', $key, $value);
+        }
+
+        return '';
     }
 
-    private function appendBooleanToQuery(string &$queryStringParams, string $key, bool $value): void
+    private function generateIntegerFragment(string $key, int $value): string
+    {
+        return sprintf('&%s=%d', $key, $value);
+    }
+
+    private function generateBooleanFragment(string $key, bool $value): string
     {
         $boolString = $value ? 'true' : 'false';
-        $queryStringParams .= sprintf('&%s=%s', $key, $boolString);
+        return sprintf('&%s=%s', $key, $boolString);
     }
 
-    private function appendArrayToQuery(string &$queryStringParams, string $key, array $value): void
+    private function generateArrayFragement(string $key, array $value): string
     {
+        $arrayString = '';
         foreach ($value as $v) {
             $vType = gettype($v);
             if (!in_array($vType, ['string', 'integer'])) {
@@ -102,7 +109,9 @@ abstract class AbstractResource
             }
 
             $format = $vType === 'integer' ? '%d' : '%s';
-            $queryStringParams .= sprintf('&%s=' . $format, $key, $v);
+            $arrayString .= sprintf('&%s=' . $format, $key, $v);
         }
+
+        return $arrayString;
     }
 }
