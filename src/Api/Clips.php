@@ -39,7 +39,7 @@ trait Clips
      * @throws UnsupportedOptionException
      * @return array|json
      */
-    public function getTopClips($channel = null, $cursor = null, $game = null, $limit = 10, $period = 'day', $trending = false)
+    public function getTopClips($channel = null, $cursor = null, $game = null, $language = null, $limit = 10, $period = 'day', $trending = false)
     {
         $validPeriods = ['day', 'week', 'month', 'all'];
 
@@ -68,6 +68,17 @@ trait Clips
                 throw new TwitchApiException(sprintf('Only a maximum of 10 games can be queried. %d requested.', $count));
             }
         }
+        
+        if ($language) {
+            if (!is_string($language)) {
+                throw new InvalidTypeException('$language', 'string', gettype($language));
+            }
+
+            $language = trim($language, ', ');
+            if ($count = count(explode(',', $language)) > 28) {
+                throw new TwitchApiException(sprintf('Only a maximum of 28 languages can be queried. %d requested.', $count));
+            }
+        }
 
         if (!$this->isValidLimit($limit)) {
             throw new InvalidLimitException();
@@ -85,6 +96,7 @@ trait Clips
             'channel' => $channel,
             'cursor' => $cursor,
             'game' => $game,
+            'language' => $language,
             'limit' => intval($limit),
             'period' => $period,
             'trending' => $trending ? 'true' : 'false',
