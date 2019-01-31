@@ -2,6 +2,7 @@
 
 namespace TwitchApi\Api;
 
+use TwitchApi\Exceptions\InvalidLimitException;
 use TwitchApi\Exceptions\InvalidTypeException;
 use TwitchApi\Exceptions\TwitchApiException;
 use TwitchApi\Exceptions\UnsupportedOptionException;
@@ -33,13 +34,14 @@ trait Clips
      * @param int     $limit
      * @param string  $period
      * @param boolean $trending
+     * @param string  $language comma-seperated list - 28 max)
      * @throws InvalidTypeException
      * @throws TwitchApiException
      * @throws InvalidLimitException
      * @throws UnsupportedOptionException
      * @return array|json
      */
-    public function getTopClips($channel = null, $cursor = null, $game = null, $limit = 10, $period = 'day', $trending = false)
+    public function getTopClips($channel = null, $cursor = null, $game = null, $limit = 10, $period = 'day', $trending = false, $language = null)
     {
         $validPeriods = ['day', 'week', 'month', 'all'];
 
@@ -49,7 +51,7 @@ trait Clips
             }
 
             $channel = trim($channel, ', ');
-            if (($count = count(explode(',', $channel)) > 10)) {
+            if (($count = substr_count($channel, ',') + 1) > 10) {
                 throw new TwitchApiException(sprintf('Only a maximum of 10 channels can be queried. %d requested.', $count));
             }
         }
@@ -64,8 +66,19 @@ trait Clips
             }
 
             $game = trim($game, ', ');
-            if ($count = count(explode(',', $game)) > 10) {
+            if (($count = substr_count($game, ',') + 1) > 10) {
                 throw new TwitchApiException(sprintf('Only a maximum of 10 games can be queried. %d requested.', $count));
+            }
+        }
+
+        if ($language) {
+            if (!is_string($language)) {
+                throw new InvalidTypeException('language', 'string', gettype($language));
+            }
+
+            $language = trim($language, ', ');
+            if (($count = substr_count($language, ',') + 1) > 28) {
+                throw new TwitchApiException(sprintf('Only a maximum of 28 languages can be queried. %d requested.', $count));
             }
         }
 
@@ -85,7 +98,8 @@ trait Clips
             'channel' => $channel,
             'cursor' => $cursor,
             'game' => $game,
-            'limit' => intval($limit),
+            'language' => $language,
+            'limit' => (int)$limit,
             'period' => $period,
             'trending' => $trending ? 'true' : 'false',
         ];
@@ -119,7 +133,7 @@ trait Clips
         }
 
         $params = [
-            'limit' => intval($limit),
+            'limit' => (int)$limit,
             'cursor' => $cursor,
             'trending' => $trending ? 'true' : 'false',
         ];
