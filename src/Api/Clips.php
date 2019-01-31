@@ -30,6 +30,7 @@ trait Clips
      * @param string  $channel (comma-seperated list - 10 max)
      * @param string  $cursor
      * @param string  $game (comma-seperated list - 10 max)
+     * @param string $language comma-seperated list - 28 max)
      * @param int     $limit
      * @param string  $period
      * @param boolean $trending
