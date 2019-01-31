@@ -30,17 +30,17 @@ trait Clips
      * @param string  $channel (comma-seperated list - 10 max)
      * @param string  $cursor
      * @param string  $game (comma-seperated list - 10 max)
-     * @param string  $language comma-seperated list - 28 max)
      * @param int     $limit
      * @param string  $period
      * @param boolean $trending
+     * @param string  $language comma-seperated list - 28 max)
      * @throws InvalidTypeException
      * @throws TwitchApiException
      * @throws InvalidLimitException
      * @throws UnsupportedOptionException
      * @return array|json
      */
-    public function getTopClips($channel = null, $cursor = null, $game = null, $language = null, $limit = 10, $period = 'day', $trending = false)
+    public function getTopClips($channel = null, $cursor = null, $game = null, $limit = 10, $period = 'day', $trending = false, $language = null)
     {
         $validPeriods = ['day', 'week', 'month', 'all'];
 
