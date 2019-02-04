@@ -32,7 +32,7 @@ $newTwitchApi = new NewTwitchApi($helixGuzzleClient, $clientId, $clientSecret);
 try {
     // Make the API call. A ResponseInterface object is returned.
     $response = $newTwitchApi->getUsersApi()->getUserByAccessToken($accessToken);
-} (catch GuzzleException $e) {
+} catch (GuzzleException $e) {
     // Handle error appropriately for your application
 }
 
