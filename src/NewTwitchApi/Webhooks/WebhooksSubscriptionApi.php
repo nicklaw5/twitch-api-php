@@ -22,7 +22,7 @@ class WebhooksSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToStream(int $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToStream(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),

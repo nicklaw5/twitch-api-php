@@ -26,7 +26,7 @@ class GetStreamsCliEndpointSpec extends ObjectBehavior
     function it_should_get_streams(NewTwitchApi $newTwitchApi, InputReader $inputReader, StreamsApi $streamsApi)
     {
         $streamsApi->getStreams(
-            [12345, 98765],
+            ['12345', '98765'],
             ['user1', 'user2'],
             ['game1', 'game2'],
             ['community1', 'community2'],
@@ -37,7 +37,7 @@ class GetStreamsCliEndpointSpec extends ObjectBehavior
         )->shouldBeCalled();
         $newTwitchApi->getStreamsApi()->willReturn($streamsApi);
         $inputReader->readCSVIntoArrayFromStdin()->willReturn(
-            [12345, 98765],
+            ['12345', '98765'],
             ['user1', 'user2'],
             ['game1', 'game2'],
             ['community1', 'community2'],

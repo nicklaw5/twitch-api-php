@@ -25,10 +25,10 @@ class GetUsersFollowsCliEndpointSpec extends ObjectBehavior
 
     function it_should_get_games_by_ids_and_names_with_email(NewTwitchApi $newTwitchApi, InputReader $inputReader, UsersApi $usersApi)
     {
-        $usersApi->getUsersFollows(12345, 98765, 100, 'after')->shouldBeCalled();
+        $usersApi->getUsersFollows('12345', '98765', 100, 'after')->shouldBeCalled();
         $newTwitchApi->getUsersApi()->willReturn($usersApi);
-        $inputReader->readIntFromStdin()->willReturn(12345, 98765, 100);
-        $inputReader->readFromStdin()->willReturn('after');
+        $inputReader->readFromStdin()->willReturn('12345', '98765', 'after');
+        $inputReader->readIntFromStdin()->willReturn(100);
 
         $this->execute();
     }

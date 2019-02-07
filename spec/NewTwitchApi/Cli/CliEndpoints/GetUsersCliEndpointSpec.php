@@ -25,9 +25,9 @@ class GetUsersCliEndpointSpec extends ObjectBehavior
 
     function it_should_get_games_by_ids_and_names_with_email(NewTwitchApi $newTwitchApi, InputReader $inputReader, UsersApi $usersApi)
     {
-        $usersApi->getUsers([12345, 98765], ['game1', 'game2'], true)->shouldBeCalled();
+        $usersApi->getUsers(['12345', '98765'], ['game1', 'game2'], true)->shouldBeCalled();
         $newTwitchApi->getUsersApi()->willReturn($usersApi);
-        $inputReader->readCSVIntoArrayFromStdin()->willReturn([12345, 98765], ['game1', 'game2']);
+        $inputReader->readCSVIntoArrayFromStdin()->willReturn(['12345', '98765'], ['game1', 'game2']);
         $inputReader->readFromStdin()->willReturn('y');
 
         $this->execute();
@@ -35,9 +35,9 @@ class GetUsersCliEndpointSpec extends ObjectBehavior
 
     function it_should_get_games_by_ids_and_names_without_email(NewTwitchApi $newTwitchApi, InputReader $inputReader, UsersApi $usersApi)
     {
-        $usersApi->getUsers([12345, 98765], ['game1', 'game2'], false)->shouldBeCalled();
+        $usersApi->getUsers(['12345', '98765'], ['game1', 'game2'], false)->shouldBeCalled();
         $newTwitchApi->getUsersApi()->willReturn($usersApi);
-        $inputReader->readCSVIntoArrayFromStdin()->willReturn([12345, 98765], ['game1', 'game2']);
+        $inputReader->readCSVIntoArrayFromStdin()->willReturn(['12345', '98765'], ['game1', 'game2']);
         $inputReader->readFromStdin()->willReturn('n');
 
         $this->execute();

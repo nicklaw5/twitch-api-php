@@ -20,7 +20,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserById(int $id, bool $includeEmail = false): ResponseInterface
+    public function getUserById(string $id, bool $includeEmail = false): ResponseInterface
     {
         return $this->getUsers([$id], [], $includeEmail);
     }
@@ -57,7 +57,7 @@ class UsersApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users-follows
      */
-    public function getUsersFollows(int $followerId = null, int $followedUserId = null, int $first = null, string $after = null): ResponseInterface
+    public function getUsersFollows(string $followerId = null, string $followedUserId = null, int $first = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         if ($followerId) {

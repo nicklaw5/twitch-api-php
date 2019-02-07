@@ -12,7 +12,7 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getStreamForUserId(int $userId): ResponseInterface
+    public function getStreamForUserId(string $userId): ResponseInterface
     {
         return $this->getStreams([$userId]);
     }
