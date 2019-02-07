@@ -16,9 +16,9 @@ class GetUsersFollowsCliEndpoint extends AbstractCliEndpoint
     public function execute(): ResponseInterface
     {
         $this->getOutputWriter()->write('Follower ID: ');
-        $followerId = $this->getInputReader()->readIntFromStdin();
+        $followerId = $this->getInputReader()->readFromStdin();
         $this->getOutputWriter()->write('Followed User ID: ');
-        $followedUserId = $this->getInputReader()->readIntFromStdin();
+        $followedUserId = $this->getInputReader()->readFromStdin();
         $this->getOutputWriter()->write('Max results to return: ');
         $first = $this->getInputReader()->readIntFromStdin();
         $this->getOutputWriter()->write('Cursor value next page starts with: ');

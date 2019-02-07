@@ -38,6 +38,6 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"subscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/streams?user_id=12345","hub.lease_seconds":100,"hub.secret":"client-secret"}'
         ])->shouldBeCalled();
 
-        $this->subscribeToStream(12345, 'bearer-token', 'https://redirect.url', 100);
+        $this->subscribeToStream('12345', 'bearer-token', 'https://redirect.url', 100);
     }
 }

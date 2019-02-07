@@ -25,9 +25,9 @@ class GetGamesCliEndpointSpec extends ObjectBehavior
 
     function it_should_get_games_by_ids_and_names(NewTwitchApi $newTwitchApi, InputReader $inputReader, GamesApi $gamesApi)
     {
-        $gamesApi->getGames([12345, 98765], ['game1', 'game2'])->shouldBeCalled();
+        $gamesApi->getGames(['12345', '98765'], ['game1', 'game2'])->shouldBeCalled();
         $newTwitchApi->getGamesApi()->willReturn($gamesApi);
-        $inputReader->readCSVIntoArrayFromStdin()->willReturn([12345, 98765], ['game1', 'game2']);
+        $inputReader->readCSVIntoArrayFromStdin()->willReturn(['12345', '98765'], ['game1', 'game2']);
 
         $this->execute();
     }
