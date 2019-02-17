@@ -9,6 +9,10 @@
         {
             "name": "Nicholas Law",
             "homepage": "https://github.com/nicklaw5"
+        },
+        {
+            "name": "Brian Zwahr",
+            "homepage": "https://github.com/echosa"
         }
     ],
     "require": {
