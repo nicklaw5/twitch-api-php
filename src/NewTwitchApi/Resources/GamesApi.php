@@ -27,20 +27,16 @@ class GamesApi extends AbstractResource
     }
 
     /**
-     * @param int $first The number of items to return, default is 20
-     * @param null|string $cursor The pagination cursor from a previous request
-     * @param bool $after Return results before (false) or after (true) the cursor
-     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-top-games
      */
-    public function getGamesTop($first = 20, $cursor = null, $after = true): ResponseInterface
+    public function getGamesTop(int $first = 20, string $cursor = null, bool $after = true): ResponseInterface
     {
-        $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         if ($cursor !== null) {
             $queryParamsMap[] = ['key' => $after ? 'after' : 'before', 'value' => $cursor];
         }
+
         return $this->callApi('games/top', $queryParamsMap);
     }
 }
