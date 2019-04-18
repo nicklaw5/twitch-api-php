@@ -32,6 +32,36 @@ class WebhooksSubscriptionApi
         );
     }
 
+    public function subscribeToUser(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    {
+        $this->subscribe(
+            sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
+            $bearer,
+            $callback,
+            $leaseSeconds
+        );
+    }
+
+    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $bearer, string $callback, int $leaseSeconds = 0): void
+    {
+        $queryParams = [];
+        if ($followerId) {
+            $queryParams['from_id'] = $followerId;
+        }
+        if ($followedUserId) {
+            $queryParams['to_id'] = $followedUserId;
+        }
+        if ($first) {
+            $queryParams['first'] = $first;
+        }
+        $this->subscribe(
+            sprintf('https://api.twitch.tv/helix/users/follows?%s', http_build_query($queryParams)),
+            $bearer,
+            $callback,
+            $leaseSeconds
+        );
+    }
+
     public function validateWebhookEventCallback(string $xHubSignature, string $content): bool
     {
         [$hashAlgorithm, $expectedHash] = explode('=', $xHubSignature);
