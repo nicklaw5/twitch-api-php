@@ -11,14 +11,28 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractResource
 {
+    /**
+     * @var Client
+     */
     protected $guzzleClient;
 
+    /**
+     * AbstractResource constructor.
+     *
+     * @param Client $guzzleClient
+     */
     public function __construct(Client $guzzleClient)
     {
         $this->guzzleClient = $guzzleClient;
     }
 
     /**
+     * Call the API
+     *
+     * @param string $uriEndpoint
+     * @param array $queryParamsMap
+     * @param string|null $bearer
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     protected function callApi(string $uriEndpoint, array $queryParamsMap = [], string $bearer = null): ResponseInterface
@@ -39,6 +53,9 @@ abstract class AbstractResource
      * [['key' => 'param_key', 'value' => 42],['key' => 'other_key', 'value' => 'asdf']]
      * would result in
      * ?param_key=42&other_key=asdf
+     *
+     * @param array $queryParamsMap
+     * @return string
      */
     protected function generateQueryParams(array $queryParamsMap): string
     {
