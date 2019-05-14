@@ -129,7 +129,7 @@ class WebhooksSubscriptionApi
      * @param string $callback
      * @param int $leaseSeconds
      */
-    private function subscribe(string $topic, string $bearer, string $callback, int $leaseSeconds = 0): void
+    protected function subscribe(string $topic, string $bearer, string $callback, int $leaseSeconds = 0): void
     {
         $headers = [
             'Authorization' => sprintf('Bearer %s', $bearer),

@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class AuthGuzzleClient extends Client
 {
-    private const BASE_URI = 'https://id.twitch.tv/oauth2/';
+    const BASE_URI = 'https://id.twitch.tv/oauth2/';
 
     /**
      * AuthGuzzleClient constructor.

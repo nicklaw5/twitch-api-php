@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class HelixGuzzleClient extends Client
 {
-    private const BASE_URI = 'https://api.twitch.tv/helix/';
+    const BASE_URI = 'https://api.twitch.tv/helix/';
 
     /**
      * HelixGuzzleClient constructor.
