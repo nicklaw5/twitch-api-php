@@ -10,6 +10,12 @@ class HelixGuzzleClient extends Client
 {
     private const BASE_URI = 'https://api.twitch.tv/helix/';
 
+    /**
+     * HelixGuzzleClient constructor.
+     *
+     * @param string $clientId
+     * @param array $config
+     */
     public function __construct(string $clientId, array $config = [])
     {
         parent::__construct($config + [
