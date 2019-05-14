@@ -13,10 +13,6 @@
         {
             "name": "Brian Zwahr",
             "homepage": "https://github.com/echosa"
-        },
-        {
-            "name": "Alex Blackham",
-            "homepage": "https://github.com/b3none"
         }
     ],
     "require": {
