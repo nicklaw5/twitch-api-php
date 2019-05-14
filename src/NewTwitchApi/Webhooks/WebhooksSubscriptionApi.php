@@ -22,7 +22,7 @@ class WebhooksSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToStream(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToStream(string $twitchId, string $bearer = null, string $callback, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
@@ -32,7 +32,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUser(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToUser(string $twitchId, string $bearer = null, string $callback, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
@@ -42,7 +42,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $bearer = null, string $callback, int $leaseSeconds = 0): void
     {
         $queryParams = [];
         if ($followerId) {
@@ -70,12 +70,14 @@ class WebhooksSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    private function subscribe(string $topic, string $bearer, string $callback, int $leaseSeconds = 0): void
+    private function subscribe(string $topic, string $bearer = null, string $callback, int $leaseSeconds = 0): void
     {
         $headers = [
-            'Authorization' => sprintf('Bearer %s', $bearer),
             'Client-ID' => $this->clientId,
         ];
+        if (!is_null($bearer)) {
+            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
+        }
 
         $body = [
             'hub.callback' => $callback,
