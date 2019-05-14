@@ -126,7 +126,7 @@ See the [examples](examples) directory for more common use cases.
 
 ## Requirements
 
-PHP 5.6 or higher is required.
+PHP 7.1 or higher is required.
 
 ## Installation
 
