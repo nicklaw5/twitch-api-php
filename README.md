@@ -24,7 +24,7 @@ $accessToken = 'the token';
 
 // The Guzzle client used can be the included `HelixGuzzleClient` class, for convenience. 
 // You can also use a mock, fake, or other double for testing, of course.
-$helixGuzzleClient = new HelixGuzzleClient();
+$helixGuzzleClient = new HelixGuzzleClient($clientId);
 
 // Instantiate NewTwitchApi. Can be done in a service layer and injected as well.
 $newTwitchApi = new NewTwitchApi($helixGuzzleClient, $clientId, $clientSecret);
@@ -32,15 +32,15 @@ $newTwitchApi = new NewTwitchApi($helixGuzzleClient, $clientId, $clientSecret);
 try {
     // Make the API call. A ResponseInterface object is returned.
     $response = $newTwitchApi->getUsersApi()->getUserByAccessToken($accessToken);
+    
+    // Get and decode the actual content sent by Twitch.
+    $responseContent = json_decode($response->getBody()->getContents());
+    
+    // Return the first (or only) user.
+    return $responseContent->data[0];
 } catch (GuzzleException $e) {
     // Handle error appropriately for your application
 }
-
-// Get and decode the actual content sent by Twitch.
-$responseContent = json_decode($response->getBody()->getContents());
-
-// Return the first (or only) user.
-return $responseContent->data[0];
 ```
 
 ## Developer Tools
