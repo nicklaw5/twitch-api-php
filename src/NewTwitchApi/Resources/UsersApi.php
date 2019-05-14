@@ -10,6 +10,11 @@ use Psr\Http\Message\ResponseInterface;
 class UsersApi extends AbstractResource
 {
     /**
+     * Get user by access token
+     *
+     * @param string $accessToken
+     * @param bool $includeEmail
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function getUserByAccessToken(string $accessToken, bool $includeEmail = false): ResponseInterface
@@ -18,6 +23,11 @@ class UsersApi extends AbstractResource
     }
 
     /**
+     * Get user by Id
+     *
+     * @param string $id
+     * @param bool $includeEmail
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function getUserById(string $id, bool $includeEmail = false): ResponseInterface
@@ -26,6 +36,11 @@ class UsersApi extends AbstractResource
     }
 
     /**
+     * Get user by username
+     *
+     * @param string $username
+     * @param bool $includeEmail
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function getUserByUsername(string $username, bool $includeEmail = false): ResponseInterface
@@ -34,6 +49,13 @@ class UsersApi extends AbstractResource
     }
 
     /**
+     * Get users
+     *
+     * @param array $ids
+     * @param array $usernames
+     * @param bool $includeEmail
+     * @param string|null $bearer
+     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users
      */
@@ -54,6 +76,13 @@ class UsersApi extends AbstractResource
     }
 
     /**
+     * Get users follows
+     *
+     * @param string|null $followerId
+     * @param string|null $followedUserId
+     * @param int|null $first
+     * @param string|null $after
+     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users-follows
      */
