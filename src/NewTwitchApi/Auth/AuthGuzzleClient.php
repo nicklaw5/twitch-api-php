@@ -10,6 +10,10 @@ class AuthGuzzleClient extends Client
 {
     private const BASE_URI = 'https://id.twitch.tv/oauth2/';
 
+    /**
+     * AuthGuzzleClient constructor.
+     * @param array $config
+     */
     public function __construct(array $config = [])
     {
         parent::__construct($config + [

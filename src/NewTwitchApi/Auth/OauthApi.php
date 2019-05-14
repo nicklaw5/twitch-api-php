@@ -12,10 +12,28 @@ use Psr\Http\Message\ResponseInterface;
 
 class OauthApi
 {
-    private $clientId;
-    private $clientSecret;
-    private $guzzleClient;
+    /**
+     * @var string
+     */
+    protected $clientId;
 
+    /**
+     * @var string
+     */
+    protected $clientSecret;
+
+    /**
+     * @var Client|AuthGuzzleClient
+     */
+    protected $guzzleClient;
+
+    /**
+     * OauthApi constructor.
+     *
+     * @param string $clientId
+     * @param string $clientSecret
+     * @param Client|null $guzzleClient
+     */
     public function __construct(string $clientId, string $clientSecret, Client $guzzleClient = null)
     {
         $this->clientId = $clientId;
@@ -24,6 +42,13 @@ class OauthApi
     }
 
     /**
+     * Get auth URL
+     *
+     * @param string $redirectUri
+     * @param string $responseType
+     * @param string $scope
+     * @param bool $forceVerify
+     * @param string|null $state
      * @return string A full authentication URL, including the Guzzle client's base URI.
      */
     public function getAuthUrl(string $redirectUri, string $responseType = 'code', string $scope = '', bool $forceVerify = false, string $state = null): string
@@ -36,6 +61,12 @@ class OauthApi
     }
 
     /**
+     * Get user access token
+     *
+     * @param $code
+     * @param string $redirectUri
+     * @param null $state
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function getUserAccessToken($code, string $redirectUri, $state = null): ResponseInterface
@@ -56,6 +87,11 @@ class OauthApi
     }
 
     /**
+     * Refresh token
+     *
+     * @param string $refeshToken
+     * @param string $scope
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function refreshToken(string $refeshToken, string $scope = ''): ResponseInterface
@@ -79,6 +115,10 @@ class OauthApi
     }
 
     /**
+     * Validate token
+     *
+     * @param string $accessToken
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function validateAccessToken(string $accessToken): ResponseInterface
@@ -95,6 +135,10 @@ class OauthApi
     }
 
     /**
+     * Is the access token valid?
+     *
+     * @param string $accessToken
+     * @return bool
      * @throws GuzzleException
      */
     public function isValidAccessToken(string $accessToken): bool
@@ -103,6 +147,10 @@ class OauthApi
     }
 
     /**
+     * Get app access token
+     *
+     * @param string $scope
+     * @return ResponseInterface
      * @throws GuzzleException
      */
     public function getAppAccessToken(string $scope = ''): ResponseInterface
@@ -121,17 +169,29 @@ class OauthApi
     }
 
     /**
+     * Make a request
+     *
+     * @param Request $request
+     * @param array $options
+     * @return ResponseInterface
      * @throws GuzzleException
      */
-    private function makeRequest(Request $request, array $options = []): ResponseInterface
+    protected function makeRequest(Request $request, array $options = []): ResponseInterface
     {
         return $this->guzzleClient->send($request, $options);
     }
 
     /**
+     * Get partial auth URL
+     *
+     * @param string $redirectUri
+     * @param string $responseType
+     * @param string $scope
+     * @param bool $forceVerify
+     * @param string|null $state
      * @return string A partial authentication URL, excluding the Guzzle client's base URI.
      */
-    private function getPartialAuthUrl(string $redirectUri, string $responseType = 'code', string $scope = '', bool $forceVerify = false, string $state = null): string
+    protected function getPartialAuthUrl(string $redirectUri, string $responseType = 'code', string $scope = '', bool $forceVerify = false, string $state = null): string
     {
         $optionalParameters = '';
         $optionalParameters .= $forceVerify ? '&force_verify=true' : '';
