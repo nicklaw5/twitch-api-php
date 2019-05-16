@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace NewTwitchApi\Webhooks;
 
 use GuzzleHttp\Client;
-use NewTwitchApi\HelixGuzzleClient;
 
 class WebhooksSubscriptionApi
 {
@@ -22,71 +21,38 @@ class WebhooksSubscriptionApi
     protected $secret;
 
     /**
-     * @var Client|HelixGuzzleClient
+     * @var Client
      */
     protected $guzzleClient;
 
-    /**
-     * WebhooksSubscriptionApi constructor.
-     *
-     * @param string $clientId
-     * @param string $secret
-     * @param Client|null $guzzleClient
-     */
-    public function __construct(string $clientId, string $secret, Client $guzzleClient = null)
+    public function __construct(string $clientId, string $secret, Client $guzzleClient)
     {
         $this->clientId = $clientId;
         $this->secret = $secret;
-        $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
+        $this->guzzleClient = $guzzleClient;
     }
 
-    /**
-     * Subscribe to stream
-     *
-     * @param string $twitchId
-     * @param string $bearer
-     * @param string $callback
-     * @param int $leaseSeconds
-     */
-    public function subscribeToStream(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToStream(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
-            $bearer,
             $callback,
+            $bearer,
             $leaseSeconds
         );
     }
 
-    /**
-     * Subscribe to user
-     *
-     * @param string $twitchId
-     * @param string $bearer
-     * @param string $callback
-     * @param int $leaseSeconds
-     */
-    public function subscribeToUser(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToUser(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
-            $bearer,
             $callback,
+            $bearer,
             $leaseSeconds
         );
     }
 
-    /**
-     * Subscribe to user follows
-     *
-     * @param string $followerId
-     * @param string $followedUserId
-     * @param int $first
-     * @param string $bearer
-     * @param string $callback
-     * @param int $leaseSeconds
-     */
-    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer = null, int $leaseSeconds = 0): void
     {
         $queryParams = [];
         if ($followerId) {
@@ -100,19 +66,12 @@ class WebhooksSubscriptionApi
         }
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/users/follows?%s', http_build_query($queryParams)),
-            $bearer,
             $callback,
+            $bearer,
             $leaseSeconds
         );
     }
 
-    /**
-     * Validate webhook event callback
-     *
-     * @param string $xHubSignature
-     * @param string $content
-     * @return bool
-     */
     public function validateWebhookEventCallback(string $xHubSignature, string $content): bool
     {
         [$hashAlgorithm, $expectedHash] = explode('=', $xHubSignature);
@@ -121,20 +80,14 @@ class WebhooksSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    /**
-     * Subscribe
-     *
-     * @param string $topic
-     * @param string $bearer
-     * @param string $callback
-     * @param int $leaseSeconds
-     */
-    protected function subscribe(string $topic, string $bearer, string $callback, int $leaseSeconds = 0): void
+    protected function subscribe(string $topic, string $callback, string $bearer = null, int $leaseSeconds = 0): void
     {
         $headers = [
-            'Authorization' => sprintf('Bearer %s', $bearer),
             'Client-ID' => $this->clientId,
         ];
+        if (!is_null($bearer)) {
+            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
+        }
 
         $body = [
             'hub.callback' => $callback,
