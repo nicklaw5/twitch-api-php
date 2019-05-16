@@ -49,13 +49,6 @@ class UsersApi extends AbstractResource
     }
 
     /**
-     * Get users
-     *
-     * @param array $ids
-     * @param array $usernames
-     * @param bool $includeEmail
-     * @param string|null $bearer
-     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users
      */

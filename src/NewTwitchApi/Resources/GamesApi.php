@@ -10,11 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 class GamesApi extends AbstractResource
 {
     /**
-     * Get games
-     *
-     * @param array $ids
-     * @param array $names
-     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-games
      */

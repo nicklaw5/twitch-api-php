@@ -9,40 +9,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class StreamsApi extends AbstractResource
 {
-    /**
-     * Get Stream for user Id
-     *
-     * @param string $userId
-     * @return ResponseInterface
-     * @throws GuzzleException
-     */
     public function getStreamForUserId(string $userId): ResponseInterface
     {
         return $this->getStreams([$userId]);
     }
 
-    /**
-     * @param string $username
-     * @return ResponseInterface
-     * @throws GuzzleException
-     */
     public function getStreamForUsername(string $username): ResponseInterface
     {
         return $this->getStreams([], [$username]);
     }
 
     /**
-     * Get streams
-     *
-     * @param array $userIds
-     * @param array $usernames
-     * @param array $gameIds
-     * @param array $communityIds
-     * @param array $languages
-     * @param int|null $first
-     * @param string|null $before
-     * @param string|null $after
-     * @return ResponseInterface
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */

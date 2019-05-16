@@ -9,16 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class WebhooksApi extends AbstractResource
 {
-    /**
-     * Get webhook subscriptions
-     *
-     * @param string $accessToken
-     * @param int|null $first
-     * @param string|null $after
-     * @return ResponseInterface
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference/#get-webhook-subscriptions
-     */
     public function getWebhookSubscriptions(string $accessToken, int $first = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];

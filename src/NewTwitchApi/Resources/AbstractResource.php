@@ -27,12 +27,6 @@ abstract class AbstractResource
     }
 
     /**
-     * Call the API
-     *
-     * @param string $uriEndpoint
-     * @param array $queryParamsMap
-     * @param string|null $bearer
-     * @return ResponseInterface
      * @throws GuzzleException
      */
     protected function callApi(string $uriEndpoint, array $queryParamsMap = [], string $bearer = null): ResponseInterface
