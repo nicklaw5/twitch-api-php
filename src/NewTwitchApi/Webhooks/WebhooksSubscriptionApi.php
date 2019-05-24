@@ -10,6 +10,7 @@ use NewTwitchApi\HelixGuzzleClient;
 class WebhooksSubscriptionApi
 {
     public const SUBSCRIBE = 'subscribe';
+    public const UNSUBSCRIBE = 'unsubscribe';
 
     private $clientId;
     private $secret;
@@ -62,6 +63,40 @@ class WebhooksSubscriptionApi
         );
     }
 
+    public function unsubscribeFromStream(string $twitchId, string $callback): void
+    {
+        $this->unsubscribe(
+            sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
+            $callback
+        );
+    }
+
+    public function unsubscribeFromUser(string $twitchId, string $callback)
+    {
+        $this->unsubscribe(
+            sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
+            $callback
+        );
+    }
+
+    public function unsubscribeFromUserFollows(string $followerId, string $followedUserId, int $first, string $callback)
+    {
+        $queryParams = [];
+        if ($followerId) {
+            $queryParams['from_id'] = $followerId;
+        }
+        if ($followedUserId) {
+            $queryParams['to_id'] = $followedUserId;
+        }
+        if ($first) {
+            $queryParams['first'] = $first;
+        }
+        $this->unsubscribe(
+            sprintf('https://api.twitch.tv/helix/users/follows?%s', http_build_query($queryParams)),
+            $callback
+        );
+    }
+
     public function validateWebhookEventCallback(string $xHubSignature, string $content): bool
     {
         [$hashAlgorithm, $expectedHash] = explode('=', $xHubSignature);
@@ -85,6 +120,24 @@ class WebhooksSubscriptionApi
             'hub.topic' => $topic,
             'hub.lease_seconds' => $leaseSeconds,
             'hub.secret' => $this->secret,
+        ];
+
+        $this->guzzleClient->post('webhooks/hub', [
+            'headers' => $headers,
+            'body' => json_encode($body),
+        ]);
+    }
+
+    private function unsubscribe(string $topic, string $callback): void
+    {
+        $headers = [
+            'Client-ID' => $this->clientId,
+        ];
+
+        $body = [
+            'hub.callback' => $callback,
+            'hub.mode' => self::UNSUBSCRIBE,
+            'hub.topic' => $topic,
         ];
 
         $this->guzzleClient->post('webhooks/hub', [
