@@ -13,7 +13,7 @@ class VideosApi extends AbstractResource
   /**
    * @throws GuzzleException
    * @link https://dev.twitch.tv/docs/api/reference/#get-videos
- */
+   */
   public function getVideos(array $ids = [], string $userId = null, string $gameId = null, string $first = null, string $before = null, string $after = null, string $language = null, string $period = null, string $sort = null, string $type = null, string $bearer = null): ResponseInterface
   {
       $queryParamsMap = [];

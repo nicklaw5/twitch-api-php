@@ -56,7 +56,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users-follows
-   */
+     */
     public function getUsersFollows(string $followerId = null, string $followedUserId = null, int $first = null, string $after = null, string $bearer = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -79,7 +79,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-user-extensions
-   */
+     */
     public function getUserExtensions(string $bearer): ResponseInterface
     {
         $queryParamsMap = [];
@@ -90,7 +90,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-user-active-extensions
-   */
+     */
     public function getActiveUserExtensions(string $userId = null, string $bearer = null): ResponseInterface
     {
         $queryParamsMap = [];

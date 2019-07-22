@@ -11,7 +11,7 @@ class StreamsApi extends AbstractResource
 {
     /**
      * @throws GuzzleException
-   */
+     */
     public function getStreamForUserId(string $userId): ResponseInterface
     {
         return $this->getStreams([$userId]);
@@ -19,7 +19,7 @@ class StreamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-   */
+     */
     public function getStreamForUsername(string $username): ResponseInterface
     {
         return $this->getStreams([], [$username]);
@@ -28,7 +28,7 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
-   */
+     */
     public function getStreams(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, $bearer = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -63,7 +63,7 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams-metadata
-   */
+     */
     public function getStreamsMetadata(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, string $bearer = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -98,7 +98,7 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-stream-markers
-   */
+     */
     public function getStreamMarkers(string $bearer, string $userId = null, string $videoId = null, string $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
