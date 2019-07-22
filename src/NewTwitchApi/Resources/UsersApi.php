@@ -75,4 +75,30 @@ class UsersApi extends AbstractResource
 
         return $this->callApi('users/follows', $queryParamsMap, $bearer);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-user-extensions
+     */
+    public function getUserExtensions(string $bearer): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        return $this->callApi('users/extensions/list', $queryParamsMap, $bearer);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-user-active-extensions
+     */
+    public function getActiveUserExtensions(string $userId = null, string $bearer = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        if ($userId) {
+            $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        }
+
+        return $this->callApi('users/extensions', $queryParamsMap, $bearer);
+    }
 }

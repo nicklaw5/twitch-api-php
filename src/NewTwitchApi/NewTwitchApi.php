@@ -10,6 +10,8 @@ use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\UsersApi;
 use NewTwitchApi\Resources\SubscriptionsApi;
+use NewTwitchApi\Resources\VideosApi;
+use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\WebhooksApi;
 use NewTwitchApi\Webhooks\WebhooksSubscriptionApi;
 
@@ -20,6 +22,8 @@ class NewTwitchApi
     private $streamsApi;
     private $usersApi;
     private $subscriptionsApi;
+    private $videosApi;
+    private $moderationApi;
     private $webhooksApi;
     private $webhooksSubscriptionApi;
 
@@ -30,6 +34,8 @@ class NewTwitchApi
         $this->streamsApi = new StreamsApi($helixGuzzleClient);
         $this->usersApi = new UsersApi($helixGuzzleClient);
         $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient);
+        $this->videosApi = new VideosApi($helixGuzzleClient);
+        $this->moderationApi = new ModerationApi($helixGuzzleClient);
         $this->webhooksApi = new WebhooksApi($helixGuzzleClient);
         $this->webhooksSubscriptionApi = new WebhooksSubscriptionApi($clientId, $clientSecret, $helixGuzzleClient);
     }
@@ -57,6 +63,16 @@ class NewTwitchApi
     public function getSubscriptionsApi(): UsersApi
     {
         return $this->subscriptionsApi;
+    }
+
+    public function getVideosApi(): UsersApi
+    {
+        return $this->videosApi;
+    }
+
+    public function getModerationApi(): UsersApi
+    {
+        return $this->moderationApi;
     }
 
     public function getWebhooksApi(): WebhooksApi
