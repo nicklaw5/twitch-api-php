@@ -11,9 +11,9 @@ class ModerationApi extends AbstractResource
 {
 
   /**
-  * @throws GuzzleException
-  * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
-  */
+   * @throws GuzzleException
+   * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
+   */
   public function getBannedEvents(string $broadcasterId, string $bearer, array $ids = [], string $first = null, string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
@@ -24,11 +24,11 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
     }
 
-    if($first) {
+    if ($first) {
         $queryParamsMap[] = ['key' => 'first', 'value' => $first];
     }
 
-    if($after) {
+    if ($after) {
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
@@ -36,9 +36,9 @@ class ModerationApi extends AbstractResource
   }
 
   /**
-  * @throws GuzzleException
-  * @link https://dev.twitch.tv/docs/api/reference/#get-banned-users
-  */
+   * @throws GuzzleException
+   * @link https://dev.twitch.tv/docs/api/reference/#get-banned-users
+   */
   public function getBannedUsers(string $broadcasterId, string $bearer, array $ids = [], string $before = null, string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
@@ -49,11 +49,11 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
     }
 
-    if($before) {
+    if ($before) {
         $queryParamsMap[] = ['key' => 'before', 'value' => $before];
     }
 
-    if($after) {
+    if ($after) {
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
@@ -74,7 +74,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
     }
 
-    if($after) {
+    if ($after) {
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
@@ -95,7 +95,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
     }
 
-    if($after) {
+    if ($after) {
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 

@@ -22,11 +22,11 @@ class VideosApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'id', 'value' => $id];
       }
 
-      if($userId) {
+      if ($userId) {
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
       }
 
-      if($gameId) {
+      if ($gameId) {
         $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
       }
 
