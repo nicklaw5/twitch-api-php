@@ -41,6 +41,19 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
         $this->subscribeToStream('12345', 'https://redirect.url', 'bearer-token', 100);
     }
 
+    function it_subscribes_to_subscription_events(Client $guzzleClient)
+    {
+        $guzzleClient->post('webhooks/hub', [
+            'headers' => [
+                'Authorization' => 'Bearer bearer-token',
+                'Client-ID' => 'client-id',
+            ],
+            'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"subscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/subscriptions\/events?broadcaster_id=12345&first=1","hub.lease_seconds":100,"hub.secret":"client-secret"}'
+        ])->shouldBeCalled();
+
+        $this->subscribeToSubscriptionEvents('12345', 'https://redirect.url', 'bearer-token', 100);
+    }
+
     function it_subscribes_to_a_user(Client $guzzleClient)
     {
         $guzzleClient->post('webhooks/hub', [
