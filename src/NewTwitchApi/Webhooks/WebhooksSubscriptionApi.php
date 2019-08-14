@@ -33,6 +33,16 @@ class WebhooksSubscriptionApi
         );
     }
 
+    public function subscribeToSubscriptionEvents(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void
+    {
+        $this->subscribe(
+            sprintf('https://api.twitch.tv/helix/subscriptions/events?broadcaster_id=%s&first=1', $twitchId),
+            $callback,
+            $bearer,
+            $leaseSeconds
+        );
+    }
+
     public function subscribeToUser(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
     {
         $this->subscribe(
