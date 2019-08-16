@@ -60,17 +60,17 @@ class NewTwitchApi
         return $this->usersApi;
     }
 
-    public function getSubscriptionsApi(): UsersApi
+    public function getSubscriptionsApi(): SubscriptionsApi
     {
         return $this->subscriptionsApi;
     }
 
-    public function getVideosApi(): UsersApi
+    public function getVideosApi(): VideosApi
     {
         return $this->videosApi;
     }
 
-    public function getModerationApi(): UsersApi
+    public function getModerationApi(): ModerationApi
     {
         return $this->moderationApi;
     }
