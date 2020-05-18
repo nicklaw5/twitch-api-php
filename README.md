@@ -75,7 +75,7 @@ A Twitch Kraken API client for PHP. This is the old API, which is deprecated and
 
 The documentation below is left for legacy purposes, until Kraken support is removed.
 
-[![Build Status](https://travis-ci.org/nicklaw5/twitch-api-php.svg?branch=master)](https://travis-ci.org/nicklaw5/twitch-api-php)
+[![Build Status](https://travis-ci.com/nicklaw5/twitch-api-php.svg?branch=master)](https://travis-ci.com/nicklaw5/twitch-api-php)
 
 ## Supported APIs
 
