@@ -12,9 +12,9 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserByAccessToken(string $bearer, bool $includeEmail = false): ResponseInterface
+    public function getUserByAccessToken(string $userAccessToken, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([], [], $includeEmail, $bearer);
+        return $this->getUsers($userAccessToken, [], [], $includeEmail);
     }
 
     /**
@@ -22,7 +22,7 @@ class UsersApi extends AbstractResource
      */
     public function getUserById(string $bearer, string $id, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([$id], [], $includeEmail, $bearer);
+        return $this->getUsers($bearer, [$id], [], $includeEmail);
     }
 
     /**
@@ -30,7 +30,7 @@ class UsersApi extends AbstractResource
      */
     public function getUserByUsername(string $bearer, string $username, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([], [$username], $includeEmail, $bearer);
+        return $this->getUsers($bearer, [], [$username], $includeEmail);
     }
 
     /**

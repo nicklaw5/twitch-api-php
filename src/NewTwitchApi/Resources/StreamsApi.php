@@ -14,7 +14,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUserId(string $bearer, string $userId): ResponseInterface
     {
-        return $this->getStreams([$userId], [], [], [], [], null, null, null, $bearer);
+        return $this->getStreams($bearer, [$userId], [], [], [], [], null, null, null);
     }
 
     /**
@@ -22,7 +22,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUsername(string $bearer, string $username): ResponseInterface
     {
-        return $this->getStreams([], [$username], [], [], [], null, null, null, $bearer);
+        return $this->getStreams($bearer, [], [$username], [], [], [], null, null, null);
     }
 
     /**
