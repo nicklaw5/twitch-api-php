@@ -28,9 +28,9 @@ class ClipsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getClipsByIds(string $clipIds, string $bearer, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
+    public function getClipsByIds(string $clipIds, string $bearer, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
-        return $this->getClips($bearer, NULL, NULL, $clipIds, $first, $before, $after, $startedAt, $endedAt);
+        return $this->getClips($bearer, NULL, NULL, $clipIds, NULL, NULL, NULL, $startedAt, $endedAt);
     }
 
     /**
