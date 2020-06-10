@@ -16,7 +16,7 @@ class UsersTest extends TestCase
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserById('44322889');
+        $response = $users->getUserById('ThisIsAFakeToken','44322889');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
@@ -27,7 +27,7 @@ class UsersTest extends TestCase
     {
 
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserByUsername('dallas');
+        $response = $users->getUserByUsername('ThisIsAFakeToken','dallas');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
