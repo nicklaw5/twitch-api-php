@@ -50,7 +50,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'scope', 'value' => 'user:read:email'];
         }
 
-        return $this->callApi('users', $queryParamsMap, $bearer);
+        return $this->callApi('users', $bearer, $queryParamsMap);
     }
 
     /**
@@ -73,7 +73,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('users/follows', $queryParamsMap, $bearer);
+        return $this->callApi('users/follows', $bearer, $queryParamsMap);
     }
 
     /**
@@ -84,7 +84,7 @@ class UsersApi extends AbstractResource
     {
         $queryParamsMap = [];
 
-        return $this->callApi('users/extensions/list', $queryParamsMap, $bearer);
+        return $this->callApi('users/extensions/list', $bearer, $queryParamsMap);
     }
 
     /**
@@ -99,6 +99,6 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        return $this->callApi('users/extensions', $queryParamsMap, $bearer);
+        return $this->callApi('users/extensions', $bearer, $queryParamsMap);
     }
 }

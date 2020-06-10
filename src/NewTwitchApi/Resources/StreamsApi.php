@@ -57,7 +57,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams', $queryParamsMap, $bearer);
+        return $this->callApi('streams', $bearer, $queryParamsMap);
     }
 
     /**
@@ -92,7 +92,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/metadata', $queryParamsMap, $bearer);
+        return $this->callApi('streams/metadata', $bearer, $queryParamsMap);
     }
 
     /**
@@ -123,6 +123,6 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/markers', $queryParamsMap, $bearer);
+        return $this->callApi('streams/markers', $bearer, $queryParamsMap);
     }
 }

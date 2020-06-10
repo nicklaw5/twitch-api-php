@@ -32,7 +32,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('moderation/banned/events', $queryParamsMap, $bearer);
+    return $this->callApi('moderation/banned/events', $bearer, $queryParamsMap);
   }
 
   /**
@@ -57,7 +57,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('moderation/banned', $queryParamsMap, $bearer);
+    return $this->callApi('moderation/banned', $bearer, $queryParamsMap);
   }
 
   /**
@@ -78,7 +78,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('moderation/moderators', $queryParamsMap, $bearer);
+    return $this->callApi('moderation/moderators', $bearer, $queryParamsMap);
   }
 
   /**
@@ -99,6 +99,6 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('moderation/moderators/events', $queryParamsMap, $bearer);
+    return $this->callApi('moderation/moderators/events', $bearer, $queryParamsMap);
   }
 }

@@ -28,7 +28,7 @@ class SubscriptionsApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'after', 'value' => $after];
       }
 
-      return $this->callApi('subscriptions', $queryParamsMap, $bearer);
+      return $this->callApi('subscriptions', $bearer, $queryParamsMap);
   }
   /**
    * @throws GuzzleException
@@ -45,7 +45,7 @@ class SubscriptionsApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
       }
 
-      return $this->callApi('subscriptions', $queryParamsMap, $bearer);
+      return $this->callApi('subscriptions', $bearer, $queryParamsMap);
   }
 
   /**
@@ -75,6 +75,6 @@ class SubscriptionsApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('subscriptions/events', $queryParamsMap, $bearer);
+    return $this->callApi('subscriptions/events', $bearer, $queryParamsMap);
   }
 }

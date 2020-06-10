@@ -58,6 +58,6 @@ class VideosApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'type', 'value' => $type];
       }
 
-      return $this->callApi('videos', $queryParamsMap, $bearer);
+      return $this->callApi('videos', $bearer, $queryParamsMap);
   }
 }
