@@ -14,7 +14,7 @@ class ModerationApi extends AbstractResource
    * @throws GuzzleException
    * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
    */
-  public function getBannedEvents(string $broadcasterId, string $bearer, array $ids = [], string $first = null, string $after = null): ResponseInterface
+  public function getBannedEvents(string $bearer, string $broadcasterId, array $ids = [], string $first = null, string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
 
@@ -39,7 +39,7 @@ class ModerationApi extends AbstractResource
    * @throws GuzzleException
    * @link https://dev.twitch.tv/docs/api/reference/#get-banned-users
    */
-  public function getBannedUsers(string $broadcasterId, string $bearer, array $ids = [], string $before = null, string $after = null): ResponseInterface
+  public function getBannedUsers(string $bearer, string $broadcasterId, array $ids = [], string $before = null, string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
 
@@ -64,7 +64,7 @@ class ModerationApi extends AbstractResource
   * @throws GuzzleException
   * @link https://dev.twitch.tv/docs/api/reference/#get-moderators
   */
-  public function getModerators(string $broadcasterId, string $bearer, array $ids = [], string $after = null): ResponseInterface
+  public function getModerators(string $bearer, string $broadcasterId, array $ids = [], string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
 
@@ -85,7 +85,7 @@ class ModerationApi extends AbstractResource
   * @throws GuzzleException
   * @link https://dev.twitch.tv/docs/api/reference/#get-moderator-events
   */
-  public function getModeratorEvents(string $broadcasterId, string $bearer, array $ids = [], string $after = null): ResponseInterface
+  public function getModeratorEvents(string $bearer, string $broadcasterId, array $ids = [], string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
 

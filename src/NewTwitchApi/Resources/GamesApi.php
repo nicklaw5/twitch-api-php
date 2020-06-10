@@ -13,7 +13,7 @@ class GamesApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-games
      */
-    public function getGames(array $ids = [], array $names = [], string $bearer): ResponseInterface
+    public function getGames(string $bearer, array $ids = [], array $names = []): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($ids as $id) {
@@ -30,7 +30,7 @@ class GamesApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-top-games
      */
-    public function getTopGames(int $first = null, string $before = null, string $after = null, string $bearer): ResponseInterface
+    public function getTopGames(string $bearer, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
 

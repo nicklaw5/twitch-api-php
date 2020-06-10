@@ -13,7 +13,7 @@ class WebhooksApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-webhook-subscriptions
      */
-    public function getWebhookSubscriptions(string $accessToken, int $first = null, string $after = null): ResponseInterface
+    public function getWebhookSubscriptions(string $bearer, int $first = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         if ($first) {
@@ -23,6 +23,6 @@ class WebhooksApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('webhooks/subscriptions', $queryParamsMap, $accessToken);
+        return $this->callApi('webhooks/subscriptions', $queryParamsMap, $bearer);
     }
 }
