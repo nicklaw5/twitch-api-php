@@ -21,7 +21,7 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
-    protected function callApi(string $uriEndpoint, array $queryParamsMap = [], string $bearer = null): ResponseInterface
+    protected function callApi(string $uriEndpoint, array $queryParamsMap = [], string $bearer): ResponseInterface
     {
         $request = new Request(
             'GET',

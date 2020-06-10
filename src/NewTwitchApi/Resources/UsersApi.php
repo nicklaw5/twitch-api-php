@@ -20,7 +20,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserById(string $id, bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUserById(string $id, bool $includeEmail = false, string $bearer): ResponseInterface
     {
         return $this->getUsers([$id], [], $includeEmail, $bearer);
     }
@@ -28,7 +28,7 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserByUsername(string $username, bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUserByUsername(string $username, bool $includeEmail = false, string $bearer): ResponseInterface
     {
         return $this->getUsers([], [$username], $includeEmail, $bearer);
     }
@@ -37,7 +37,7 @@ class UsersApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users
      */
-    public function getUsers(array $ids = [], array $usernames = [], bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUsers(array $ids = [], array $usernames = [], bool $includeEmail = false, string $bearer): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($ids as $id) {
@@ -57,7 +57,7 @@ class UsersApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users-follows
      */
-    public function getUsersFollows(string $followerId = null, string $followedUserId = null, int $first = null, string $after = null, string $bearer = null): ResponseInterface
+    public function getUsersFollows(string $followerId = null, string $followedUserId = null, int $first = null, string $after = null, string $bearer): ResponseInterface
     {
         $queryParamsMap = [];
         if ($followerId) {
@@ -91,7 +91,7 @@ class UsersApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-user-active-extensions
      */
-    public function getActiveUserExtensions(string $userId = null, string $bearer = null): ResponseInterface
+    public function getActiveUserExtensions(string $userId = null, string $bearer): ResponseInterface
     {
         $queryParamsMap = [];
 

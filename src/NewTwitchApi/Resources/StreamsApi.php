@@ -12,7 +12,7 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getStreamForUserId(string $userId, string $bearer = null): ResponseInterface
+    public function getStreamForUserId(string $userId, string $bearer): ResponseInterface
     {
         return $this->getStreams([$userId], [], [], [], [], null, null, null, $bearer);
     }
@@ -29,7 +29,7 @@ class StreamsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
-    public function getStreams(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, $bearer = null): ResponseInterface
+    public function getStreams(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, $bearer): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
@@ -64,7 +64,7 @@ class StreamsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams-metadata
      */
-    public function getStreamsMetadata(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, string $bearer = null): ResponseInterface
+    public function getStreamsMetadata(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, string $bearer): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
