@@ -26,7 +26,7 @@ class UsersTest extends TestCase
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
 
-        $appAccessToken = getAppAccessToken();
+        $appAccessToken = $this->getAppAccessToken();
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
         $response = $users->getUserById($appAccessToken,'44322889');
 
@@ -38,7 +38,7 @@ class UsersTest extends TestCase
     public function testGetUserByUsernameShouldReturnSuccessfulResponseWithUserData(): void
     {
 
-        $appAccessToken = getAppAccessToken();
+        $appAccessToken = $this->getAppAccessToken();
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
         $response = $users->getUserByUsername($appAccessToken,'dallas');
 
