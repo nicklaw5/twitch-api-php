@@ -9,9 +9,9 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use NewTwitchApi\Resources\UsersApi;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class UsersTest extends PHPUnit_Framework_TestCase
+class UsersTest extends TestCase
 {
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
