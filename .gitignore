@@ -5,3 +5,4 @@ vendor/
 .idea
 .DS_STORE
 .php_cs.cache
+.phpunit.result.cache
