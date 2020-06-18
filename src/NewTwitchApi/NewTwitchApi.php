@@ -57,7 +57,7 @@ class NewTwitchApi
         return $this->oauthApi;
     }
 
-    public function getBitsApi(): ClipsApi
+    public function getBitsApi(): BitsApi
     {
         return $this->bitsApi;
     }
@@ -72,7 +72,7 @@ class NewTwitchApi
         return $this->gamesApi;
     }
 
-    public function getHypeTrainApi(): GamesApi
+    public function getHypeTrainApi(): HypeTrainApi
     {
         return $this->hypeTrainApi;
     }
@@ -82,7 +82,7 @@ class NewTwitchApi
         return $this->moderationApi;
     }
 
-    public function getSearchApi(): StreamsApi
+    public function getSearchApi(): SearchApi
     {
         return $this->searchApi;
     }
