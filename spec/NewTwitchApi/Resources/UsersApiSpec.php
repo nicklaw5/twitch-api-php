@@ -95,13 +95,13 @@ class UsersApiSpec extends ObjectBehavior
 
     function it_should_get_user_with_access_token(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'users', ['Authorization' => 'Bearer access-token', ['Authorization' => 'Bearer TEST_TOKEN']]))->willReturn($response);
+        $guzzleClient->send(new Request('GET', 'users', ['Authorization' => 'Bearer access-token']))->willReturn($response);
         $this->getUsers("TEST_TOKEN", [], [], false, 'access-token')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     function it_should_get_user_with_access_token_convenience_method(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'users', ['Authorization' => 'Bearer access-token', ['Authorization' => 'Bearer TEST_TOKEN']]))->willReturn($response);
+        $guzzleClient->send(new Request('GET', 'users', ['Authorization' => 'Bearer access-token']))->willReturn($response);
         $this->getUserByAccessToken('access-token')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
