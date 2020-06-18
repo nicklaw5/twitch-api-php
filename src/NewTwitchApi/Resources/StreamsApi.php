@@ -12,24 +12,24 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getStreamForUserId(string $userId, string $bearer = null): ResponseInterface
+    public function getStreamForUserId(string $bearer, string $userId): ResponseInterface
     {
-        return $this->getStreams([$userId], [], [], [], [], null, null, null, $bearer);
+        return $this->getStreams($bearer, [$userId], [], [], [], [], null, null, null);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getStreamForUsername(string $username, string $bearer = null): ResponseInterface
+    public function getStreamForUsername(string $bearer, string $username): ResponseInterface
     {
-        return $this->getStreams([], [$username], [], [], [], null, null, null, $bearer);
+        return $this->getStreams($bearer, [], [$username], [], [], [], null, null, null);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
-    public function getStreams(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, $bearer = null): ResponseInterface
+    public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
@@ -57,14 +57,14 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams', $queryParamsMap, $bearer);
+        return $this->callApi('streams', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams-metadata
      */
-    public function getStreamsMetadata(array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null, string $bearer = null): ResponseInterface
+    public function getStreamsMetadata(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
@@ -92,7 +92,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/metadata', $queryParamsMap, $bearer);
+        return $this->callApi('streams/metadata', $bearer, $queryParamsMap);
     }
 
     /**
@@ -123,6 +123,6 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/markers', $queryParamsMap, $bearer);
+        return $this->callApi('streams/markers', $bearer, $queryParamsMap);
     }
 }

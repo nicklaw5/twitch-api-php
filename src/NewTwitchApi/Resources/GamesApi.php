@@ -13,7 +13,7 @@ class GamesApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-games
      */
-    public function getGames(array $ids = [], array $names = [], string $bearer = null): ResponseInterface
+    public function getGames(string $bearer, array $ids = [], array $names = []): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($ids as $id) {
@@ -23,14 +23,14 @@ class GamesApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'name', 'value' => $name];
         }
 
-        return $this->callApi('games', $queryParamsMap, $bearer);
+        return $this->callApi('games', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-top-games
      */
-    public function getTopGames(int $first = null, string $before = null, string $after = null, string $bearer = null): ResponseInterface
+    public function getTopGames(string $bearer, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -46,6 +46,6 @@ class GamesApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('games/top', $queryParamsMap, $bearer);
+        return $this->callApi('games/top', $bearer, $queryParamsMap);
     }
 }

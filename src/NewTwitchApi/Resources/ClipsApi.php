@@ -12,7 +12,7 @@ class ClipsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getClipsByBroadcasterId(string $broadcasterId, string $bearer, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
+    public function getClipsByBroadcasterId(string $bearer, string $broadcasterId, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
         return $this->getClips($bearer, $broadcasterId, NULL, NULL, $first, $before, $after, $startedAt, $endedAt);
     }
@@ -20,7 +20,7 @@ class ClipsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getClipsByGameId(string $gameId, string $bearer, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
+    public function getClipsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
         return $this->getClips($bearer, NULL, $gameId, NULL, $first, $before, $after, $startedAt, $endedAt);
     }
@@ -28,7 +28,7 @@ class ClipsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getClipsByIds(string $clipIds, string $bearer, string $startedAt = null, string $endedAt = null): ResponseInterface
+    public function getClipsByIds(string $bearer, string $clipIds, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
         return $this->getClips($bearer, NULL, NULL, $clipIds, NULL, NULL, NULL, $startedAt, $endedAt);
     }
@@ -65,6 +65,6 @@ class ClipsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
-        return $this->callApi('clips', $queryParamsMap, $bearer);
+        return $this->callApi('clips', $bearer, $queryParamsMap);
     }
 }

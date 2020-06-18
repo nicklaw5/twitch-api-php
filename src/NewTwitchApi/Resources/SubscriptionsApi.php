@@ -14,7 +14,7 @@ class SubscriptionsApi extends AbstractResource
    * @throws GuzzleException
    * @link https://dev.twitch.tv/docs/api/reference/#get-broadcaster-subscriptions
    */
-  public function getBroadcasterSubscriptions(string $broadcasterId, int $first = null, string $after = null, string $bearer): ResponseInterface
+  public function getBroadcasterSubscriptions(string $bearer, string $broadcasterId, int $first = null, string $after = null): ResponseInterface
   {
       $queryParamsMap = [];
 
@@ -28,14 +28,14 @@ class SubscriptionsApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'after', 'value' => $after];
       }
 
-      return $this->callApi('subscriptions', $queryParamsMap, $bearer);
+      return $this->callApi('subscriptions', $bearer, $queryParamsMap);
   }
   /**
    * @throws GuzzleException
    * @link https://dev.twitch.tv/docs/api/reference/#get-broadcaster-s-subscribers
    */
 
-  public function getBroadcasterSubscribers(string $broadcasterId, array $ids = [], string $bearer): ResponseInterface
+  public function getBroadcasterSubscribers(string $bearer, string $broadcasterId, array $ids = []): ResponseInterface
   {
       $queryParamsMap = [];
 
@@ -45,7 +45,7 @@ class SubscriptionsApi extends AbstractResource
           $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
       }
 
-      return $this->callApi('subscriptions', $queryParamsMap, $bearer);
+      return $this->callApi('subscriptions', $bearer, $queryParamsMap);
   }
 
   /**
@@ -53,7 +53,7 @@ class SubscriptionsApi extends AbstractResource
    * @link https://dev.twitch.tv/docs/api/reference/#get-subscription-events
    */
 
-  public function getSubscriptionEvents(string $broadcasterId, string $eventId = null, string $userId = null, int $first = null, string $after = null, string $bearer): ResponseInterface
+  public function getSubscriptionEvents(string $bearer, string $broadcasterId, string $eventId = null, string $userId = null, int $first = null, string $after = null): ResponseInterface
   {
     $queryParamsMap = [];
 
@@ -75,6 +75,6 @@ class SubscriptionsApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'after', 'value' => $after];
     }
 
-    return $this->callApi('subscriptions/events', $queryParamsMap, $bearer);
+    return $this->callApi('subscriptions/events', $bearer, $queryParamsMap);
   }
 }

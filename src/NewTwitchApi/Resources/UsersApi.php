@@ -12,32 +12,32 @@ class UsersApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getUserByAccessToken(string $accessToken, bool $includeEmail = false): ResponseInterface
+    public function getUserByAccessToken(string $userAccessToken, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([], [], $includeEmail, $accessToken);
+        return $this->getUsers($userAccessToken, [], [], $includeEmail);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getUserById(string $id, bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUserById(string $bearer, string $id, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([$id], [], $includeEmail, $bearer);
+        return $this->getUsers($bearer, [$id], [], $includeEmail);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getUserByUsername(string $username, bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUserByUsername(string $bearer, string $username, bool $includeEmail = false): ResponseInterface
     {
-        return $this->getUsers([], [$username], $includeEmail, $bearer);
+        return $this->getUsers($bearer, [], [$username], $includeEmail);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users
      */
-    public function getUsers(array $ids = [], array $usernames = [], bool $includeEmail = false, string $bearer = null): ResponseInterface
+    public function getUsers(string $bearer, array $ids = [], array $usernames = [], bool $includeEmail = false): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($ids as $id) {
@@ -50,14 +50,14 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'scope', 'value' => 'user:read:email'];
         }
 
-        return $this->callApi('users', $queryParamsMap, $bearer);
+        return $this->callApi('users', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-users-follows
      */
-    public function getUsersFollows(string $followerId = null, string $followedUserId = null, int $first = null, string $after = null, string $bearer = null): ResponseInterface
+    public function getUsersFollows(string $bearer, string $followerId = null, string $followedUserId = null, int $first = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         if ($followerId) {
@@ -73,7 +73,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('users/follows', $queryParamsMap, $bearer);
+        return $this->callApi('users/follows', $bearer, $queryParamsMap);
     }
 
     /**
@@ -84,14 +84,14 @@ class UsersApi extends AbstractResource
     {
         $queryParamsMap = [];
 
-        return $this->callApi('users/extensions/list', $queryParamsMap, $bearer);
+        return $this->callApi('users/extensions/list', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-user-active-extensions
      */
-    public function getActiveUserExtensions(string $userId = null, string $bearer = null): ResponseInterface
+    public function getActiveUserExtensions(string $bearer, string $userId = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -99,6 +99,6 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        return $this->callApi('users/extensions', $queryParamsMap, $bearer);
+        return $this->callApi('users/extensions', $bearer, $queryParamsMap);
     }
 }
