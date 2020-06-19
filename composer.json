@@ -28,7 +28,8 @@
     "autoload": {
         "psr-4": {
             "TwitchApi\\": "src/",
-            "NewTwitchApi\\": "src/NewTwitchApi"
+            "NewTwitchApi\\": "src/NewTwitchApi",
+            "NewTwitchApi\\Tests\\": "test/NewTwitchApi"
         }
     },
     "autoload-dev": {

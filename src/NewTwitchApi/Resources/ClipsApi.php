@@ -14,7 +14,7 @@ class ClipsApi extends AbstractResource
      */
     public function getClipsByBroadcasterId(string $bearer, string $broadcasterId, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
-        return $this->getClips($bearer, $broadcasterId, NULL, NULL, $first, $before, $after, $startedAt, $endedAt);
+        return $this->getClips($bearer, $broadcasterId, null, null, $first, $before, $after, $startedAt, $endedAt);
     }
 
     /**
@@ -22,7 +22,7 @@ class ClipsApi extends AbstractResource
      */
     public function getClipsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
-        return $this->getClips($bearer, NULL, $gameId, NULL, $first, $before, $after, $startedAt, $endedAt);
+        return $this->getClips($bearer, null, $gameId, null, $first, $before, $after, $startedAt, $endedAt);
     }
 
     /**
@@ -30,7 +30,7 @@ class ClipsApi extends AbstractResource
      */
     public function getClipsByIds(string $bearer, string $clipIds, string $startedAt = null, string $endedAt = null): ResponseInterface
     {
-        return $this->getClips($bearer, NULL, NULL, $clipIds, NULL, NULL, NULL, $startedAt, $endedAt);
+        return $this->getClips($bearer, null, null, $clipIds, null, null, null, $startedAt, $endedAt);
     }
 
     /**
