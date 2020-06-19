@@ -15,9 +15,8 @@ class UsersTest extends TestCase
 {
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $appAccessToken = "TEST_APP_ACCESS_TOKEN";
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserById($appAccessToken, '44322889');
+        $response = $users->getUserById('TEST_APP_ACCESS_TOKEN', '44322889');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
@@ -26,9 +25,8 @@ class UsersTest extends TestCase
 
     public function testGetUserByUsernameShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $appAccessToken = "TEST_APP_ACCESS_TOKEN";
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserByUsername($appAccessToken, 'dallas');
+        $response = $users->getUserByUsername('TEST_APP_ACCESS_TOKEN', 'dallas');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
