@@ -27,6 +27,19 @@ class StreamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-stream-key
+     */
+    public function getStreamKey(string $bearer, string $broadcasterId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        return $this->callApi('streams/key', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
     public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
@@ -124,5 +137,20 @@ class StreamsApi extends AbstractResource
         }
 
         return $this->callApi('streams/markers', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-channel-information
+     */
+    public function getChannelInfo(string $bearer, array $broadcasterIds): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        foreach ($broadcasterIds as $id) {
+            $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $id];
+        }
+
+        return $this->callApi('channels', $bearer, $queryParamsMap);
     }
 }
