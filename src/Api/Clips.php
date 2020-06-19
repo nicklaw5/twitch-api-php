@@ -14,7 +14,7 @@ trait Clips
      *
      * @param string $slug
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getClip($slug)
     {
@@ -39,7 +39,7 @@ trait Clips
      * @throws TwitchApiException
      * @throws InvalidLimitException
      * @throws UnsupportedOptionException
-     * @return array|json
+     * @return array|string
      */
     public function getTopClips($channel = null, $cursor = null, $game = null, $limit = 10, $period = 'day', $trending = false, $language = null)
     {
@@ -116,7 +116,7 @@ trait Clips
      * @param boolean $trending
      * @throws InvalidTypeException
      * @throws InvalidLimitException
-     * @return array|json
+     * @return array|string
      */
     public function getFollowedClips($accessToken, $limit = 10, $cursor = null, $trending = false)
     {

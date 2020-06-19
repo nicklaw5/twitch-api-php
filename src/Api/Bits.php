@@ -13,7 +13,7 @@ trait Bits
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCheermotes($channelIdentifier = null)
     {

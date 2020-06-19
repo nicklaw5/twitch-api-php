@@ -19,7 +19,7 @@ trait Search
      * @throws TwitchApiException
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function searchChannels($query, $limit = 25, $offset = 0)
     {
@@ -54,7 +54,7 @@ trait Search
      * @param string $query
      * @throws InvalidTypeException
      * @throws TwitchApiException
-     * @return array|json
+     * @return array|string
      */
     public function searchGames($query)
     {
@@ -80,7 +80,7 @@ trait Search
      * @throws TwitchApiException
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function searchStreams($query, $limit = 25, $offset = 0, $hls = null)
     {
