@@ -15,7 +15,7 @@ trait Collections
      *
      * @param string $collectionId
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCollectionMetadata($collectionId)
     {
@@ -33,7 +33,7 @@ trait Collections
      * @param bool   $includeAllItems
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getCollection($collectionId, $includeAllItems = false)
     {
@@ -63,7 +63,7 @@ trait Collections
      * @throws InvalidIdentifierException
      * @throws InvalidLimitException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelCollection($channelIdentifier, $limit = 10, $cursor = null, $containingItem = null)
     {
@@ -105,7 +105,7 @@ trait Collections
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function createCollection($channelIdentifier, $title, $accessToken)
     {
@@ -208,7 +208,7 @@ trait Collections
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function addCollectionItem($collectionId, $itemId, $itemType = 'video', $accessToken)
     {

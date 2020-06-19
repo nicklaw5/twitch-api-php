@@ -16,7 +16,7 @@ trait Communities
      * @param string $name
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCommunityByName($name)
     {
@@ -37,7 +37,7 @@ trait Communities
      * @param string $communityId
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCommunityById($communityId)
     {
@@ -62,7 +62,7 @@ trait Communities
      * @param string $accessToken
      * @throws InvalidParameterLengthException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function createCommunity($name, $summary, $description, $rules, $accessToken)
     {
@@ -108,7 +108,7 @@ trait Communities
      * @throws InvalidParameterLengthException
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidEmailAddressException
-     * @return array|json
+     * @return array|string
      */
     public function updateCommunity($communityId, $accessToken, $summary = null, $description = null, $rules = null, $email = null)
     {
@@ -157,7 +157,7 @@ trait Communities
      * @throws InvalidLimitException
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getTopCommunities($limit = 10, $cursor = null)
     {
@@ -191,7 +191,7 @@ trait Communities
      * @throws InvalidLimitException
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getBannedCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
     {
@@ -223,7 +223,7 @@ trait Communities
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function banCommunityUser($communityId, $userId, $accessToken)
     {
@@ -246,7 +246,7 @@ trait Communities
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function unbanCommunityUser($communityId, $userId, $accessToken)
     {
@@ -269,7 +269,7 @@ trait Communities
      * @param string $accessToken
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function createCommunityAvatar($communityId, $avatar, $accessToken)
     {
@@ -290,7 +290,7 @@ trait Communities
      * @param string $communityId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function deleteCommunityAvatar($communityId, $accessToken)
     {
@@ -309,7 +309,7 @@ trait Communities
      * @param string $accessToken
      * @throws InvalidTypeException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function createCommunityCoverImage($communityId, $image, $accessToken)
     {
@@ -330,7 +330,7 @@ trait Communities
      * @param string $communityId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function deleteCommunityCoverImage($communityId, $accessToken)
     {
@@ -346,7 +346,7 @@ trait Communities
      *
      * @param string $communityId
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCommunityModerators($communityId)
     {
@@ -365,7 +365,7 @@ trait Communities
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function addCommunityModerator($communityId, $userId, $accessToken)
     {
@@ -388,7 +388,7 @@ trait Communities
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function removeCommunityModerator($communityId, $userId, $accessToken)
     {
@@ -409,7 +409,7 @@ trait Communities
      * @param string $communityId
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getCommunityPermissions($communityId, $accessToken)
     {
@@ -427,7 +427,7 @@ trait Communities
      * @param int    $channelId
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function reportCommunityViolation($communityId, $channelId)
     {
@@ -450,7 +450,7 @@ trait Communities
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidLimitException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getTimedOutCommunityUsers($communityId, $accessToken, $limit = 10, $cursor = null)
     {
@@ -484,7 +484,7 @@ trait Communities
      * @param string $reason
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidTypeException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function timeoutCommunityUser($communityId, $userId, $accessToken, $duration, $reason = null)
     {
@@ -520,7 +520,7 @@ trait Communities
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function removeCommunityUserTimeout($communityId, $userId, $accessToken)
     {

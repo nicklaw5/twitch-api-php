@@ -15,7 +15,7 @@ trait Users
      * Get a user from their access token
      *
      * @param string $accessToken
-     * @return array|json
+     * @return array|string
      */
     public function getAuthenticatedUser($accessToken)
     {
@@ -27,7 +27,7 @@ trait Users
      *
      * @param string|int $userIdentifier
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getUser($userIdentifier)
     {
@@ -43,7 +43,7 @@ trait Users
      *
      * @param string $username
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function getUserByUsername($username)
     {
@@ -64,7 +64,7 @@ trait Users
      * @param string|int $userIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getUserEmotes($userIdentifier, $accessToken)
     {
@@ -82,7 +82,7 @@ trait Users
      * @param string|int $channelIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function checkUserSubscriptionToChannel($userIdentifier, $channelIdentifier, $accessToken)
     {
@@ -111,7 +111,7 @@ trait Users
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
      * @throws UnsupportedOptionException
-     * @return array|json
+     * @return array|string
      */
     public function getUsersFollowedChannels($userIdentifier, $limit = 25, $offset = 0, $direction = 'desc', $sortby = 'created_at')
     {
@@ -151,7 +151,7 @@ trait Users
      * @param string|int $userIdentifier
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function checkUserFollowsChannel($userIdentifier, $channelIdentifier)
     {
@@ -177,7 +177,7 @@ trait Users
      * @param bool       $notifications
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function followChannel($userIdentifier, $channelIdentifier, $accessToken, $notifications = false)
     {
@@ -209,7 +209,7 @@ trait Users
      * @param string|int $channelIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function unfollowChannel($userIdentifier, $channelIdentifier, $accessToken)
     {
@@ -236,7 +236,7 @@ trait Users
      * @throws InvalidIdentifierException
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getUserBlockList($userIdentifier, $accessToken, $limit = 25, $offset = 0)
     {
@@ -267,7 +267,7 @@ trait Users
      * @param string|int $userToBlockIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function blockUser($userIdentifier, $userToBlockIdentifier, $accessToken)
     {
@@ -287,7 +287,7 @@ trait Users
      * @param string|int $userToBlockIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function unblockUser($userIdentifier, $userToUnlockIdentifier, $accessToken)
     {
@@ -306,7 +306,7 @@ trait Users
      * @param string $identifier
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function createUserVHSConnection($identifier, $accessToken)
     {
@@ -326,7 +326,7 @@ trait Users
      *
      * @param string     $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return array|json
+     * @return array|string
      */
     public function checkUserVHSConnection($accessToken)
     {
@@ -342,7 +342,7 @@ trait Users
      *
      * @param string $accessToken
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function deleteUserVHSConnection($accessToken)
     {

@@ -92,7 +92,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $accessToken
-     * @return array|json
+     * @return array|string
      */
     protected function get($endpoint, $params = [], $accessToken = null)
     {
@@ -105,7 +105,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $accessToken
-     * @return array|json
+     * @return array|string
      */
     protected function post($endpoint, $params = [], $accessToken = null)
     {
@@ -118,7 +118,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $accessToken
-     * @return array|json
+     * @return array|string
      */
     protected function put($endpoint, $params = [], $accessToken = null)
     {
@@ -131,7 +131,7 @@ class TwitchRequest
      * @param string $endpoint
      * @param array  $params
      * @param bool   $accessToken
-     * @return null|array|json
+     * @return null|array|string
      */
     protected function delete($endpoint, $params = [], $accessToken = null)
     {

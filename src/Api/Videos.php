@@ -14,7 +14,7 @@ trait Videos
      * Get a video
      *
      * @param int|string $videoIdentifier
-     * @return array|json
+     * @return array|string
      */
     public function getVideo($videoIdentifier)
     {
@@ -37,7 +37,7 @@ trait Videos
      * @throws InvalidOffsetException
      * @throws InvalidTypeException
      * @throws UnsupportedOptionException
-     * @return array|json
+     * @return array|string
      */
     public function getTopVideos($limit = 10, $offset = 0, $game = null, $period = 'week', $broadcastType = 'highlight')
     {
@@ -85,7 +85,7 @@ trait Videos
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
      * @throws UnsupportedOptionException
-     * @return array|json
+     * @return array|string
      */
     public function getFollowedChannelsVideos($accessToken, $limit = 10, $offset = 0, $broadcastType = 'highlight')
     {

@@ -12,7 +12,7 @@ trait Chat
      *
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelChatBadges($channelIdentifier)
     {
@@ -28,7 +28,7 @@ trait Chat
      *
      * @param string $emotesets (comma-seperated list)
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getChatEmoticonSets($emotesets = null)
     {
@@ -44,7 +44,7 @@ trait Chat
     /**
      * Get all chat emotes
      *
-     * @return array|json
+     * @return array|string
      */
     public function getAllChatEmoticons()
     {
