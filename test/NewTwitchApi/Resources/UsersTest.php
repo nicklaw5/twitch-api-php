@@ -10,25 +10,14 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use NewTwitchApi\Resources\UsersApi;
 use PHPUnit\Framework\TestCase;
-use NewTwitchApi\Auth\OauthApi;
 
 class UsersTest extends TestCase
 {
-
-    private function getAppAccessToken()
-    {
-        $oauth = new OauthApi('CLIENT_ID','CLIENT_SECRET');
-        $oauth = $oauth->getAppAccessToken();
-        $responseContent = json_decode($oauth->getBody()->getContents());
-        return $responseContent->access_token;
-    }
-
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
-
         $appAccessToken = "TEST_APP_ACCESS_TOKEN";
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserById($appAccessToken,'44322889');
+        $response = $users->getUserById($appAccessToken, '44322889');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
@@ -37,10 +26,9 @@ class UsersTest extends TestCase
 
     public function testGetUserByUsernameShouldReturnSuccessfulResponseWithUserData(): void
     {
-
         $appAccessToken = "TEST_APP_ACCESS_TOKEN";
         $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
-        $response = $users->getUserByUsername($appAccessToken,'dallas');
+        $response = $users->getUserByUsername($appAccessToken, 'dallas');
 
         $this->assertEquals(200, $response->getStatusCode());
         $contents = json_decode($response->getBody()->getContents());
