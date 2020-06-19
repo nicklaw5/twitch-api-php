@@ -17,7 +17,7 @@ trait Channels
      * Get a user's own channel
      *
      * @param string $accessToken
-     * @return array|json
+     * @return array|string
      */
     public function getAuthenticatedChannel($accessToken)
     {
@@ -29,7 +29,7 @@ trait Channels
      *
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getChannel($channelIdentifier)
     {
@@ -52,7 +52,7 @@ trait Channels
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
      * @throws TwitchApiException
-     * @return array|json
+     * @return array|string
      */
     public function updateChannel($channelIdentifier, $accessToken, $status = null, $game = null, $delay = null, $channelFeedEnabled = null)
     {
@@ -104,7 +104,7 @@ trait Channels
      * @param string|int $channelIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelEditors($channelIdentifier, $accessToken)
     {
@@ -128,7 +128,7 @@ trait Channels
      * @throws InvalidOffsetException
      * @throws InvalidTypeException
      * @throws InvalidDirectionException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelFollowers($channelIdentifier, $limit = 25, $offset = 0, $cursor = null, $direction = 'desc')
     {
@@ -167,7 +167,7 @@ trait Channels
      *
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelTeams($channelIdentifier)
     {
@@ -190,7 +190,7 @@ trait Channels
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
      * @throws InvalidDirectionException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelSubscribers($channelIdentifier, $accessToken, $limit = 25, $offset = 0, $direction = 'desc')
     {
@@ -226,7 +226,7 @@ trait Channels
      * @param string|int $userIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function checkChannelSubscriptionByUser($channelIdentifier, $userIdentifier, $accessToken)
     {
@@ -257,7 +257,7 @@ trait Channels
      * @throws InvalidOffsetException
      * @throws UnsupportedOptionException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getChannelVideos($channelIdentifier, $limit = 10, $offset = 0, $broadcastType = 'highlight', $language = null, $sort = 'time')
     {
@@ -307,7 +307,7 @@ trait Channels
      * @param int        $length
      * @throws InvalidIdentifierException
      * @throws UnsupportedOptionException
-     * @return array|json
+     * @return array|string
      */
     public function startChannelCommercial($channelIdentifier, $accessToken, $length = 30)
     {
@@ -330,7 +330,7 @@ trait Channels
      * @param string|int $channelIdentifier
      * @param string     $accessToken
      * @throws InvalidIdentifierException
-     * @return array|json
+     * @return array|string
      */
     public function resetChannelStreamKey($channelIdentifier, $accessToken)
     {
@@ -347,7 +347,7 @@ trait Channels
      * @param string|int $channelIdentifier
      * @throws InvalidIdentifierException
      * @throws EndpointNotSupportedByApiVersionException
-     * @return null|array|json
+     * @return null|array|string
      */
     public function getChannelCommunity($channelIdentifier)
     {

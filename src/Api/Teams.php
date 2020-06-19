@@ -13,7 +13,7 @@ trait Teams
      *
      * @param string $name
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getTeam($name)
     {
@@ -31,7 +31,7 @@ trait Teams
      * @param int $offset
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getAllTeams($limit = 25, $offset = 0)
     {

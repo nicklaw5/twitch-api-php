@@ -7,7 +7,7 @@ trait Ingests
     /**
      * Get ingest server list
      *
-     * @return array|json
+     * @return array|string
      */
     public function getIngests()
     {

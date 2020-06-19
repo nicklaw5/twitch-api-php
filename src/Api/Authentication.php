@@ -29,7 +29,7 @@ trait Authentication
      *
      * @param string $code
      * @param string $state
-     * @return array|json
+     * @return array|string
      */
     public function getAccessCredentials($code, $state = null)
     {
@@ -47,7 +47,7 @@ trait Authentication
      * Get a new access token
      *
      * @param string $refreshToken
-     * @return array|json
+     * @return array|string
      */
     public function refreshToken($refreshToken)
     {
@@ -63,7 +63,7 @@ trait Authentication
      * Revoke an access token
      *
      * @param string $accessToken
-     * @return array|json
+     * @return array|string
      */
     public function revokeToken($accessToken)
     {

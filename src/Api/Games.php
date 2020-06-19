@@ -14,7 +14,7 @@ trait Games
      * @param int $offset
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getTopGames($limit = 10, $offset = 0)
     {

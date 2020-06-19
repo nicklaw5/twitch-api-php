@@ -19,7 +19,7 @@ trait ChannelFeed
      * @throws InvalidIdentifierException
      * @throws InvalidLimitException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getMultipleFeedPosts($channelIdentifier, $accessToken, $limit = 10, $cursor = null, $comments = 5)
     {
@@ -57,7 +57,7 @@ trait ChannelFeed
      * @param int        $comments
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getFeedPost($channelIdentifier, $postId, $accessToken, $comments = 5)
     {
@@ -89,7 +89,7 @@ trait ChannelFeed
      * @param boolean    $share
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function createFeedPost($channelIdentifier, $accessToken, $content, $share = false)
     {
@@ -121,7 +121,7 @@ trait ChannelFeed
      * @param string     $accessToken
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function deleteFeedPost($channelIdentifier, $postId, $accessToken)
     {
@@ -145,7 +145,7 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function createFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
     {
@@ -177,7 +177,7 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function deleteFeedPostReaction($channelIdentifier, $postId, $accessToken, $emoteId)
     {
@@ -211,7 +211,7 @@ trait ChannelFeed
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
      * @throws InvalidLimitException
-     * @return array|json
+     * @return array|string
      */
     public function getFeedComments($channelIdentifier, $postId, $accessToken, $limit = 10, $cursor = null)
     {
@@ -248,7 +248,7 @@ trait ChannelFeed
      * @param string     $comment
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function createFeedComment($channelIdentifier, $postId, $accessToken, $comment)
     {
@@ -276,7 +276,7 @@ trait ChannelFeed
      * @param string|int $commentId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function deleteFeedComment($channelIdentifier, $postId, $commentId, $accessToken)
     {
@@ -297,7 +297,7 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function createFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
     {
@@ -330,7 +330,7 @@ trait ChannelFeed
      * @param string     $emoteId
      * @throws InvalidIdentifierException
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function deleteFeedCommentReaction($channelIdentifier, $postId, $commentId, $accessToken, $emoteId)
     {

@@ -17,7 +17,7 @@ trait Streams
      * @param string     $streamType
      * @throws InvalidIdentifierException
      * @throws InvalidStreamTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getStreamByUser($userIdendifier, $streamType = 'live')
     {
@@ -47,7 +47,7 @@ trait Streams
      * @throws InvalidStreamTypeException
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getLiveStreams($channel = null, $game = null, $language = null, $streamType = 'live', $limit = 25, $offset = 0, $broadcaster_language = null)
     {
@@ -108,7 +108,7 @@ trait Streams
      *
      * @param string $game
      * @throws InvalidTypeException
-     * @return array|json
+     * @return array|string
      */
     public function getStreamsSummary($game = null)
     {
@@ -126,7 +126,7 @@ trait Streams
      * @param int $offset
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getFeaturedStreams($limit = 25, $offset = 0)
     {
@@ -155,7 +155,7 @@ trait Streams
      * @throws InvalidStreamTypeException
      * @throws InvalidLimitException
      * @throws InvalidOffsetException
-     * @return array|json
+     * @return array|string
      */
     public function getFollowedStreams($asccessToken, $streamType = 'live', $limit = 25, $offset = 0)
     {
