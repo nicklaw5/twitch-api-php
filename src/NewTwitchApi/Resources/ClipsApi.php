@@ -67,4 +67,21 @@ class ClipsApi extends AbstractResource
 
         return $this->callApi('clips', $bearer, $queryParamsMap);
     }
+
+    /**
+    * @throws GuzzleException
+    * @link https://dev.twitch.tv/docs/api/reference#create-clip
+    */
+    public function createClip(string $bearer, string $broadcasterId, boolean $hasDelay = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        if ($hasDelay) {
+            $queryParamsMap[] = ['key' => 'has_delay', 'value' => $hasDelay];
+        }
+
+        return $this->postApi('clips', $bearer, $queryParamsMap);
+    }
 }

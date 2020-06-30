@@ -26,7 +26,21 @@ abstract class AbstractResource
         $request = new Request(
             'GET',
             sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            $bearer ? ['Authorization' => sprintf('Bearer %s', $bearer)] : []
+            ['Authorization' => sprintf('Bearer %s', $bearer)]
+        );
+
+        return $this->guzzleClient->send($request);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    protected function postApi(string $uriEndpoint, string $bearer, array $queryParamsMap = []): ResponseInterface
+    {
+        $request = new Request(
+            'POST',
+            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
+            ['Authorization' => sprintf('Bearer %s', $bearer)]
         );
 
         return $this->guzzleClient->send($request);
