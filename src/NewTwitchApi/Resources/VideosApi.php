@@ -54,7 +54,7 @@ class VideosApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'sort', 'value' => $sort];
         }
 
-        if ($sort) {
+        if ($type) {
             $queryParamsMap[] = ['key' => 'type', 'value' => $type];
         }
 
