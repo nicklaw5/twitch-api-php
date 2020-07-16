@@ -1,0 +1,44 @@
+---
+name: Run tests
+
+on:
+  pull_request:
+    branches:
+    - master
+  push:
+    branches:
+    - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set default PHP version
+        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+
+      # Cache Composer dependencies, based on the example at https://github.com/actions/cache/blob/main/examples.md#php---composer
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            php${{ matrix.php }}-composer-
+
+      - name: Install dependencies using Composer
+        run: composer install --prefer-source --no-interaction
+
+      - name: Run tests
+        run: make test
+
