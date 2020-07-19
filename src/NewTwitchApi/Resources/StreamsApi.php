@@ -153,4 +153,17 @@ class StreamsApi extends AbstractResource
 
         return $this->callApi('channels', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-stream-tags
+     */
+    public function getStreamTags(string $bearer, string $broadcasterId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        return $this->callApi('streams/tags', $bearer, $queryParamsMap);
+    }
 }
