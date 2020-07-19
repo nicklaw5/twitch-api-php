@@ -9,6 +9,7 @@ use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AdsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ClipsApi;
+use NewTwitchApi\Resources\EntitlementsApi;
 use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\HypeTrainApi;
 use NewTwitchApi\Resources\ModerationApi;
@@ -26,6 +27,7 @@ class NewTwitchApi
     private $adsApi;
     private $bitsApi;
     private $clipsApi;
+    private $entitlementsApi;
     private $gamesApi;
     private $hypeTrainApi;
     private $moderationApi;
@@ -43,6 +45,7 @@ class NewTwitchApi
         $this->adsApi = new AdsApi($helixGuzzleClient);
         $this->bitsApi = new BitsApi($helixGuzzleClient);
         $this->clipsApi = new ClipsApi($helixGuzzleClient);
+        $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient);
         $this->gamesApi = new GamesApi($helixGuzzleClient);
         $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient);
         $this->moderationApi = new ModerationApi($helixGuzzleClient);
@@ -73,6 +76,11 @@ class NewTwitchApi
     public function getClipsApi(): ClipsApi
     {
         return $this->clipsApi;
+    }
+
+    public function getEntitlementsApi(): EntitlementsApi
+    {
+        return $this->entitlementsApi;
     }
 
     public function getGamesApi(): GamesApi
