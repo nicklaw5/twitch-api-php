@@ -32,7 +32,7 @@ class StreamsApi extends AbstractResource
     public function getStreamKey(string $bearer, string $broadcasterId): ResponseInterface
     {
         $queryParamsMap = [];
-        
+
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
         return $this->callApi('streams/key', $bearer, $queryParamsMap);

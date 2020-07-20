@@ -12,11 +12,12 @@ class EntitlementsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getEntitlementGrantsUploadURL(string $bearer, string $manifestId, string $type = "bulk_drops_grant"): ResponseInterface
+    public function getEntitlementGrantsUploadURL(string $bearer, string $manifestId, string $type = 'bulk_drops_grant'): ResponseInterface
     {
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'manifest_id', 'value' => $manifestId];
         $queryParamsMap[] = ['key' => 'type', 'value' => $type];
+
         return $this->postApi('entitlements/upload', $bearer, $queryParamsMap);
     }
 }
