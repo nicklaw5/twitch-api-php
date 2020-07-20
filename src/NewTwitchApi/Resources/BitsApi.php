@@ -50,4 +50,29 @@ class BitsApi extends AbstractResource
 
         return $this->callApi('bits/leaderboard', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-extension-transactions
+     */
+    public function getExtensionTransactions(string $bearer, string $extensionId, array $transactionIds = [], int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'extension_id', 'value' => $extensionId];
+
+        foreach ($transactionIds as  $transactionId) {
+            $queryParamsMap[] = ['key' => 'id', 'value' => $transactionId];
+        }
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        return $this->callApi('extensions/transactions', $bearer, $queryParamsMap);
+    }
 }
