@@ -9,11 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 
 class BitsApi extends AbstractResource
 {
-
-  /**
-  * @throws GuzzleException
-  * @link https://dev.twitch.tv/docs/api/reference#get-cheermotes
-  */
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-cheermotes
+     */
     public function getCheermotes(string $bearer, string $broadcasterId = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -26,9 +25,9 @@ class BitsApi extends AbstractResource
     }
 
     /**
-    * @throws GuzzleException
-    * @link https://dev.twitch.tv/docs/api/reference#get-bits-leaderboard
-    */
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-bits-leaderboard
+     */
     public function getBitsLeaderboard(string $bearer, int $count = null, string $period = null, string $startedAt = null, string $userId = null): ResponseInterface
     {
         $queryParamsMap = [];

@@ -9,11 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 
 class HypeTrainApi extends AbstractResource
 {
-
-  /**
-  * @throws GuzzleException
-  * @link https://dev.twitch.tv/docs/api/reference#get-hype-train-events
-  */
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-hype-train-events
+     */
     public function getHypeTrainEvents(string $bearer, string $broadcasterId, int $first = null, string $id = null, string $cursor = null): ResponseInterface
     {
         $queryParamsMap = [];

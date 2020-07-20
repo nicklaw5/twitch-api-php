@@ -50,7 +50,7 @@ class OauthApi
                     'redirect_uri' => $redirectUri,
                     'code' => $code,
                     'state' => $state,
-                ]
+                ],
             ]
         );
     }
@@ -73,7 +73,7 @@ class OauthApi
         return $this->makeRequest(
             new Request('POST', 'token'),
             [
-                RequestOptions::JSON => $requestOptions
+                RequestOptions::JSON => $requestOptions,
             ]
         );
     }
@@ -88,7 +88,7 @@ class OauthApi
                 'GET',
                 'validate',
                 [
-                    'Authorization' => sprintf('OAuth %s', $accessToken)
+                    'Authorization' => sprintf('OAuth %s', $accessToken),
                 ]
             )
         );
@@ -115,7 +115,7 @@ class OauthApi
                     'client_secret' => $this->clientSecret,
                     'grant_type' => 'client_credentials',
                     'scope' => $scope,
-                ]
+                ],
             ]
         );
     }

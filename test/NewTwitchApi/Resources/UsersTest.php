@@ -54,8 +54,9 @@ class UsersTest extends TestCase
 JSON;
 
         $db_response = new Response(200, [], $getUserReponseJson);
-        $mock = new MockHandler([ $db_response, $db_response ]);
+        $mock = new MockHandler([$db_response, $db_response]);
         $handler = HandlerStack::create($mock);
+
         return new Client(['handler' => $handler]);
     }
 }

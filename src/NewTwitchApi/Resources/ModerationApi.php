@@ -9,11 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 
 class ModerationApi extends AbstractResource
 {
-
-  /**
-   * @throws GuzzleException
-   * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
-   */
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
+     */
     public function getBannedEvents(string $bearer, string $broadcasterId, array $ids = [], string $first = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -61,9 +60,9 @@ class ModerationApi extends AbstractResource
     }
 
     /**
-    * @throws GuzzleException
-    * @link https://dev.twitch.tv/docs/api/reference/#get-moderators
-    */
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-moderators
+     */
     public function getModerators(string $bearer, string $broadcasterId, array $ids = [], string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
@@ -82,9 +81,9 @@ class ModerationApi extends AbstractResource
     }
 
     /**
-    * @throws GuzzleException
-    * @link https://dev.twitch.tv/docs/api/reference/#get-moderator-events
-    */
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-moderator-events
+     */
     public function getModeratorEvents(string $bearer, string $broadcasterId, array $ids = [], string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
