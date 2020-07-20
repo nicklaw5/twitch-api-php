@@ -26,7 +26,7 @@ class EntitlementsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-code-status
      */
-    public function getStatusCode(string $bearer, array $codes = [], int $userId): ResponseInterface
+    public function getCodeStatus(string $bearer, array $codes = [], int $userId): ResponseInterface
     {
         $queryParamsMap = [];
 

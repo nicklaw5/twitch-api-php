@@ -33,7 +33,7 @@ class TagsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-all-stream-tags
+     * @link https://dev.twitch.tv/docs/api/reference#get-stream-tags
      */
     public function getStreamTags(string $bearer, string $broadcasterId): ResponseInterface
     {
@@ -73,7 +73,7 @@ class TagsApi extends AbstractResource
         }
 
         if ($endedAt) {
-            $queryParamsMap[] = ['key' => 'ended_at', 'value' => $after];
+            $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
         return $this->callApi('analytics/games', $bearer, $queryParamsMap);
