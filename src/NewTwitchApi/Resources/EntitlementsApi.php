@@ -26,15 +26,15 @@ class EntitlementsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-code-status
      */
-    public function getCodeStatus(string $bearer, array $codes = [], int $userId): ResponseInterface
+    public function getCodeStatus(string $bearer, int $userId, array $codes = []): ResponseInterface
     {
         $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         foreach ($codes as $code) {
             $queryParamsMap[] = ['key' => 'code', 'value' => $code];
         }
-
-        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         return $this->callApi('entitlements/codes', $bearer, $queryParamsMap);
     }
@@ -43,15 +43,15 @@ class EntitlementsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#redeem-code
      */
-    public function redeemCode(string $bearer, array $codes = [], int $userId): ResponseInterface
+    public function redeemCode(string $bearer, int $userId, array $codes = []): ResponseInterface
     {
         $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         foreach ($codes as $code) {
             $queryParamsMap[] = ['key' => 'code', 'value' => $code];
         }
-
-        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         return $this->postApi('entitlements/code', $bearer, $queryParamsMap);
     }
