@@ -58,7 +58,10 @@ abstract class AbstractResource
     {
         $queryStringParams = '';
         foreach ($queryParamsMap as $paramMap) {
-            if ($paramMap['value']) {
+            if ($paramMap['value'] !== null) {
+                if (is_bool($paramMap['value'])) {
+                    $paramMap['value'] = (int) $paramMap['value'];
+                }
                 $format = is_int($paramMap['value']) ? '%d' : '%s';
                 $queryStringParams .= sprintf('&%s='.$format, $paramMap['key'], $paramMap['value']);
             }
