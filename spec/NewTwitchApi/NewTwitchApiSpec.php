@@ -27,11 +27,6 @@ class NewTwitchApiSpec extends ObjectBehavior
         $this->getOauthApi()->shouldBeAnInstanceOf(OauthApi::class);
     }
 
-    public function it_should_provide_ads_api()
-    {
-        $this->getAdsApi()->shouldBeAnInstanceOf(AdsApi::class);
-    }
-
     public function it_should_provide_analytics_api()
     {
         $this->getAnalyticsApi()->shouldBeAnInstanceOf(AnalyticsApi::class);
@@ -40,11 +35,6 @@ class NewTwitchApiSpec extends ObjectBehavior
     public function it_should_provide_bits_api()
     {
         $this->getBitsApi()->shouldBeAnInstanceOf(BitsApi::class);
-    }
-
-    public function it_should_provide_clips_api()
-    {
-        $this->getClipsApi()->shouldBeAnInstanceOf(ClipsApi::class);
     }
 
     public function it_should_provide_entitlements_api()
@@ -57,29 +47,9 @@ class NewTwitchApiSpec extends ObjectBehavior
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
     }
 
-    public function it_should_provide_hype_train_api()
-    {
-        $this->getHypeTrainApi()->shouldBeAnInstanceOf(HypeTrainApi::class);
-    }
-
-    public function it_should_provide_moderation_api()
-    {
-        $this->getModerationApi()->shouldBeAnInstanceOf(ModerationApi::class);
-    }
-
-    public function it_should_provide_search_api()
-    {
-        $this->getSearchApi()->shouldBeAnInstanceOf(SearchApi::class);
-    }
-
     public function it_should_provide_streams_api()
     {
         $this->getStreamsApi()->shouldBeAnInstanceOf(StreamsApi::class);
-    }
-
-    public function it_should_provide_subscriptions_api()
-    {
-        $this->getSubsriptionsApi()->shouldBeAnInstanceOf(SubscriptionsApi::class);
     }
 
     public function it_should_provide_tags_api()
@@ -90,11 +60,6 @@ class NewTwitchApiSpec extends ObjectBehavior
     public function it_should_provide_users_api()
     {
         $this->getUsersApi()->shouldBeAnInstanceOf(UsersApi::class);
-    }
-
-    public function it_should_provide_videos_api()
-    {
-        $this->getVideosApi()->shouldBeAnInstanceOf(VideosApi::class);
     }
 
     public function it_should_provide_webhooks_api()

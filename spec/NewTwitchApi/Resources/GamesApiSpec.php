@@ -47,13 +47,13 @@ class GamesApiSpec extends ObjectBehavior
 
     public function it_should_get_top_games_with_before(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'games/top?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $guzzleClient->send(new Request('GET', 'games/top?before=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getTopGames('TEST_TOKEN', null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_top_games_with_after(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'games/top?before=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $guzzleClient->send(new Request('GET', 'games/top?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getTopGames('TEST_TOKEN', null, null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }

@@ -30,31 +30,31 @@ class AnalyticsApiSpec extends ObjectBehavior
     public function it_should_get_extension_analytics_with_type(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/extensions?type=overview_v1', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionAnalytics('TEST_TOKEN', [], 'overview_v1')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getExtensionAnalytics('TEST_TOKEN', null, 'overview_v1')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_extension_analytics_with_first(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/extensions?first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionAnalytics('TEST_TOKEN', [], null, 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getExtensionAnalytics('TEST_TOKEN', null, null, 100)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_extension_analytics_with_after(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/extensions?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionAnalytics('TEST_TOKEN', [], null, null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getExtensionAnalytics('TEST_TOKEN', null, null, null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_extension_analytics_with_started_at(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/extensions?started_at=2020-01-01T00:00:00Z', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionAnalytics('TEST_TOKEN', [], null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getExtensionAnalytics('TEST_TOKEN', null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_extension_analytics_with_ended_at(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/extensions?ended_at=2020-01-01T00:00:00Z', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionAnalytics('TEST_TOKEN', [], null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getExtensionAnalytics('TEST_TOKEN', null, null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_game_analytics(Client $guzzleClient, Response $response)
@@ -72,30 +72,30 @@ class AnalyticsApiSpec extends ObjectBehavior
     public function it_should_get_game_analytics_with_type(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/games?type=overview_v1', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getGameAnalytics('TEST_TOKEN', [], 'overview_v1')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getGameAnalytics('TEST_TOKEN', null, 'overview_v1')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_game_analytics_with_first(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/games?first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getGameAnalytics('TEST_TOKEN', [], null, 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getGameAnalytics('TEST_TOKEN', null, null, 100)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_game_analytics_with_after(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/games?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getGameAnalytics('TEST_TOKEN', [], null, null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getGameAnalytics('TEST_TOKEN', null, null, null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_game_analytics_with_started_at(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/games?started_at=2020-01-01T00:00:00Z', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getGameAnalytics('TEST_TOKEN', [], null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getGameAnalytics('TEST_TOKEN', null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     public function it_should_get_game_analytics_with_ended_at(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'analytics/games?ended_at=2020-01-01T00:00:00Z', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getGameAnalytics('TEST_TOKEN', [], null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->getGameAnalytics('TEST_TOKEN', null, null, null, null, null, '2020-01-01T00:00:00Z')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }

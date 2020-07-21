@@ -106,7 +106,7 @@ class UsersApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#create-user-follows
      */
-    public function createUserFollow(string $bearer, string $fromId, string $toId, boolean $notifications = null): ResponseInterface
+    public function createUserFollow(string $bearer, string $fromId, string $toId, bool $notifications = null): ResponseInterface
     {
         $queryParamsMap = [];
 
