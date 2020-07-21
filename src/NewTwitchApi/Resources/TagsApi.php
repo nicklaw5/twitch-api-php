@@ -43,39 +43,4 @@ class TagsApi extends AbstractResource
 
         return $this->callApi('tags/streams', $bearer, $queryParamsMap);
     }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-game-analytics
-     */
-    public function getGameAnalytics(string $bearer, string $gameId = null, string $type = null, int $first = null, string $after = null, string $startedAt = null, string $endedAt = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        if ($gameId) {
-            $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
-        }
-
-        if ($type) {
-            $queryParamsMap[] = ['key' => 'type', 'value' => $type];
-        }
-
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
-
-        if ($startedAt) {
-            $queryParamsMap[] = ['key' => 'started_at', 'value' => $startedAt];
-        }
-
-        if ($endedAt) {
-            $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
-        }
-
-        return $this->callApi('analytics/games', $bearer, $queryParamsMap);
-    }
 }
