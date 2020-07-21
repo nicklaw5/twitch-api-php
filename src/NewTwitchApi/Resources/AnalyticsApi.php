@@ -73,7 +73,7 @@ class AnalyticsApi extends AbstractResource
         }
 
         if ($endedAt) {
-            $queryParamsMap[] = ['key' => 'ended_at', 'value' => $after];
+            $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
         return $this->callApi('analytics/games', $bearer, $queryParamsMap);
