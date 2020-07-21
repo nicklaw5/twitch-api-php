@@ -114,6 +114,12 @@ class UsersApiSpec extends ObjectBehavior
     function it_should_create_a_follow_with_notifications(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('POST', 'users/follows?from_id=123&to_id=321&allow_notifications=1', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->createUserFollow('TEST_TOKEN', '123', '321', 1)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->createUserFollow('TEST_TOKEN', '123', '321', true)->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_create_a_follow_without_notifications(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'users/follows?from_id=123&to_id=321&allow_notifications=0', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->createUserFollow('TEST_TOKEN', '123', '321', false)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
