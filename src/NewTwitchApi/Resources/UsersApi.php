@@ -114,7 +114,7 @@ class UsersApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'to_id', 'value' => $toId];
 
-        if ($notifications !== null) {
+        if (!is_null($notifications)) {
             $queryParamsMap[] = ['key' => 'allow_notifications', 'value' => $notifications];
         }
 
