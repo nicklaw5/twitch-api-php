@@ -10,36 +10,36 @@ use Psr\Http\Message\ResponseInterface;
 
 class TagsApiSpec extends ObjectBehavior
 {
-    public function let(Client $guzzleClient)
+    function let(Client $guzzleClient)
     {
         $this->beConstructedWith($guzzleClient);
     }
 
-    public function it_should_get_all_tags(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'tags/streams', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getAllStreamTags('TEST_TOKEN')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
-    public function it_should_get_all_tags_by_id(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_by_id(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'tags/streams?tag_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getAllStreamTags('TEST_TOKEN', [123])->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
-    public function it_should_get_all_tags_with_first(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_with_first(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'tags/streams?first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getAllStreamTags('TEST_TOKEN', [], 100)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
-    public function it_should_get_all_tags_with_after(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_with_after(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'tags/streams?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getAllStreamTags('TEST_TOKEN', [], null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
-    public function it_should_get_stream_tags(Client $guzzleClient, Response $response)
+    function it_should_get_stream_tags(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'streams/tags?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getStreamTags('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
