@@ -7,6 +7,7 @@ namespace NewTwitchApi;
 use GuzzleHttp\Client;
 use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AdsApi;
+use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ClipsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
@@ -16,6 +17,7 @@ use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\SearchApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\SubscriptionsApi;
+use NewTwitchApi\Resources\TagsApi;
 use NewTwitchApi\Resources\UsersApi;
 use NewTwitchApi\Resources\VideosApi;
 use NewTwitchApi\Resources\WebhooksApi;
@@ -25,6 +27,7 @@ class NewTwitchApi
 {
     private $oauthApi;
     private $adsApi;
+    private $analyticsApi;
     private $bitsApi;
     private $clipsApi;
     private $entitlementsApi;
@@ -34,6 +37,7 @@ class NewTwitchApi
     private $searchApi;
     private $streamsApi;
     private $subscriptionsApi;
+    private $tagsApi;
     private $usersApi;
     private $videosApi;
     private $webhooksApi;
@@ -43,6 +47,7 @@ class NewTwitchApi
     {
         $this->oauthApi = new OauthApi($clientId, $clientSecret, $authGuzzleClient);
         $this->adsApi = new AdsApi($helixGuzzleClient);
+        $this->analyticsApi = new AnalyticsApi($helixGuzzleClient);
         $this->bitsApi = new BitsApi($helixGuzzleClient);
         $this->clipsApi = new ClipsApi($helixGuzzleClient);
         $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient);
@@ -52,6 +57,7 @@ class NewTwitchApi
         $this->searchApi = new SearchApi($helixGuzzleClient);
         $this->streamsApi = new StreamsApi($helixGuzzleClient);
         $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient);
+        $this->tagsApi = new TagsApi($helixGuzzleClient);
         $this->usersApi = new UsersApi($helixGuzzleClient);
         $this->videosApi = new VideosApi($helixGuzzleClient);
         $this->webhooksApi = new WebhooksApi($helixGuzzleClient);
@@ -66,6 +72,11 @@ class NewTwitchApi
     public function getAdsApi(): AdsApi
     {
         return $this->adsApi;
+    }
+
+    public function getAnalyticsApi(): AnalyticsApi
+    {
+        return $this->analyticsApi;
     }
 
     public function getBitsApi(): BitsApi
@@ -111,6 +122,11 @@ class NewTwitchApi
     public function getSubscriptionsApi(): SubscriptionsApi
     {
         return $this->subscriptionsApi;
+    }
+
+    public function getTagsApi(): TagsApi
+    {
+        return $this->tagsApi;
     }
 
     public function getUsersApi(): UsersApi
