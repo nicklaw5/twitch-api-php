@@ -101,7 +101,7 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/streams?user_id=12345"}'
         ])->shouldBeCalled();
 
-        $this->unsubscribeFromStream('12345', 'https://redirect.url');
+        $this->unsubscribeFromStream('12345', 'https://redirect.url', 'bearer-token');
     }
 
     function it_unsubscribes_from_a_user(Client $guzzleClient)
@@ -113,7 +113,7 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/users?id=12345"}'
         ])->shouldBeCalled();
 
-        $this->unsubscribeFromUser('12345', 'https://redirect.url');
+        $this->unsubscribeFromUser('12345', 'https://redirect.url', 'bearer-token');
     }
 
     function it_unsubscribes_from_user_follows(Client $guzzleClient)
@@ -125,6 +125,6 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/users\/follows?from_id=12345&to_id=54321&first=1"}'
         ])->shouldBeCalled();
 
-        $this->unsubscribeFromUserFollows('12345', '54321', 1, 'https://redirect.url');
+        $this->unsubscribeFromUserFollows('12345', '54321', 1, 'https://redirect.url', 'bearer-token');
     }
 }
