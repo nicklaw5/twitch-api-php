@@ -96,6 +96,7 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
     {
         $guzzleClient->post('webhooks/hub', [
             'headers' => [
+                'Authorization' => 'Bearer bearer-token',
                 'Client-ID' => 'client-id',
             ],
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/streams?user_id=12345"}'
@@ -108,6 +109,7 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
     {
         $guzzleClient->post('webhooks/hub', [
             'headers' => [
+                'Authorization' => 'Bearer bearer-token',
                 'Client-ID' => 'client-id',
             ],
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/users?id=12345"}'
@@ -120,6 +122,7 @@ class WebhooksSubscriptionApiSpec extends ObjectBehavior
     {
         $guzzleClient->post('webhooks/hub', [
             'headers' => [
+                'Authorization' => 'Bearer bearer-token',
                 'Client-ID' => 'client-id',
             ],
             'body' => '{"hub.callback":"https:\/\/redirect.url","hub.mode":"unsubscribe","hub.topic":"https:\/\/api.twitch.tv\/helix\/users\/follows?from_id=12345&to_id=54321&first=1"}'
