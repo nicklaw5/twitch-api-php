@@ -73,23 +73,25 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function unsubscribeFromStream(string $twitchId, string $callback): void
+    public function unsubscribeFromStream(string $twitchId, string $callback, string $bearer): void
     {
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
-    public function unsubscribeFromUser(string $twitchId, string $callback)
+    public function unsubscribeFromUser(string $twitchId, string $callback, string $bearer)
     {
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
-    public function unsubscribeFromUserFollows(string $followerId, string $followedUserId, int $first, string $callback)
+    public function unsubscribeFromUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer)
     {
         $queryParams = [];
         if ($followerId) {
@@ -103,7 +105,8 @@ class WebhooksSubscriptionApi
         }
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/users/follows?%s', http_build_query($queryParams)),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
@@ -138,11 +141,15 @@ class WebhooksSubscriptionApi
         ]);
     }
 
-    private function unsubscribe(string $topic, string $callback): void
+    private function unsubscribe(string $topic, string $callback, string $bearer = null): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
         ];
+
+        if (!is_null($bearer)) {
+            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
+        }
 
         $body = [
             'hub.callback' => $callback,
