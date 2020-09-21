@@ -23,7 +23,7 @@ class WebhooksSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToStream(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToStream(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
@@ -43,7 +43,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUser(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToUser(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
@@ -53,7 +53,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $queryParams = [];
         if ($followerId) {
@@ -73,23 +73,25 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function unsubscribeFromStream(string $twitchId, string $callback): void
+    public function unsubscribeFromStream(string $twitchId, string $callback, string $bearer): void
     {
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
-    public function unsubscribeFromUser(string $twitchId, string $callback)
+    public function unsubscribeFromUser(string $twitchId, string $callback, string $bearer)
     {
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
-    public function unsubscribeFromUserFollows(string $followerId, string $followedUserId, int $first, string $callback)
+    public function unsubscribeFromUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer)
     {
         $queryParams = [];
         if ($followerId) {
@@ -103,7 +105,8 @@ class WebhooksSubscriptionApi
         }
         $this->unsubscribe(
             sprintf('https://api.twitch.tv/helix/users/follows?%s', http_build_query($queryParams)),
-            $callback
+            $callback,
+            $bearer
         );
     }
 
@@ -115,14 +118,13 @@ class WebhooksSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    private function subscribe(string $topic, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    private function subscribe(string $topic, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
         ];
-        if (!is_null($bearer)) {
-            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
-        }
+
+        $headers['Authorization'] = sprintf('Bearer %s', $bearer);
 
         $body = [
             'hub.callback' => $callback,
@@ -138,11 +140,13 @@ class WebhooksSubscriptionApi
         ]);
     }
 
-    private function unsubscribe(string $topic, string $callback): void
+    private function unsubscribe(string $topic, string $callback, string $bearer): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
         ];
+
+        $headers['Authorization'] = sprintf('Bearer %s', $bearer);
 
         $body = [
             'hub.callback' => $callback,
