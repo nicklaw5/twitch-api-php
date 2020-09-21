@@ -141,7 +141,7 @@ class WebhooksSubscriptionApi
         ]);
     }
 
-    private function unsubscribe(string $topic, string $callback, string $bearer = null): void
+    private function unsubscribe(string $topic, string $callback, string $bearer): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
