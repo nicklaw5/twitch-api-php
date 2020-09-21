@@ -118,14 +118,13 @@ class WebhooksSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    private function subscribe(string $topic, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    private function subscribe(string $topic, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
         ];
-        if (!is_null($bearer)) {
-            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
-        }
+
+        $headers['Authorization'] = sprintf('Bearer %s', $bearer);
 
         $body = [
             'hub.callback' => $callback,
@@ -147,9 +146,7 @@ class WebhooksSubscriptionApi
             'Client-ID' => $this->clientId,
         ];
 
-        if (!is_null($bearer)) {
-            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
-        }
+        $headers['Authorization'] = sprintf('Bearer %s', $bearer);
 
         $body = [
             'hub.callback' => $callback,
