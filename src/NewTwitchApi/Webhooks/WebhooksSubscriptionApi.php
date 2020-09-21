@@ -23,7 +23,7 @@ class WebhooksSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToStream(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToStream(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $twitchId),
@@ -43,7 +43,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUser(string $twitchId, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToUser(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $this->subscribe(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $twitchId),
@@ -53,7 +53,7 @@ class WebhooksSubscriptionApi
         );
     }
 
-    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer = null, int $leaseSeconds = 0): void
+    public function subscribeToUserFollows(string $followerId, string $followedUserId, int $first, string $callback, string $bearer, int $leaseSeconds = 0): void
     {
         $queryParams = [];
         if ($followerId) {
