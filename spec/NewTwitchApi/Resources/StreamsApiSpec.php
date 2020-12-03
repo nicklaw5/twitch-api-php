@@ -83,7 +83,7 @@ class StreamsApiSpec extends ObjectBehavior
 
     public function it_should_get_streams_by_everything(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_id=12&user_id=34&user_login=twitchuser&user_login=anotheruser&game_id=56&game_id=78&community_id=90&community_id=99&language=en&language=de&first=100&before=200&after=300', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', ['12', '34'], ['twitchuser', 'anotheruser'], ['56', '78'], ['90', '99'], ['en', 'de'], 100, 200, 300)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $guzzleClient->send(new Request('GET', 'streams?user_id=12&user_id=34&user_login=twitchuser&user_login=anotheruser&game_id=56&game_id=78&language=en&language=de&first=100&before=200&after=300', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getStreams('TEST_TOKEN', ['12', '34'], ['twitchuser', 'anotheruser'], ['56', '78'], [], ['en', 'de'], 100, 200, 300)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
