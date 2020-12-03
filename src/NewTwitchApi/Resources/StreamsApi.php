@@ -28,17 +28,17 @@ class StreamsApi extends AbstractResource
     /**
      * @throws GuzzleException
      */
-    public function getStreamsByGameId(string $bearer, array $gameIds = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    public function getStreamsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], $gameIds, [], [], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [$gameId], [], [], $first, $before, $after);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function getStreamsByLanguage(string $bearer, array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    public function getStreamsByLanguage(string $bearer, string $language, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [], [], $languages, $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [], [], [$language], $first, $before, $after);
     }
 
     /**
