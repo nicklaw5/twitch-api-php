@@ -27,6 +27,22 @@ class StreamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
+     */
+    public function getStreamsByGameId(string $bearer, array $gameIds = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    {
+        return $this->getStreams($bearer, [], [], $gameIds, [], [], $first, $before, $after);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getStreamsByLanguage(string $bearer, array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    {
+        return $this->getStreams($bearer, [], [], [], [], $languages, $first, $before, $after);
+    }
+
+    /**
+     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-stream-key
      */
     public function getStreamKey(string $bearer, string $broadcasterId): ResponseInterface
@@ -53,9 +69,6 @@ class StreamsApi extends AbstractResource
         }
         foreach ($gameIds as $gameId) {
             $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
-        }
-        foreach ($communityIds as $communityId) {
-            $queryParamsMap[] = ['key' => 'community_id', 'value' => $communityId];
         }
         foreach ($languages as $language) {
             $queryParamsMap[] = ['key' => 'language', 'value' => $language];
