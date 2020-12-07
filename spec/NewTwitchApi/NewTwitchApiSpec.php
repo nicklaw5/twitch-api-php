@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
+use NewTwitchApi\Resources\ChannelPointsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
 use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\StreamsApi;
@@ -35,6 +36,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_bits_api()
     {
         $this->getBitsApi()->shouldBeAnInstanceOf(BitsApi::class);
+    }
+
+    function it_should_provide_channel_points_api()
+    {
+        $this->getChannelPointsApi()->shouldBeAnInstanceOf(ChannelPointsApi::class);
     }
 
     function it_should_provide_entitlements_api()
