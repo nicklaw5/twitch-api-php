@@ -33,7 +33,7 @@ class StreamsApiSpec extends ObjectBehavior
         $this->getStreams('TEST_TOKEN', ['12345', '98765'], ['twitchuser', 'anotheruser'])->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
-    function it_should_get_a_single_user_id_id(Client $guzzleClient, Response $response)
+    function it_should_get_a_single_user_by_id(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'streams?user_id=12345', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getStreamForUserId('TEST_TOKEN', '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
