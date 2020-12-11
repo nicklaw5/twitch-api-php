@@ -46,20 +46,20 @@ abstract class AbstractResource
     {
         if (count($bodyParams) > 0) {
             $request = new Request(
-              $httpMethod,
-              sprintf('%s%s',
-              $uriEndpoint,
-              $this->generateQueryParams($queryParamsMap)),
-              ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
-              json_encode($bodyParams)
+                $httpMethod,
+                sprintf('%s%s',
+                $uriEndpoint,
+                $this->generateQueryParams($queryParamsMap)),
+                ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
+                json_encode($bodyParams)
             );
         } else {
             $request = new Request(
-              $httpMethod,
-              sprintf('%s%s',
-              $uriEndpoint,
-              $this->generateQueryParams($queryParamsMap)),
-              ['Authorization' => sprintf('Bearer %s', $bearer)]
+                $httpMethod,
+                sprintf('%s%s',
+                $uriEndpoint,
+                $this->generateQueryParams($queryParamsMap)),
+                ['Authorization' => sprintf('Bearer %s', $bearer)]
             );
         }
 
