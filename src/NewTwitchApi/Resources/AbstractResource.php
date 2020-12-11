@@ -37,6 +37,14 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
+    protected function patchApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    {
+        return $this->sendToApi('PATCH', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     protected function postApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->sendToApi('POST', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
