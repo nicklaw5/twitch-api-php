@@ -32,7 +32,7 @@ class SubscriptionsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference/#get-broadcaster-s-subscribers
+     * @link https://dev.twitch.tv/docs/api/reference/#get-broadcaster-subscriptions
      */
     public function getBroadcasterSubscribers(string $bearer, string $broadcasterId, array $ids = []): ResponseInterface
     {
