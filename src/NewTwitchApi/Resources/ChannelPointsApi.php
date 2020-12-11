@@ -89,4 +89,19 @@ class ChannelPointsApi extends AbstractResource
 
         return $this->postApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyValues);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#delete-custom-reward
+     */
+    public function deleteCustomReward(string $bearer, string $broadcasterId, string $id): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $queryParamsMap[] = ['key' => 'id', 'value' => $id];
+
+        return $this->deleteApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
+    }
 }
