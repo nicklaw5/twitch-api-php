@@ -58,7 +58,7 @@ class StreamsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
-    public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
