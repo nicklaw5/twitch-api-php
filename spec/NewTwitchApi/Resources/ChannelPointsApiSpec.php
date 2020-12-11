@@ -62,4 +62,16 @@ class ChannelPointsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('PATCH', 'channel_points/custom_rewards?broadcaster_id=123&id=321', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['title' => 'abc', 'cost' => 100])))->willReturn($response);
         $this->updateCustomReward('TEST_TOKEN', '123', '321', ['title' => 'abc', 'cost' => 100])->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_update_a_single_redemption_status(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('PATCH', 'channel_points/custom_rewards/redemptions?broadcaster_id=123&reward_id=321&id=321', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['status' => 'FULFILLED'])))->willReturn($response);
+        $this->updateRedemptionStatus('TEST_TOKEN', '123', '321', ['321'], 'FULFILLED')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_update_multiple_redemption_statuses(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('PATCH', 'channel_points/custom_rewards/redemptions?broadcaster_id=123&reward_id=321&id=321&id=111', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['status' => 'FULFILLED'])))->willReturn($response);
+        $this->updateRedemptionStatus('TEST_TOKEN', '123', '321', ['321', '111'], 'FULFILLED')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
