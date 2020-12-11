@@ -15,12 +15,12 @@ class AdsApi extends AbstractResource
      */
     public function startCommercial(string $bearer, string $broadcasterId, int $length): ResponseInterface
     {
-        $queryParamsMap = [];
+        $queryParamsMap = $bodyParamsMap = [];
 
-        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['broadcaster_id' => $broadcasterId];
 
-        $queryParamsMap[] = ['key' => 'length', 'value' => $length];
+        $bodyParamsMap[] = ['length' => $length];
 
-        return $this->postApi('channels/commercial', $bearer, $queryParamsMap);
+        return $this->postApi('channels/commercial', $bearer, $queryParamsMap, $bodyParamsMap);
     }
 }
