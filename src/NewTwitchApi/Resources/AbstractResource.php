@@ -23,25 +23,7 @@ abstract class AbstractResource
      */
     protected function callApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
-        if (count($bodyParams) > 0) {
-            $request = new Request(
-              'GET',
-              sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-              [
-                'Authorization' => sprintf('Bearer %s', $bearer),
-                'Accept' => 'application/json',
-              ],
-              json_encode($bodyParams)
-          );
-        } else {
-            $request = new Request(
-              'GET',
-              sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-              ['Authorization' => sprintf('Bearer %s', $bearer)]
-          );
-        }
-
-        return $this->guzzleClient->send($request);
+        return $this->sendToApi('GET', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
     /**
@@ -49,25 +31,7 @@ abstract class AbstractResource
      */
     protected function deleteApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
-        if (count($bodyParams) > 0) {
-            $request = new Request(
-            'DELETE',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            [
-              'Authorization' => sprintf('Bearer %s', $bearer),
-              'Accept' => 'application/json',
-            ],
-            json_encode($bodyParams)
-        );
-        } else {
-            $request = new Request(
-            'DELETE',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            ['Authorization' => sprintf('Bearer %s', $bearer)]
-        );
-        }
-
-        return $this->guzzleClient->send($request);
+        return $this->sendToApi('DELETE', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
     /**
@@ -75,48 +39,15 @@ abstract class AbstractResource
      */
     protected function postApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
-        if (count($bodyParams) > 0) {
-            $request = new Request(
-            'POST',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            [
-              'Authorization' => sprintf('Bearer %s', $bearer),
-              'Accept' => 'application/json',
-            ],
-            json_encode($bodyParams)
-        );
-        } else {
-            $request = new Request(
-            'POST',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            ['Authorization' => sprintf('Bearer %s', $bearer)]
-        );
-        }
-
-        return $this->guzzleClient->send($request);
+        return $this->sendToApi('POST', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
-    /**
-     * @throws GuzzleException
-     */
-    protected function putApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         if (count($bodyParams) > 0) {
-            $request = new Request(
-            'PUT',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            [
-              'Authorization' => sprintf('Bearer %s', $bearer),
-              'Accept' => 'application/json',
-            ],
-            json_encode($bodyParams)
-        );
+            $request = new Request($httpMethod, sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)), ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'], json_encode($bodyParams));
         } else {
-            $request = new Request(
-            'PUT',
-            sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)),
-            ['Authorization' => sprintf('Bearer %s', $bearer)]
-        );
+            $request = new Request($httpMethod, sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)), ['Authorization' => sprintf('Bearer %s', $bearer)]);
         }
 
         return $this->guzzleClient->send($request);
