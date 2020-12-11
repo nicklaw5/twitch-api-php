@@ -196,4 +196,29 @@ class StreamsApi extends AbstractResource
 
         return $this->postApi('streams/markers', $bearer, [], $bodyParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#modify-channel-information
+     */
+    public function modifyChannelInfo(string $bearer, string $broadcasterId, string $gameId = null, string $language = null, string $title = null): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        if ($gameId) {
+            $bodyParamsMap[] = ['game_id' => $gameId];
+        }
+
+        if ($language) {
+            $bodyParamsMap[] = ['broadcaster_language' => $language];
+        }
+
+        if ($title) {
+            $bodyParamsMap[] = ['title' => $title];
+        }
+
+        return $this->patchApi('channels', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
 }
