@@ -50,6 +50,14 @@ abstract class AbstractResource
         return $this->sendToApi('POST', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
+    /**
+     * @throws GuzzleException
+     */
+    protected function putApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    {
+        return $this->sendToApi('PUT', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
+    }
+
     private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         if (count($bodyParams) > 0) {
