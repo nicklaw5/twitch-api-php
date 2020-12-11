@@ -56,4 +56,16 @@ class EntitlementsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('GET', 'entitlements/drops?user_id=123&game_id=321&after=fff&first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getDropsEntitlements('TEST_TOKEN', NULL, '123', '321', 'fff', 100)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_create_entitlement_grants_upload_url(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'entitlements/upload?manifest_id=123&type=bulk_drops_grant', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->createEntitlementGrantsUploadURL('TEST_TOKEN', '123', 'bulk_drops_grant')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_create_entitlement_grants_upload_url_shorthand(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'entitlements/upload?manifest_id=123&type=bulk_drops_grant', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->createEntitlementGrantsUploadURL('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
