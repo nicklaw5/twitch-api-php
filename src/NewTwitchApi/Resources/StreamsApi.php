@@ -14,7 +14,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUserId(string $bearer, string $userId): ResponseInterface
     {
-        return $this->getStreams($bearer, [$userId], [], [], [], [], null, null, null);
+        return $this->getStreams($bearer, [$userId]);
     }
 
     /**
@@ -22,7 +22,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUsername(string $bearer, string $username): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [$username], [], [], [], null, null, null);
+        return $this->getStreams($bearer, [], [$username]);
     }
 
     /**
@@ -30,7 +30,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [$gameId], [], [], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [$gameId], [], $first, $before, $after);
     }
 
     /**
@@ -38,7 +38,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByLanguage(string $bearer, string $language, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [], [], [$language], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [], [$language], $first, $before, $after);
     }
 
     /**
