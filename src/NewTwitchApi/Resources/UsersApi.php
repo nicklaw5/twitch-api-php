@@ -144,7 +144,7 @@ class UsersApi extends AbstractResource
     {
         $queryParamsMap = [];
 
-        if($description) {
+        if ($description) {
             $queryParamsMap[] = ['key' => 'description', 'value' => $description];
         }
 

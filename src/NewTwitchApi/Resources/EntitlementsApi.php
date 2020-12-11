@@ -47,23 +47,23 @@ class EntitlementsApi extends AbstractResource
     {
         $queryParamsMap = [];
 
-        if($id) {
+        if ($id) {
             $queryParamsMap[] = ['key' => 'id', 'value' => $id];
         }
 
-        if($userId) {
+        if ($userId) {
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        if($gameId) {
+        if ($gameId) {
             $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
         }
 
-        if($after) {
+        if ($after) {
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        if($first) {
+        if ($first) {
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }
 

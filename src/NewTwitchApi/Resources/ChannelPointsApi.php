@@ -134,7 +134,7 @@ class ChannelPointsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'reward_id', 'value' => $rewardId];
 
-        foreach($ids as $id) {
+        foreach ($ids as $id) {
             $queryParamsMap[] = ['key' => 'id', 'value' => $id];
         }
 
