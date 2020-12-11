@@ -56,4 +56,10 @@ class ChannelPointsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('DELETE', 'channel_points/custom_rewards?broadcaster_id=123&id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->deleteCustomReward('TEST_TOKEN', '123', '321')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_update_custom_reward(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('PATCH', 'channel_points/custom_rewards?broadcaster_id=123&id=321', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['title' => 'abc', 'cost' => 100])))->willReturn($response);
+        $this->updateCustomReward('TEST_TOKEN', '123', '321', ['title' => 'abc', 'cost' => 100])->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
