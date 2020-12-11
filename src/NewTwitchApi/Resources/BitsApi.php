@@ -21,7 +21,7 @@ class BitsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         }
 
-        return $this->callApi('bits/cheermotes', $bearer, $queryParamsMap);
+        return $this->getApi('bits/cheermotes', $bearer, $queryParamsMap);
     }
 
     /**
@@ -48,7 +48,7 @@ class BitsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        return $this->callApi('bits/leaderboard', $bearer, $queryParamsMap);
+        return $this->getApi('bits/leaderboard', $bearer, $queryParamsMap);
     }
 
     /**
@@ -73,6 +73,6 @@ class BitsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('extensions/transactions', $bearer, $queryParamsMap);
+        return $this->getApi('extensions/transactions', $bearer, $queryParamsMap);
     }
 }

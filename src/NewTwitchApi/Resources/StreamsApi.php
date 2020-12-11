@@ -51,7 +51,7 @@ class StreamsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        return $this->callApi('streams/key', $bearer, $queryParamsMap);
+        return $this->getApi('streams/key', $bearer, $queryParamsMap);
     }
 
     /**
@@ -83,7 +83,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams', $bearer, $queryParamsMap);
+        return $this->getApi('streams', $bearer, $queryParamsMap);
     }
 
     /**
@@ -118,7 +118,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/metadata', $bearer, $queryParamsMap);
+        return $this->getApi('streams/metadata', $bearer, $queryParamsMap);
     }
 
     /**
@@ -149,7 +149,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/markers', $bearer, $queryParamsMap);
+        return $this->getApi('streams/markers', $bearer, $queryParamsMap);
     }
 
     /**
@@ -164,7 +164,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $id];
         }
 
-        return $this->callApi('channels', $bearer, $queryParamsMap);
+        return $this->getApi('channels', $bearer, $queryParamsMap);
     }
 
     /**
@@ -177,6 +177,6 @@ class StreamsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        return $this->callApi('streams/tags', $bearer, $queryParamsMap);
+        return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
 }

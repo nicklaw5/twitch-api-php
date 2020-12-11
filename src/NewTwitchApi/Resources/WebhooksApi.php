@@ -23,6 +23,6 @@ class WebhooksApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('webhooks/subscriptions', $bearer, $queryParamsMap);
+        return $this->getApi('webhooks/subscriptions', $bearer, $queryParamsMap);
     }
 }
