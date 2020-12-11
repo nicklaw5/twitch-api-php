@@ -135,4 +135,19 @@ class UsersApi extends AbstractResource
 
         return $this->deleteApi('users/follows', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-user
+     */
+    public function updateUser(string $bearer, string $description = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        if($description) {
+            $queryParamsMap[] = ['key' => 'description', 'value' => $description];
+        }
+
+        return $this->putApi('users', $bearer, $queryParamsMap);
+    }
 }
