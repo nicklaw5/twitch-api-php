@@ -74,4 +74,19 @@ class ChannelPointsApi extends AbstractResource
 
         return $this->getApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-custom-rewards
+     */
+    public function createCustomReward(string $bearer, string $broadcasterId, array $bodyValues = []): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        // Due to the large number of body parameters for this endpoint, please supply an array for the $bodyValues parameter
+
+        return $this->postApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyValues);
+    }
 }
