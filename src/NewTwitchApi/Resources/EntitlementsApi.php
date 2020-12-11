@@ -13,7 +13,7 @@ class EntitlementsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#create-entitlement-grants-upload-url
      */
-    public function getEntitlementGrantsUploadURL(string $bearer, string $manifestId, string $type = 'bulk_drops_grant'): ResponseInterface
+    public function createEntitlementGrantsUploadURL(string $bearer, string $manifestId, string $type = 'bulk_drops_grant'): ResponseInterface
     {
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'manifest_id', 'value' => $manifestId];
