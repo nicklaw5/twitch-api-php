@@ -121,4 +121,25 @@ class ChannelPointsApi extends AbstractResource
 
         return $this->patchApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyValues);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-redemption-status
+     */
+    public function updateRedemptionStatus(string $bearer, string $broadcasterId, string $rewardId, array $ids = [], string $status): ResponseInterface
+    {
+        $queryParamsMap = $bodyValues = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $queryParamsMap[] = ['key' => 'reward_id', 'value' => $rewardId];
+
+        foreach($ids as $id) {
+            $queryParamsMap[] = ['key' => 'id', 'value' => $id];
+        }
+
+        $bodyValues[] = ['status' => $status];
+
+        return $this->patchApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap, $bodyValues);
+    }
 }
