@@ -18,6 +18,6 @@ class ModerationApiSpec extends ObjectBehavior
     function it_should_check_automod_status(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('POST', 'moderation/enforcements/status?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['msg_id' => '321', 'msg_text' => 'test', 'user_id' => '111'])))->willReturn($response);
-        $this->createCustomReward('TEST_TOKEN', '123', '321', 'test', '111')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->checkAutomodStatus('TEST_TOKEN', '123', '321', 'test', '111')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
