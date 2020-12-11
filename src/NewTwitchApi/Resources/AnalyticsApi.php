@@ -41,7 +41,7 @@ class AnalyticsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
-        return $this->callApi('analytics/extensions', $bearer, $queryParamsMap);
+        return $this->getApi('analytics/extensions', $bearer, $queryParamsMap);
     }
 
     /**
@@ -76,6 +76,6 @@ class AnalyticsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
-        return $this->callApi('analytics/games', $bearer, $queryParamsMap);
+        return $this->getApi('analytics/games', $bearer, $queryParamsMap);
     }
 }

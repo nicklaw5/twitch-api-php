@@ -31,6 +31,6 @@ class HypeTrainApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'cursor', 'value' => $cursor];
         }
 
-        return $this->callApi('bits/cheermotes', $bearer, $queryParamsMap);
+        return $this->getApi('bits/cheermotes', $bearer, $queryParamsMap);
     }
 }

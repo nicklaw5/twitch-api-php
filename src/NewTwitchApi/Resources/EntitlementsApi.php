@@ -36,7 +36,7 @@ class EntitlementsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'code', 'value' => $code];
         }
 
-        return $this->callApi('entitlements/codes', $bearer, $queryParamsMap);
+        return $this->getApi('entitlements/codes', $bearer, $queryParamsMap);
     }
 
     /**

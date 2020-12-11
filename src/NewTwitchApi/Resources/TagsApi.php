@@ -28,7 +28,7 @@ class TagsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('tags/streams', $bearer, $queryParamsMap);
+        return $this->getApi('tags/streams', $bearer, $queryParamsMap);
     }
 
     /**
@@ -41,6 +41,6 @@ class TagsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        return $this->callApi('streams/tags', $bearer, $queryParamsMap);
+        return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
 }

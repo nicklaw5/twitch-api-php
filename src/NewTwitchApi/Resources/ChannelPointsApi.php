@@ -35,7 +35,7 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'only_manageable_rewards', 'value' => $onlyManageableRewards];
         }
 
-        return $this->callApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
+        return $this->getApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
     }
 
     /**
@@ -72,7 +72,7 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }
 
-        return $this->callApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap);
+        return $this->getApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap);
     }
 
     /**
@@ -99,7 +99,7 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        return $this->callApi('bits/leaderboard', $bearer, $queryParamsMap);
+        return $this->getApi('bits/leaderboard', $bearer, $queryParamsMap);
     }
 
     /**
@@ -124,6 +124,6 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('extensions/transactions', $bearer, $queryParamsMap);
+        return $this->getApi('extensions/transactions', $bearer, $queryParamsMap);
     }
 }

@@ -65,7 +65,7 @@ class ClipsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'ended_at', 'value' => $endedAt];
         }
 
-        return $this->callApi('clips', $bearer, $queryParamsMap);
+        return $this->getApi('clips', $bearer, $queryParamsMap);
     }
 
     /**

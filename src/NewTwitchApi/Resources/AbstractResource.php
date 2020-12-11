@@ -21,7 +21,7 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
-    protected function callApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    protected function getApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->sendToApi('GET', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
