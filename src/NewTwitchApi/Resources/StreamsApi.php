@@ -179,4 +179,21 @@ class StreamsApi extends AbstractResource
 
         return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-stream-marker
+     */
+    public function createStreamMarker(string $bearer, string $userId, string $description = null): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['broadcaster_id' => $broadcasterId];
+
+        if ($description) {
+            $bodyParamsMap[] = ['description' => $description];
+        }
+
+        return $this->postApi('streams/markers', $bearer, [], $bodyParamsMap);
+    }
 }
