@@ -188,7 +188,7 @@ class StreamsApi extends AbstractResource
     {
         $bodyParamsMap = [];
 
-        $bodyParamsMap[] = ['broadcaster_id' => $broadcasterId];
+        $bodyParamsMap[] = ['user_id' => $userId];
 
         if ($description) {
             $bodyParamsMap[] = ['description' => $description];
