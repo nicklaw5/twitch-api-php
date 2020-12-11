@@ -100,4 +100,23 @@ class ModerationApi extends AbstractResource
 
         return $this->getApi('moderation/moderators/events', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#check-automod-status
+     */
+    public function checkAutomodStatus(string $bearer, string $broadcasterId, string $msgId, string $msgText, string $userId): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $bodyParamsMap[] = ['msg_id' => $msgId];
+
+        $bodyParamsMap[] = ['msg_text' => $msgText];
+
+        $bodyParamsMap[] = ['user_id' => $userId];
+
+        return $this->postApi('moderation/enforcements/status', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
 }
