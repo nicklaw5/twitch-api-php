@@ -120,4 +120,19 @@ class UsersApi extends AbstractResource
 
         return $this->postApi('users/follows', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#delete-user-follows
+     */
+    public function deleteUserFollow(string $bearer, string $fromId, string $toId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'from_id', 'value' => $fromId];
+
+        $queryParamsMap[] = ['key' => 'to_id', 'value' => $toId];
+
+        return $this->deleteApi('users/follows', $bearer, $queryParamsMap);
+    }
 }
