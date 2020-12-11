@@ -128,4 +128,16 @@ class UsersApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('DELETE', 'users/follows?from_id=123&to_id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->deleteUserFollow('TEST_TOKEN', '123', '321')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_update_user(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('PUT', 'users', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->updateUser('TEST_TOKEN')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_update_user_description(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('PUT', 'users?description=test', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->updateUser('TEST_TOKEN', 'test')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
