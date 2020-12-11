@@ -44,4 +44,10 @@ class ChannelPointsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('GET', 'channel_points/custom_rewards/redemptions?broadcaster_id=123&id=321&id=333&status=UNFULFILLED&sort=OLDEST&after=abc&first=50', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getCustomRewardRedemption('TEST_TOKEN', '123', null, ['321', '333'], 'UNFULFILLED', 'OLDEST', 'abc', '50')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_create_reward(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'channel_points/custom_rewards?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN', 'Accept' => 'application/json'], json_encode(['title' => 'abc', 'cost' => 100])))->willReturn($response);
+        $this->createCustomReward('TEST_TOKEN', '123', ['title' => 'abc', 'cost' => 100])->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
