@@ -45,9 +45,22 @@ abstract class AbstractResource
     private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         if (count($bodyParams) > 0) {
-            $request = new Request($httpMethod, sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)), ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'], json_encode($bodyParams));
+            $request = new Request(
+              $httpMethod,
+              sprintf('%s%s',
+              $uriEndpoint,
+              $this->generateQueryParams($queryParamsMap)),
+              ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
+              json_encode($bodyParams)
+            );
         } else {
-            $request = new Request($httpMethod, sprintf('%s%s', $uriEndpoint, $this->generateQueryParams($queryParamsMap)), ['Authorization' => sprintf('Bearer %s', $bearer)]);
+            $request = new Request(
+              $httpMethod,
+              sprintf('%s%s',
+              $uriEndpoint,
+              $this->generateQueryParams($queryParamsMap)),
+              ['Authorization' => sprintf('Bearer %s', $bearer)]
+            );
         }
 
         return $this->guzzleClient->send($request);
