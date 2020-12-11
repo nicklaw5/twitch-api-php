@@ -79,15 +79,15 @@ class ChannelPointsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#create-custom-rewards
      */
-    public function createCustomReward(string $bearer, string $broadcasterId, array $bodyValues = []): ResponseInterface
+    public function createCustomReward(string $bearer, string $broadcasterId, array $bodyParamsMap = []): ResponseInterface
     {
         $queryParamsMap = [];
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        // Due to the large number of body parameters for this endpoint, please supply an array for the $bodyValues parameter
+        // Due to the large number of body parameters for this endpoint, please supply an array for the $bodyParamsMap parameter
 
-        return $this->postApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyValues);
+        return $this->postApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyParamsMap);
     }
 
     /**
@@ -109,7 +109,7 @@ class ChannelPointsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#update-custom-reward
      */
-    public function updateCustomReward(string $bearer, string $broadcasterId, string $id, array $bodyValues = []): ResponseInterface
+    public function updateCustomReward(string $bearer, string $broadcasterId, string $id, array $bodyParamsMap = []): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -117,9 +117,9 @@ class ChannelPointsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'id', 'value' => $id];
 
-        // Due to the large number of body parameters for this endpoint, please supply an array for the $bodyValues parameter
+        // Due to the large number of body parameters for this endpoint, please supply an array for the $bodyParamsMap parameter
 
-        return $this->patchApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyValues);
+        return $this->patchApi('channel_points/custom_rewards', $bearer, $queryParamsMap, $bodyParamsMap);
     }
 
     /**
@@ -128,7 +128,7 @@ class ChannelPointsApi extends AbstractResource
      */
     public function updateRedemptionStatus(string $bearer, string $broadcasterId, string $rewardId, array $ids = [], string $status): ResponseInterface
     {
-        $queryParamsMap = $bodyValues = [];
+        $queryParamsMap = $bodyParamsMap = [];
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
@@ -138,8 +138,8 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'id', 'value' => $id];
         }
 
-        $bodyValues[] = ['status' => $status];
+        $bodyParamsMap[] = ['status' => $status];
 
-        return $this->patchApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap, $bodyValues);
+        return $this->patchApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap, $bodyParamsMap);
     }
 }
