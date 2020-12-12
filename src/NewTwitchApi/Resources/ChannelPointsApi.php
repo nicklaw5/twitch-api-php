@@ -138,7 +138,7 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'id', 'value' => $id];
         }
 
-        $bodyParamsMap[] = ['status' => $status];
+        $bodyParamsMap['status'] = $status;
 
         return $this->patchApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap, $bodyParamsMap);
     }
