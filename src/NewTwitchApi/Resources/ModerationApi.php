@@ -111,11 +111,11 @@ class ModerationApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        $bodyParamsMap[] = ['msg_id' => $msgId];
+        $bodyParamsMap[] = ['key' => 'msg_id', 'value' => $msgId];
 
-        $bodyParamsMap[] = ['msg_text' => $msgText];
+        $bodyParamsMap[] = ['key' => 'msg_text', 'value' => $msgText];
 
-        $bodyParamsMap[] = ['user_id' => $userId];
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         return $this->postApi('moderation/enforcements/status', $bearer, $queryParamsMap, $bodyParamsMap);
     }

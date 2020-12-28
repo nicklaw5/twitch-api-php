@@ -67,7 +67,7 @@ abstract class AbstractResource
                 $uriEndpoint,
                 $this->generateQueryParams($queryParamsMap)),
                 ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
-                json_encode($bodyParams)
+                $this->generateBodyParams($bodyParams)
             );
         } else {
             $request = new Request(
@@ -104,5 +104,17 @@ abstract class AbstractResource
         }
 
         return $queryStringParams ? '?'.substr($queryStringParams, 1) : '';
+    }
+
+    protected function generateBodyParams(array $bodyParamsMap): string
+    {
+        $bodyParams = [];
+        foreach ($bodyParamsMap as $bodyParam) {
+            if ($bodyParam['value'] !== null) {
+              $bodyParams[$bodyParam['key']] = $bodyParam['value'];
+            }
+        }
+
+        return json_encode($bodyParams);
     }
 }
