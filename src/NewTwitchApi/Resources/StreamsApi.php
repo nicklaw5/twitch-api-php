@@ -188,10 +188,10 @@ class StreamsApi extends AbstractResource
     {
         $bodyParamsMap = [];
 
-        $bodyParamsMap[] = ['user_id' => $userId];
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         if ($description) {
-            $bodyParamsMap[] = ['description' => $description];
+            $bodyParamsMap[] = ['key' => 'description', 'value' => $description];
         }
 
         return $this->postApi('streams/markers', $bearer, [], $bodyParamsMap);
@@ -208,15 +208,15 @@ class StreamsApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
         if ($gameId) {
-            $bodyParamsMap[] = ['game_id' => $gameId];
+            $bodyParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
         }
 
         if ($language) {
-            $bodyParamsMap[] = ['broadcaster_language' => $language];
+            $bodyParamsMap[] = ['key' => 'broadcaster_language', 'value' => $language];
         }
 
         if ($title) {
-            $bodyParamsMap[] = ['title' => $title];
+            $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
         }
 
         return $this->patchApi('channels', $bearer, $queryParamsMap, $bodyParamsMap);
