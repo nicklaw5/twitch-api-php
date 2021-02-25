@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.2', '7.3', '7.4']
+        php: ['7.4']
 
     steps:
       - uses: actions/checkout@v1
@@ -41,4 +41,3 @@ jobs:
 
       - name: Run tests
         run: make test
-
