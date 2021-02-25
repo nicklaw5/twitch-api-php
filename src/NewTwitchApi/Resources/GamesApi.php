@@ -23,7 +23,7 @@ class GamesApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'name', 'value' => $name];
         }
 
-        return $this->callApi('games', $bearer, $queryParamsMap);
+        return $this->getApi('games', $bearer, $queryParamsMap);
     }
 
     /**
@@ -46,6 +46,6 @@ class GamesApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('games/top', $bearer, $queryParamsMap);
+        return $this->getApi('games/top', $bearer, $queryParamsMap);
     }
 }

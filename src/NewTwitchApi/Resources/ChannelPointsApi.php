@@ -35,7 +35,7 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'only_manageable_rewards', 'value' => $onlyManageableRewards];
         }
 
-        return $this->callApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
+        return $this->getApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
     }
 
     /**
@@ -72,58 +72,21 @@ class ChannelPointsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }
 
-        return $this->callApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap);
+        return $this->getApi('channel_points/custom_rewards/redemptions', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-bits-leaderboard
+     * @link https://dev.twitch.tv/docs/api/reference#delete-custom-reward
      */
-    public function getBitsLeaderboard(string $bearer, int $count = null, string $period = null, string $startedAt = null, string $userId = null): ResponseInterface
+    public function deleteCustomReward(string $bearer, string $broadcasterId, string $id): ResponseInterface
     {
         $queryParamsMap = [];
 
-        if ($count) {
-            $queryParamsMap[] = ['key' => 'count', 'value' => $count];
-        }
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        if ($period) {
-            $queryParamsMap[] = ['key' => 'period', 'value' => $period];
-        }
+        $queryParamsMap[] = ['key' => 'id', 'value' => $id];
 
-        if ($startedAt) {
-            $queryParamsMap[] = ['key' => 'started_at', 'value' => $startedAt];
-        }
-
-        if ($userId) {
-            $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-        }
-
-        return $this->callApi('bits/leaderboard', $bearer, $queryParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-extension-transactions
-     */
-    public function getExtensionTransactions(string $bearer, string $extensionId, array $transactionIds = [], int $first = null, string $after = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        $queryParamsMap[] = ['key' => 'extension_id', 'value' => $extensionId];
-
-        foreach ($transactionIds as  $transactionId) {
-            $queryParamsMap[] = ['key' => 'id', 'value' => $transactionId];
-        }
-
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
-
-        return $this->callApi('extensions/transactions', $bearer, $queryParamsMap);
+        return $this->deleteApi('channel_points/custom_rewards', $bearer, $queryParamsMap);
     }
 }

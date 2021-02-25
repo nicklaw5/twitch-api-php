@@ -14,7 +14,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUserId(string $bearer, string $userId): ResponseInterface
     {
-        return $this->getStreams($bearer, [$userId], [], [], [], [], null, null, null);
+        return $this->getStreams($bearer, [$userId]);
     }
 
     /**
@@ -22,7 +22,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamForUsername(string $bearer, string $username): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [$username], [], [], [], null, null, null);
+        return $this->getStreams($bearer, [], [$username]);
     }
 
     /**
@@ -30,7 +30,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [$gameId], [], [], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [$gameId], [], $first, $before, $after);
     }
 
     /**
@@ -38,7 +38,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByLanguage(string $bearer, string $language, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [], [], [$language], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [], [$language], $first, $before, $after);
     }
 
     /**
@@ -51,14 +51,14 @@ class StreamsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        return $this->callApi('streams/key', $bearer, $queryParamsMap);
+        return $this->getApi('streams/key', $bearer, $queryParamsMap);
     }
 
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-streams
      */
-    public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
+    public function getStreams(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
         foreach ($userIds as $id) {
@@ -83,7 +83,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams', $bearer, $queryParamsMap);
+        return $this->getApi('streams', $bearer, $queryParamsMap);
     }
 
     /**
@@ -118,7 +118,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/metadata', $bearer, $queryParamsMap);
+        return $this->getApi('streams/metadata', $bearer, $queryParamsMap);
     }
 
     /**
@@ -149,7 +149,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('streams/markers', $bearer, $queryParamsMap);
+        return $this->getApi('streams/markers', $bearer, $queryParamsMap);
     }
 
     /**
@@ -164,7 +164,7 @@ class StreamsApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $id];
         }
 
-        return $this->callApi('channels', $bearer, $queryParamsMap);
+        return $this->getApi('channels', $bearer, $queryParamsMap);
     }
 
     /**
@@ -177,6 +177,6 @@ class StreamsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        return $this->callApi('streams/tags', $bearer, $queryParamsMap);
+        return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
 }

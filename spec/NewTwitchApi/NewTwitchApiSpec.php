@@ -9,6 +9,7 @@ use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
 use NewTwitchApi\Resources\GamesApi;
+use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\TagsApi;
 use NewTwitchApi\Resources\UsersApi;
@@ -52,7 +53,7 @@ class NewTwitchApiSpec extends ObjectBehavior
     {
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
     }
-
+    
     function it_should_provide_streams_api()
     {
         $this->getStreamsApi()->shouldBeAnInstanceOf(StreamsApi::class);

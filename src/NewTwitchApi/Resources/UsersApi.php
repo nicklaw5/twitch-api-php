@@ -50,7 +50,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'scope', 'value' => 'user:read:email'];
         }
 
-        return $this->callApi('users', $bearer, $queryParamsMap);
+        return $this->getApi('users', $bearer, $queryParamsMap);
     }
 
     /**
@@ -73,7 +73,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('users/follows', $bearer, $queryParamsMap);
+        return $this->getApi('users/follows', $bearer, $queryParamsMap);
     }
 
     /**
@@ -84,7 +84,7 @@ class UsersApi extends AbstractResource
     {
         $queryParamsMap = [];
 
-        return $this->callApi('users/extensions/list', $bearer, $queryParamsMap);
+        return $this->getApi('users/extensions/list', $bearer, $queryParamsMap);
     }
 
     /**
@@ -99,7 +99,7 @@ class UsersApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
-        return $this->callApi('users/extensions', $bearer, $queryParamsMap);
+        return $this->getApi('users/extensions', $bearer, $queryParamsMap);
     }
 
     /**
@@ -134,5 +134,20 @@ class UsersApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'to_id', 'value' => $toId];
 
         return $this->deleteApi('users/follows', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-user
+     */
+    public function updateUser(string $bearer, string $description = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        if ($description) {
+            $queryParamsMap[] = ['key' => 'description', 'value' => $description];
+        }
+
+        return $this->putApi('users', $bearer, $queryParamsMap);
     }
 }

@@ -27,7 +27,7 @@ class SearchApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('search/categories', $bearer, $queryParamsMap);
+        return $this->getApi('search/categories', $bearer, $queryParamsMap);
     }
 
     /**
@@ -52,6 +52,6 @@ class SearchApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
-        return $this->callApi('search/channels', $bearer, $queryParamsMap);
+        return $this->getApi('search/channels', $bearer, $queryParamsMap);
     }
 }

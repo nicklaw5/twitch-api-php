@@ -21,7 +21,7 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
-    protected function callApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    protected function getApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->sendToApi('GET', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
@@ -37,9 +37,25 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
+    protected function patchApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    {
+        return $this->sendToApi('PATCH', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     protected function postApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->sendToApi('POST', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    protected function putApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    {
+        return $this->sendToApi('PUT', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
     private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
@@ -47,18 +63,22 @@ abstract class AbstractResource
         if (count($bodyParams) > 0) {
             $request = new Request(
                 $httpMethod,
-                sprintf('%s%s',
-                $uriEndpoint,
-                $this->generateQueryParams($queryParamsMap)),
+                sprintf(
+                    '%s%s',
+                    $uriEndpoint,
+                    $this->generateQueryParams($queryParamsMap)
+                ),
                 ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
-                json_encode($bodyParams)
+                $this->generateBodyParams($bodyParams)
             );
         } else {
             $request = new Request(
                 $httpMethod,
-                sprintf('%s%s',
-                $uriEndpoint,
-                $this->generateQueryParams($queryParamsMap)),
+                sprintf(
+                    '%s%s',
+                    $uriEndpoint,
+                    $this->generateQueryParams($queryParamsMap)
+                ),
                 ['Authorization' => sprintf('Bearer %s', $bearer)]
             );
         }
@@ -88,5 +108,17 @@ abstract class AbstractResource
         }
 
         return $queryStringParams ? '?'.substr($queryStringParams, 1) : '';
+    }
+
+    protected function generateBodyParams(array $bodyParamsMap): string
+    {
+        $bodyParams = [];
+        foreach ($bodyParamsMap as $bodyParam) {
+            if ($bodyParam['value'] !== null) {
+                $bodyParams[$bodyParam['key']] = $bodyParam['value'];
+            }
+        }
+
+        return json_encode($bodyParams);
     }
 }

@@ -26,4 +26,46 @@ class EntitlementsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('POST', 'entitlements/code?user_id=123&code=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->redeemCode('TEST_TOKEN', '123', ['abc'])->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_drop_entitlements_by_id(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'entitlements/drops?id=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getDropsEntitlements('TEST_TOKEN', 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_drop_entitlements_by_user_id(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'entitlements/drops?user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getDropsEntitlements('TEST_TOKEN', NULL, '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_drop_entitlements_by_user_id_game_id(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'entitlements/drops?user_id=123&game_id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getDropsEntitlements('TEST_TOKEN', NULL, '123', '321')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_drop_entitlements_by_game_id(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'entitlements/drops?game_id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getDropsEntitlements('TEST_TOKEN', NULL, NULL, '321')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_drop_entitlements_by_with_all(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'entitlements/drops?user_id=123&game_id=321&after=fff&first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getDropsEntitlements('TEST_TOKEN', NULL, '123', '321', 'fff', 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_create_entitlement_grants_upload_url(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'entitlements/upload?manifest_id=123&type=bulk_drops_grant', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->createEntitlementGrantsUploadURL('TEST_TOKEN', '123', 'bulk_drops_grant')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_create_entitlement_grants_upload_url_shorthand(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('POST', 'entitlements/upload?manifest_id=123&type=bulk_drops_grant', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->createEntitlementGrantsUploadURL('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
