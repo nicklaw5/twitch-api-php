@@ -179,46 +179,4 @@ class StreamsApi extends AbstractResource
 
         return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#create-stream-marker
-     */
-    public function createStreamMarker(string $bearer, string $userId, string $description = null): ResponseInterface
-    {
-        $bodyParamsMap = [];
-
-        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-
-        if ($description) {
-            $bodyParamsMap[] = ['key' => 'description', 'value' => $description];
-        }
-
-        return $this->postApi('streams/markers', $bearer, [], $bodyParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#modify-channel-information
-     */
-    public function modifyChannelInfo(string $bearer, string $broadcasterId, string $gameId = null, string $language = null, string $title = null): ResponseInterface
-    {
-        $queryParamsMap = $bodyParamsMap = [];
-
-        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-
-        if ($gameId) {
-            $bodyParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
-        }
-
-        if ($language) {
-            $bodyParamsMap[] = ['key' => 'broadcaster_language', 'value' => $language];
-        }
-
-        if ($title) {
-            $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
-        }
-
-        return $this->patchApi('channels', $bearer, $queryParamsMap, $bodyParamsMap);
-    }
 }
