@@ -6,7 +6,6 @@ namespace NewTwitchApi;
 
 use GuzzleHttp\Client;
 use NewTwitchApi\Auth\OauthApi;
-use NewTwitchApi\Resources\AdsApi;
 use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
@@ -27,7 +26,6 @@ use NewTwitchApi\Webhooks\WebhooksSubscriptionApi;
 class NewTwitchApi
 {
     private $oauthApi;
-    private $adsApi;
     private $analyticsApi;
     private $bitsApi;
     private $channelPointsApi;
@@ -48,7 +46,6 @@ class NewTwitchApi
     public function __construct(Client $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
     {
         $this->oauthApi = new OauthApi($clientId, $clientSecret, $authGuzzleClient);
-        $this->adsApi = new AdsApi($helixGuzzleClient);
         $this->analyticsApi = new AnalyticsApi($helixGuzzleClient);
         $this->bitsApi = new BitsApi($helixGuzzleClient);
         $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient);
@@ -70,11 +67,6 @@ class NewTwitchApi
     public function getOauthApi(): OauthApi
     {
         return $this->oauthApi;
-    }
-
-    public function getAdsApi(): AdsApi
-    {
-        return $this->adsApi;
     }
 
     public function getAnalyticsApi(): AnalyticsApi

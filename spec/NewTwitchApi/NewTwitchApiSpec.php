@@ -53,12 +53,7 @@ class NewTwitchApiSpec extends ObjectBehavior
     {
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
     }
-
-    function it_should_provide_moderation_api()
-    {
-        $this->getModerationApi()->shouldBeAnInstanceOf(ModerationApi::class);
-    }
-
+    
     function it_should_provide_streams_api()
     {
         $this->getStreamsApi()->shouldBeAnInstanceOf(StreamsApi::class);
