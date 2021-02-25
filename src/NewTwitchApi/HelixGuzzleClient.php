@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class HelixGuzzleClient extends Client
 {
-    private const BASE_URI = 'https://ad5211862b1bcde69e96954213b8859a.m.pipedream.net/';
+    private const BASE_URI = 'https://api.twitch.tv/helix/';
 
     public function __construct(string $clientId, array $config = [])
     {
