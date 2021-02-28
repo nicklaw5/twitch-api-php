@@ -10,8 +10,6 @@ use NewTwitchApi\HelixGuzzleClient;
 
 class EventSubApi
 {
-    public const VERSION = '1';
-
     private $clientId;
     private $secret;
     private $guzzleClient;
@@ -24,9 +22,39 @@ class EventSubApi
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelupdate
+     */
+    public function subscribeToChannelUpdate(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribe(
+            'channel.update',
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+            $callback,
+            $bearer
+        ); 
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#streamonline
+     */
+    public function subscribeToStreamOnline(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToStream($twitchId, 'online', $callback, $bearer);
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#streamoffline
+     */
+    public function subscribeToStreamOffline(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToStream($twitchId, 'offline', $callback, $bearer);
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
      */
-    public function subscribeToStream(string $twitchId, string $event, string $callback, string $bearer): void
+    private function subscribeToStream(string $twitchId, string $event, string $callback, string $bearer): void
     {
         if (!in_array($event, ['online', 'offline'])) {
             throw new \InvalidArgumentException('Invalid value for stream event type. Accepted values: online,offline.');
@@ -34,6 +62,7 @@ class EventSubApi
 
         $this->subscribe(
             sprintf('stream.%s', $event),
+            '1',
             ['broadcaster_user_id' => $twitchId],
             $callback,
             $bearer
@@ -55,7 +84,7 @@ class EventSubApi
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/eventsub
      */
-    private function subscribe(string $type, array $condition, string $callback, string $bearer): void
+    private function subscribe(string $type, string $version, array $condition, string $callback, string $bearer): void
     {
         $headers = [
             'Client-ID' => $this->clientId,
@@ -65,7 +94,7 @@ class EventSubApi
 
         $body = [
             'type' => $type,
-            'version' => self::VERSION,
+            'version' => $version,
             'condition' => $condition,
             'transport' => [
                 'method' => 'webhook',
