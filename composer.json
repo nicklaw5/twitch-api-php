@@ -13,6 +13,10 @@
         {
             "name": "Brian Zwahr",
             "homepage": "https://github.com/echosa"
+        },
+        {
+            "name": "Brandin Arsenault",
+            "homepage": "https://github.com/brandinarsenault"
         }
     ],
     "require": {
