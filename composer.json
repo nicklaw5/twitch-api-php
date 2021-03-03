@@ -13,10 +13,14 @@
         {
             "name": "Brian Zwahr",
             "homepage": "https://github.com/echosa"
+        },
+        {
+            "name": "Brandin Arsenault",
+            "homepage": "https://github.com/brandinarsenault"
         }
     ],
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=7.4.0",
         "ext-json": "*",
         "guzzlehttp/guzzle": "~6.0|~7.0"
     },
