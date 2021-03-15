@@ -12,6 +12,7 @@ use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\TagsApi;
+use NewTwitchApi\Resources\TeamsApi;
 use NewTwitchApi\Resources\UsersApi;
 use NewTwitchApi\Resources\WebhooksApi;
 use NewTwitchApi\Webhooks\WebhooksSubscriptionApi;
@@ -62,6 +63,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_tags_api()
     {
         $this->getTagsApi()->shouldBeAnInstanceOf(TagsApi::class);
+    }
+
+    function it_should_provide_teams_api()
+    {
+        $this->getTeamsApi()->shouldBeAnInstanceOf(TeamsApi::class);
     }
 
     function it_should_provide_users_api()
