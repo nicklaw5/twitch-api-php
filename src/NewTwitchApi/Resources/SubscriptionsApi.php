@@ -75,4 +75,18 @@ class SubscriptionsApi extends AbstractResource
 
         return $this->getApi('subscriptions/events', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#check-user-subscription
+     */
+    public function checkUserSubscription(string $bearer, string $broadcasterId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        return $this->getApi('subscriptions/user', $bearer, $queryParamsMap);
+    }
 }
