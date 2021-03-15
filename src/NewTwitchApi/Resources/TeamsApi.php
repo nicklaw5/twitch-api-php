@@ -24,6 +24,22 @@ class TeamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
+     */
+    public function getTeamsByName(string $bearer, string $name): ResponseInterface
+    {
+        return $this->getTeams($bearer, $name, null);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getTeamsById(string $bearer, string $id): ResponseInterface
+    {
+        return $this->getTeams($bearer, null, $id);
+    }
+
+    /**
+     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-teams
      */
     public function getTeams(string $bearer, string $name = null, string $id = null): ResponseInterface
