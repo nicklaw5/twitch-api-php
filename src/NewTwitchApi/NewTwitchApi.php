@@ -18,6 +18,7 @@ use NewTwitchApi\Resources\SearchApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\SubscriptionsApi;
 use NewTwitchApi\Resources\TagsApi;
+use NewTwitchApi\Resources\TeamsApi;
 use NewTwitchApi\Resources\UsersApi;
 use NewTwitchApi\Resources\VideosApi;
 use NewTwitchApi\Resources\WebhooksApi;
@@ -38,6 +39,7 @@ class NewTwitchApi
     private $streamsApi;
     private $subscriptionsApi;
     private $tagsApi;
+    private $teamsApi;
     private $usersApi;
     private $videosApi;
     private $webhooksApi;
@@ -58,6 +60,7 @@ class NewTwitchApi
         $this->streamsApi = new StreamsApi($helixGuzzleClient);
         $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient);
         $this->tagsApi = new TagsApi($helixGuzzleClient);
+        $this->teamsApi = new TeamsApi($helixGuzzleClient);
         $this->usersApi = new UsersApi($helixGuzzleClient);
         $this->videosApi = new VideosApi($helixGuzzleClient);
         $this->webhooksApi = new WebhooksApi($helixGuzzleClient);
@@ -127,6 +130,11 @@ class NewTwitchApi
     public function getTagsApi(): TagsApi
     {
         return $this->tagsApi;
+    }
+
+    public function getTeamsApi(): TeamsApi
+    {
+        return $this->teamsApi;
     }
 
     public function getUsersApi(): UsersApi
