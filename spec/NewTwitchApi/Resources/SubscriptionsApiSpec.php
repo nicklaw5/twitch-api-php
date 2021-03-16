@@ -18,6 +18,6 @@ class SubscriptionsApiSpec extends ObjectBehavior
     function it_should_check_user_subscriptions(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send(new Request('GET', 'subscriptions/user?broadcaster_id=123&user_id=456', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->checkUserSubscription('TEST_TOKEN', 123, 456)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $this->checkUserSubscription('TEST_TOKEN', '123', '456')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
