@@ -59,4 +59,19 @@ class VideosApi extends AbstractResource
 
         return $this->getApi('videos', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#delete-videos
+     */
+    public function deleteVideos(string $bearer, array $ids = []): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        foreach ($ids as $id) {
+            $queryParamsMap[] = ['key' => 'id', 'value' => $id];
+        }
+
+        return $this->deleteApi('videos', $bearer, $queryParamsMap);
+    }
 }
