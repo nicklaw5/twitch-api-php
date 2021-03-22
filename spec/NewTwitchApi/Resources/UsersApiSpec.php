@@ -143,7 +143,7 @@ class UsersApiSpec extends ObjectBehavior
 
     function it_should_get_user_block_list(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'users?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $guzzleClient->send(new Request('GET', 'users/blocks?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getUserBlockList('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
@@ -167,7 +167,7 @@ class UsersApiSpec extends ObjectBehavior
 
     function it_should_unblock_user(Client $guzzleClient, Response $response)
     {
-      $guzzleClient->send(new Request('PUT', 'users/blocks?target_user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+      $guzzleClient->send(new Request('DELETE', 'users/blocks?target_user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
       $this->unblockUser('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }

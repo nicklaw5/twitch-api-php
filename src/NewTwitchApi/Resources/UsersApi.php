@@ -186,7 +186,7 @@ class UsersApi extends AbstractResource
         }
 
         if ($reason) {
-            $queryParamsMap[] = ['key' => 'reasib', 'value' => $reason];
+            $queryParamsMap[] = ['key' => 'reason', 'value' => $reason];
         }
 
         return $this->putApi('users/blocks', $bearer, $queryParamsMap);

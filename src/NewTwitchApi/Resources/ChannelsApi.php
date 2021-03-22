@@ -13,7 +13,7 @@ class ChannelsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-channel-information
      */
-    public function getChannelInfo(string $bearer, array $broadcasterId): ResponseInterface
+    public function getChannelInfo(string $bearer, string $broadcasterId): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -26,7 +26,7 @@ class ChannelsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-channel-editors
      */
-    public function getChannelEditors(string $bearer, array $broadcasterId): ResponseInterface
+    public function getChannelEditors(string $bearer, string $broadcasterId): ResponseInterface
     {
         $queryParamsMap = [];
 
