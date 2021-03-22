@@ -184,10 +184,24 @@ class UsersApi extends AbstractResource
         if ($sourceContext) {
             $queryParamsMap[] = ['key' => 'source_context', 'value' => $sourceContext];
         }
+
         if ($reason) {
             $queryParamsMap[] = ['key' => 'reasib', 'value' => $reason];
         }
 
         return $this->putApi('users/blocks', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#unblock-user
+     */
+    public function unblockUser(string $bearer, string $targetUserId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'target_user_id', 'value' => $targetUserId];
+
+        return $this->deleteApi('users/blocks', $bearer, $queryParamsMap);
     }
 }
