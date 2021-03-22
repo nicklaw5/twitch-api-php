@@ -173,7 +173,7 @@ class UsersApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-user-block-list
+     * @link https://dev.twitch.tv/docs/api/reference#block-user
      */
     public function blockUser(string $bearer, string $targetUserId, string $sourceContext = null, string $reason = null): ResponseInterface
     {
