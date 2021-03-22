@@ -170,4 +170,24 @@ class UsersApi extends AbstractResource
 
         return $this->getApi('users/blocks', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-user-block-list
+     */
+    public function blockUser(string $bearer, string $targetUserId, string $sourceContext = null, string $reason = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'target_user_id', 'value' => $targetUserId];
+
+        if ($sourceContext) {
+            $queryParamsMap[] = ['key' => 'source_context', 'value' => $sourceContext];
+        }
+        if ($reason) {
+            $queryParamsMap[] = ['key' => 'reasib', 'value' => $reason];
+        }
+
+        return $this->putApi('users/blocks', $bearer, $queryParamsMap);
+    }
 }
