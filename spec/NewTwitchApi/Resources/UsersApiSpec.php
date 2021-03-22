@@ -140,4 +140,34 @@ class UsersApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('PUT', 'users?description=test', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->updateUser('TEST_TOKEN', 'test')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_user_block_list(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'users?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getUserBlockList('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_user_block_list_with_opts(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'users/blocks?broadcaster_id=123&first=100&after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getUserBlockList('TEST_TOKEN', '123', 100, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_block_user(Client $guzzleClient, Response $response)
+    {
+      $guzzleClient->send(new Request('PUT', 'users/blocks?target_user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+      $this->blockUser('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_block_user_with_opts(Client $guzzleClient, Response $response)
+    {
+      $guzzleClient->send(new Request('PUT', 'users/blocks?target_user_id=123&source_context=chat&reason=spam', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+      $this->blockUser('TEST_TOKEN', '123', 'chat', 'spam')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_unblock_user(Client $guzzleClient, Response $response)
+    {
+      $guzzleClient->send(new Request('PUT', 'users/blocks?target_user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+      $this->unblockUser('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }
