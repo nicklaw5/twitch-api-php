@@ -16,6 +16,7 @@ use NewTwitchApi\Resources\SubscriptionsApi;
 use NewTwitchApi\Resources\TagsApi;
 use NewTwitchApi\Resources\TeamsApi;
 use NewTwitchApi\Resources\UsersApi;
+use NewTwitchApi\Resources\VideosApi;
 use NewTwitchApi\Resources\WebhooksApi;
 use NewTwitchApi\Webhooks\WebhooksSubscriptionApi;
 use PhpSpec\ObjectBehavior;
@@ -85,6 +86,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_users_api()
     {
         $this->getUsersApi()->shouldBeAnInstanceOf(UsersApi::class);
+    }
+
+    function it_should_provide_videos_api()
+    {
+        $this->getVideosApi()->shouldBeAnInstanceOf(VideosApi::class);
     }
 
     function it_should_provide_webhooks_api()
