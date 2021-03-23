@@ -7,6 +7,7 @@ use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
+use NewTwitchApi\Resources\ChannelsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
 use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\ModerationApi;
@@ -15,6 +16,7 @@ use NewTwitchApi\Resources\SubscriptionsApi;
 use NewTwitchApi\Resources\TagsApi;
 use NewTwitchApi\Resources\TeamsApi;
 use NewTwitchApi\Resources\UsersApi;
+use NewTwitchApi\Resources\VideosApi;
 use NewTwitchApi\Resources\WebhooksApi;
 use NewTwitchApi\Webhooks\WebhooksSubscriptionApi;
 use PhpSpec\ObjectBehavior;
@@ -46,6 +48,11 @@ class NewTwitchApiSpec extends ObjectBehavior
         $this->getChannelPointsApi()->shouldBeAnInstanceOf(ChannelPointsApi::class);
     }
 
+    function it_should_provide_channels_api()
+    {
+        $this->getChannelsApi()->shouldBeAnInstanceOf(ChannelsApi::class);
+    }
+
     function it_should_provide_entitlements_api()
     {
         $this->getEntitlementsApi()->shouldBeAnInstanceOf(EntitlementsApi::class);
@@ -55,7 +62,7 @@ class NewTwitchApiSpec extends ObjectBehavior
     {
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
     }
-    
+
     function it_should_provide_subscriptions_api()
     {
         $this->getSubscriptionsApi()->shouldBeAnInstanceOf(SubscriptionsApi::class);
@@ -79,6 +86,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_users_api()
     {
         $this->getUsersApi()->shouldBeAnInstanceOf(UsersApi::class);
+    }
+
+    function it_should_provide_videos_api()
+    {
+        $this->getVideosApi()->shouldBeAnInstanceOf(VideosApi::class);
     }
 
     function it_should_provide_webhooks_api()

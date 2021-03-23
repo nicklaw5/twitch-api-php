@@ -150,4 +150,58 @@ class UsersApi extends AbstractResource
 
         return $this->putApi('users', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-user-block-list
+     */
+    public function getUserBlockList(string $bearer, string $broadcasterId, int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        return $this->getApi('users/blocks', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#block-user
+     */
+    public function blockUser(string $bearer, string $targetUserId, string $sourceContext = null, string $reason = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'target_user_id', 'value' => $targetUserId];
+
+        if ($sourceContext) {
+            $queryParamsMap[] = ['key' => 'source_context', 'value' => $sourceContext];
+        }
+
+        if ($reason) {
+            $queryParamsMap[] = ['key' => 'reason', 'value' => $reason];
+        }
+
+        return $this->putApi('users/blocks', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#unblock-user
+     */
+    public function unblockUser(string $bearer, string $targetUserId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'target_user_id', 'value' => $targetUserId];
+
+        return $this->deleteApi('users/blocks', $bearer, $queryParamsMap);
+    }
 }
