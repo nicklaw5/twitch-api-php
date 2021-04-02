@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace NewTwitchApi\Resources;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use NewTwitchApi\HelixGuzzleClient;
 
 class EventSubApi
@@ -40,8 +40,8 @@ class EventSubApi
             'transport' => [
                 'method' => 'webhook',
                 'callback' => $callback,
-                'secret' => $this->secret
-            ]
+                'secret' => $this->secret,
+            ],
         ];
 
         $this->guzzleClient->post('eventsub/subscriptions', [
@@ -61,7 +61,7 @@ class EventSubApi
             ['broadcaster_user_id' => $twitchId],
             $callback,
             $bearer
-        ); 
+        );
     }
 
     /**
@@ -216,7 +216,7 @@ class EventSubApi
     public function verifySignature(string $signature, string $messageId, string $timestamp, string $body): bool
     {
         [$hashAlgorithm, $expectedHash] = explode('=', $signature);
-        $generatedHash = hash_hmac($hashAlgorithm, $messageId . $timestamp . $body, $this->secret);
+        $generatedHash = hash_hmac($hashAlgorithm, $messageId.$timestamp.$body, $this->secret);
 
         return $expectedHash === $generatedHash;
     }
