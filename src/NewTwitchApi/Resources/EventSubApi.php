@@ -148,6 +148,37 @@ class EventSubApi
         );
     }
 
+    private function subscribeToChannelModerator(string $twitchId, string $event, string $callback, string $bearer): void
+    {
+        if (!in_array($event, ['add', 'remove'])) {
+            throw new \InvalidArgumentException('Invalid value for channel.moderator event type. Accepted values: add,remove.');
+        }
+
+        $this->subscribe(
+            sprintf('channel.hype_train.%s', $event),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+            $callback,
+            $bearer
+        );
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelmoderatoradd
+     */
+    public function subscribeToChannelModeratorAdd(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToChannelModerator($twitchId, 'add', $callback, $bearer);
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelmoderatorremove
+     */
+    public function subscribeToChannelModeratorRemove(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToChannelModerator($twitchId, 'remove', $callback, $bearer);
+    }
+
     private function subscribeToChannelHypeTrain(string $twitchId, string $event, string $callback, string $bearer): void
     {
         if (!in_array($event, ['begin', 'progress', 'end'])) {
