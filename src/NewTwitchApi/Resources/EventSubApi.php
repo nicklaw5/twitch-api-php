@@ -148,6 +148,45 @@ class EventSubApi
         );
     }
 
+    private function subscribeToChannelHypeTrain(string $twitchId, string $event, string $callback, string $bearer): void
+    {
+        if (!in_array($event, ['begin', 'progress', 'end'])) {
+            throw new \InvalidArgumentException('Invalid value for channel_hype_train event type. Accepted values: begin,progress,end.');
+        }
+
+        $this->subscribe(
+            sprintf('channel.hype_train.%s', $event),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+            $callback,
+            $bearer
+        );
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainbegin
+     */
+    public function subscribeToChannelHypeTrainBegin(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToChannelHypeTrain($twitchId, 'begin', $callback, $bearer);
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainprogress
+     */
+    public function subscribeToChannelHypeTrainProgress(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToChannelHypeTrain($twitchId, 'progress', $callback, $bearer);
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainend
+     */
+    public function subscribeToChannelHypeTrainEnd(string $twitchId, string $callback, string $bearer): void
+    {
+        $this->subscribeToChannelHypeTrain($twitchId, 'end', $callback, $bearer);
+    }
+
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
      */
