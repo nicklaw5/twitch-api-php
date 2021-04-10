@@ -62,7 +62,7 @@ class NewTwitchApi
         $this->channelsApi = new ChannelsApi($helixGuzzleClient);
         $this->clipsApi = new ClipsApi($helixGuzzleClient);
         $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient);
-        $this->eventSubApi = new EventSubApi($clientId, $clientSecret, $helixGuzzleClient);
+        $this->eventSubApi = new EventSubApi($helixGuzzleClient);
         $this->gamesApi = new GamesApi($helixGuzzleClient);
         $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient);
         $this->moderationApi = new ModerationApi($helixGuzzleClient);
