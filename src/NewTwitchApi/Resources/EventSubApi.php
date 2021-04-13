@@ -12,7 +12,7 @@ class EventSubApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/eventsub
      */
-    private function subscribe(string $type, string $version, array $condition, string $callback, string $bearer, string $secret): void
+    private function subscribe(string $bearer, string $secret, string $callback, string $type, string $version, array $condition): void
     {
         $bodyParams = [];
 
@@ -34,128 +34,124 @@ class EventSubApi extends AbstractResource
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelupdate
      */
-    public function subscribeToChannelUpdate(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelUpdate(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.update',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelfollow
      */
-    public function subscribeToChannelFollow(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.follow',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelsubscribe
      */
-    public function subscribeToChannelSubscribe(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelSubscribe(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.subscribe',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcheer
      */
-    public function subscribeToChannelCheer(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelCheer(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.cheer',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelraid
      */
-    public function subscribeToChannelRaid(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelRaid(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.raid',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelban
      */
-    public function subscribeToChannelBan(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelBan(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.ban',
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelunban
      */
-    public function subscribeToChannelUnban(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelUnban(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'channel.unban',
             '1',
             ['to_broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
-    private function subscribeToChannelModerator(string $twitchId, string $event, string $callback, string $bearer, string $secret): void
+    private function subscribeToChannelModerator(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): void
     {
-        if (!in_array($event, ['add', 'remove'])) {
-            throw new \InvalidArgumentException('Invalid value for channel.moderator event type. Accepted values: add,remove.');
-        }
-
         $this->subscribe(
-            sprintf('channel.hype_train.%s', $event),
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.moderator.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelmoderatoradd
      */
-    public function subscribeToChannelModeratorAdd(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelModeratorAdd(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribeToChannelModerator($twitchId, 'add', $callback, $bearer, $secret);
     }
@@ -163,120 +159,112 @@ class EventSubApi extends AbstractResource
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelmoderatorremove
      */
-    public function subscribeToChannelModeratorRemove(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelModeratorRemove(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribeToChannelModerator($twitchId, 'remove', $callback, $bearer, $secret);
     }
 
-    private function subscribeToChannelHypeTrain(string $twitchId, string $event, string $callback, string $bearer, string $secret): void
+    private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): void
     {
-        if (!in_array($event, ['begin', 'progress', 'end'])) {
-            throw new \InvalidArgumentException('Invalid value for channel_hype_train event type. Accepted values: begin,progress,end.');
-        }
-
         $this->subscribe(
-            sprintf('channel.hype_train.%s', $event),
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.hype_train.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainbegin
      */
-    public function subscribeToChannelHypeTrainBegin(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelHypeTrainBegin(string $bearer, string $secret, string $callback, string $twitchId): void
     {
-        $this->subscribeToChannelHypeTrain($twitchId, 'begin', $callback, $bearer, $secret);
+        $this->subscribeToChannelHypeTrain($bearer, $secret, $callback, $twitchId, 'begin');
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainprogress
      */
-    public function subscribeToChannelHypeTrainProgress(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelHypeTrainProgress(string $bearer, string $secret, string $callback, string $twitchId): void
     {
-        $this->subscribeToChannelHypeTrain($twitchId, 'progress', $callback, $bearer, $secret);
+        $this->subscribeToChannelHypeTrain($bearer, $secret, $callback, $twitchId, 'progress');
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainend
      */
-    public function subscribeToChannelHypeTrainEnd(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToChannelHypeTrainEnd(string $bearer, string $secret, string $callback, string $twitchId): void
     {
-        $this->subscribeToChannelHypeTrain($twitchId, 'end', $callback, $bearer, $secret);
+        $this->subscribeToChannelHypeTrain($bearer, $secret, $callback, $twitchId, 'end');
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
      */
-    private function subscribeToStream(string $twitchId, string $event, string $callback, string $bearer, string $secret): void
+    private function subscribeToStream(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): void
     {
-        if (!in_array($event, ['online', 'offline'])) {
-            throw new \InvalidArgumentException('Invalid value for stream event type. Accepted values: online,offline.');
-        }
-
         $this->subscribe(
-            sprintf('stream.%s', $event),
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('stream.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#streamonline
      */
-    public function subscribeToStreamOnline(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToStreamOnline(string $bearer, string $secret, string $callback, string $twitchId): void
     {
-        $this->subscribeToStream($twitchId, 'online', $callback, $bearer, $secret);
+        $this->subscribeToStream($bearer, $secret, $callback, $twitchId, 'online');
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#streamoffline
      */
-    public function subscribeToStreamOffline(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToStreamOffline(string $bearer, string $secret, string $callback, string $twitchId): void
     {
-        $this->subscribeToStream($twitchId, 'offline', $callback, $bearer, $secret);
+        $this->subscribeToStream($bearer, $secret, $callback, $twitchId, 'offline');
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userauthorizationrevoke
      */
-    public function subscribeToUserAuthorizationRevoke(string $callback, string $bearer, string $secret): void
+    public function subscribeToUserAuthorizationRevoke(string $bearer, string $secret, string $callback, string $clientId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'user.authorization.revoke',
             '1',
-            ['client_id' => $this->clientId],
-            $callback,
-            $bearer,
-            $secret
+            ['client_id' => $clientId],
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userupdate
      */
-    public function subscribeToUserUpdate(string $twitchId, string $callback, string $bearer, string $secret): void
+    public function subscribeToUserUpdate(string $bearer, string $secret, string $callback, string $twitchId): void
     {
         $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
             'user.update',
             '1',
             ['user_id' => $twitchId],
-            $callback,
-            $bearer,
-            $secret
         );
     }
 
     /**
      * @link https://dev.twitch.tv/docs/eventsub#verify-a-signature
      */
-    public function verifySignature(string $signature, string $messageId, string $timestamp, string $body, string $secret): bool
+    public function verifySignature(string $signature, string $secret, string $messageId, string $timestamp, string $body): bool
     {
         [$hashAlgorithm, $expectedHash] = explode('=', $signature);
         $generatedHash = hash_hmac($hashAlgorithm, $messageId.$timestamp.$body, $secret);
