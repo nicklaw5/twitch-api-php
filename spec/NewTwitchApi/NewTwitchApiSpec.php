@@ -9,6 +9,7 @@ use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
 use NewTwitchApi\Resources\ChannelsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
+use NewTwitchApi\Resources\EventSubApi;
 use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\PollsApi;
@@ -58,6 +59,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_entitlements_api()
     {
         $this->getEntitlementsApi()->shouldBeAnInstanceOf(EntitlementsApi::class);
+    }
+
+    function it_should_provide_event_sub_api()
+    {
+        $this->getEventSubApi()->shouldBeAnInstanceOf(EventSubApi::class);
     }
 
     function it_should_provide_games_api()
