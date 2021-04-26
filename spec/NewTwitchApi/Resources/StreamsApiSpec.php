@@ -92,4 +92,16 @@ class StreamsApiSpec extends ObjectBehavior
         $guzzleClient->send(new Request('GET', 'streams?user_id=12&user_id=34&user_login=twitchuser&user_login=anotheruser&game_id=56&game_id=78&language=en&language=de&first=100&before=200&after=300', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
         $this->getStreams('TEST_TOKEN', ['12', '34'], ['twitchuser', 'anotheruser'], ['56', '78'], ['en', 'de'], 100, 200, 300)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
+
+    function it_should_get_followed_streams(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'streams/followed?user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getFollowedStreams('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_get_followed_streams_with_everything(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send(new Request('GET', 'streams/followed?user_id=123&first=100&after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
+        $this->getFollowedStreams('TEST_TOKEN', '123', 100, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
 }

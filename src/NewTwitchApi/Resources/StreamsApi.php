@@ -179,4 +179,25 @@ class StreamsApi extends AbstractResource
 
         return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#get-followed-streams
+     */
+    public function getFollowedStreams(string $bearer, string $userId, int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        return $this->getApi('streams/followed', $bearer, $queryParamsMap);
+    }
 }
