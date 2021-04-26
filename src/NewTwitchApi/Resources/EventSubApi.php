@@ -154,7 +154,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelModeratorAdd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        $this->subscribeToChannelModerator($twitchId, 'add', $callback, $bearer, $secret);
+        $this->subscribeToChannelModerator($bearer, $secret, $callback, $twitchId, 'add');
     }
 
     /**
@@ -162,7 +162,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelModeratorRemove(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        $this->subscribeToChannelModerator($twitchId, 'remove', $callback, $bearer, $secret);
+        $this->subscribeToChannelModerator($bearer, $secret, $callback, $twitchId, 'remove');
     }
 
     private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface

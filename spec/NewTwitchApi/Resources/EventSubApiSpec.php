@@ -17,19 +17,16 @@ class EventSubApiSpec extends ObjectBehavior
     private function generateRequest(string $type, string $version, array $condition): Request {
         $bodyParams = [];
 
-        $bodyParams[] = ['key' => 'type', 'value' => $type];
-        $bodyParams[] = ['key' => 'version', 'value' => $version];
-        $bodyParams[] = ['key' => 'condition', 'value' => $condition];
-        $bodyParams[] = [
-            'key' => 'transport',
-            'value' => [
-                'method' => 'webhook',
-                'callback' => $this->callback,
-                'secret' => $this->secret,
-            ],
+        $bodyParams['type'] = $type;
+        $bodyParams['version'] = $version;
+        $bodyParams['condition'] = $condition;
+        $bodyParams['transport'] = [
+          'method' => 'webhook',
+          'callback' => $this->callback,
+          'secret' => $this->secret,
         ];
 
-        return new Request('POST', 'eventsub/subscriptions', ['Authorization' => sprintf('Bearer %s', $this->bearer)], $bodyParams);
+        return new Request('POST', 'eventsub/subscriptions', ['Authorization' => sprintf('Bearer %s', $this->bearer)], json_encode($bodyParams));
     }
 
     function let(Client $guzzleClient)
