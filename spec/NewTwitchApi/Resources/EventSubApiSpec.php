@@ -88,6 +88,36 @@ class EventSubApiSpec extends ObjectBehavior
         $this->subscribeToChannelModeratorRemove($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
+    function it_should_subscribe_to_channel_points_custom_reward_add(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('channel.channel_points_custom_reward.add', '1', ['broadcaster_user_id' => '12345']))->willReturn($response);
+        $this->subscribeToChannelPointsCustomRewardAdd($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_channel_points_custom_reward_update(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('channel.channel_points_custom_reward.update', '1', ['broadcaster_user_id' => '12345', 'reward_id' => '67890']))->willReturn($response);
+        $this->subscribeToChannelPointsCustomRewardUpdate($this->bearer, $this->secret, $this->callback, '12345', '67890')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_channel_points_custom_reward_remove(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('channel.channel_points_custom_reward.remove', '1', ['broadcaster_user_id' => '12345', 'reward_id' => '67890']))->willReturn($response);
+        $this->subscribeToChannelPointsCustomRewardRemove($this->bearer, $this->secret, $this->callback, '12345', '67890')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_channel_points_custom_reward_redemption_add(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('channel.channel_points_custom_reward_redemption.add', '1', ['broadcaster_user_id' => '12345', 'reward_id' => '67890']))->willReturn($response);
+        $this->subscribeToChannelPointsCustomRewardRedemptionAdd($this->bearer, $this->secret, $this->callback, '12345', '67890')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_channel_points_custom_reward_redemption_update(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('channel.channel_points_custom_reward_redemption.update', '1', ['broadcaster_user_id' => '12345', 'reward_id' => '67890']))->willReturn($response);
+        $this->subscribeToChannelPointsCustomRewardRedemptionUpdate($this->bearer, $this->secret, $this->callback, '12345', '67890')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
     function it_should_subscribe_to_channel_hype_train_begin(Client $guzzleClient, Response $response)
     {
         $guzzleClient->send($this->generateRequest('channel.hype_train.begin', '1', ['broadcaster_user_id' => '12345']))->willReturn($response);
@@ -104,5 +134,23 @@ class EventSubApiSpec extends ObjectBehavior
     {
         $guzzleClient->send($this->generateRequest('channel.hype_train.end', '1', ['broadcaster_user_id' => '12345']))->willReturn($response);
         $this->subscribeToChannelHypeTrainEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_stream_online(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('stream.online', '1', ['broadcaster_user_id' => '12345']))->willReturn($response);
+        $this->subscribeToStreamOnline($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_stream_offline(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('stream.offline', '1', ['broadcaster_user_id' => '12345']))->willReturn($response);
+        $this->subscribeToStreamOffline($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+    }
+
+    function it_should_subscribe_to_user_update(Client $guzzleClient, Response $response)
+    {
+        $guzzleClient->send($this->generateRequest('stream.offline', '1', ['user_id' => '12345']))->willReturn($response);
+        $this->subscribeToUserUpdate($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
