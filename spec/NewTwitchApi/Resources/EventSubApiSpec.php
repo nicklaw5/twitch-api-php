@@ -150,7 +150,7 @@ class EventSubApiSpec extends ObjectBehavior
 
     function it_should_subscribe_to_user_update(Client $guzzleClient, Response $response)
     {
-        $guzzleClient->send($this->generateRequest('stream.offline', '1', ['user_id' => '12345']))->willReturn($response);
+        $guzzleClient->send($this->generateRequest('user.update', '1', ['user_id' => '12345']))->willReturn($response);
         $this->subscribeToUserUpdate($this->bearer, $this->secret, $this->callback, '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }
