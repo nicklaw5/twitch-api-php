@@ -165,11 +165,11 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToChannelModerator($bearer, $secret, $callback, $twitchId, 'remove');
     }
 
-    private function subscribeToChannelPointsCustomReward(string $bearer, string $secret, string $callback, string $twitchId, string | null $rewardId, string $eventType): ResponseInterface
+    private function subscribeToChannelPointsCustomReward(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
     {
         $condition = ['broadcaster_user_id' => $twitchId];
 
-        if (null !== $rewardId) {
+        if ($rewardId) {
             $condition['reward_id'] = $rewardId;
         }
 
@@ -207,11 +207,11 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToChannelPointsCustomReward($bearer, $secret, $callback, $twitchId, $rewardId, 'remove');
     }
 
-    private function subscribeToChannelPointsCustomRewardRedemption(string $bearer, string $secret, string $callback, string $twitchId, string | null $rewardId, string $eventType): ResponseInterface
+    private function subscribeToChannelPointsCustomRewardRedemption(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
     {
         $condition = ['broadcaster_user_id' => $twitchId];
 
-        if (null !== $rewardId) {
+        if ($rewardId) {
             $condition['reward_id'] = $rewardId;
         }
 
