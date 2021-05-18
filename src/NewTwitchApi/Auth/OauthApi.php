@@ -58,6 +58,22 @@ class OauthApi
     /**
      * @throws GuzzleException
      */
+    public function getUserInfo(string $accessToken): ResponseInterface
+    {
+        return $this->makeRequest(
+            new Request(
+                'GET',
+                'userinfo',
+                [
+                    'Authorization' => sprintf('OAuth %s', $accessToken),
+                ]
+            )
+        );
+    }
+    
+    /**
+     * @throws GuzzleException
+     */
     public function refreshToken(string $refeshToken, string $scope = ''): ResponseInterface
     {
         $requestOptions = [
