@@ -5,25 +5,27 @@ namespace spec\NewTwitchApi\Resources;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use NewTwitchApi\RequestGenerator;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
 
 class VideosApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient)
+    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->beConstructedWith($guzzleClient);
+        $this->beConstructedWith($guzzleClient, $requestGenerator);
+        $guzzleClient->send($request)->willReturn($response);
     }
 
-    function it_should_delete_videos(Client $guzzleClient, Response $response)
+    function it_should_delete_videos(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('DELETE', 'videos?id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->deleteVideos('TEST_TOKEN', ['123'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('DELETE', 'videos', 'TEST_TOKEN', [['key' => 'id', 'value' => '123']], [])->willReturn($request);
+        $this->deleteVideos('TEST_TOKEN', ['123'])->shouldBe($response);
     }
 
-    function it_should_delete_multiple_videos(Client $guzzleClient, Response $response)
+    function it_should_delete_multiple_videos(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('DELETE', 'videos?id=123&id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->deleteVideos('TEST_TOKEN', ['123', '321'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('DELETE', 'videos', 'TEST_TOKEN', [['key' => 'id', 'value' => '123'], ['key' => 'id', 'value' => '321']], [])->willReturn($request);
+        $this->deleteVideos('TEST_TOKEN', ['123', '321'])->shouldBe($response);
     }
 }
