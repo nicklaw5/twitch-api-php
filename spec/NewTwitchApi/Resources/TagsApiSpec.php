@@ -5,43 +5,45 @@ namespace spec\NewTwitchApi\Resources;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use NewTwitchApi\RequestGenerator;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
 
 class TagsApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient)
+    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->beConstructedWith($guzzleClient);
+        $this->beConstructedWith($guzzleClient, $requestGenerator);
+        $guzzleClient->send($request)->willReturn($response);
     }
 
-    function it_should_get_all_tags(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'tags/streams', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getAllStreamTags('TEST_TOKEN')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'tags/streams', 'TEST_TOKEN', [], [])->willReturn($request);
+        $this->getAllStreamTags('TEST_TOKEN')->shouldBe($response);
     }
 
-    function it_should_get_all_tags_by_id(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_by_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'tags/streams?tag_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getAllStreamTags('TEST_TOKEN', [123])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'tags/streams', 'TEST_TOKEN', [['key' => 'tag_id', 'value' => '123']], [])->willReturn($request);
+        $this->getAllStreamTags('TEST_TOKEN', ['123'])->shouldBe($response);
     }
 
-    function it_should_get_all_tags_with_first(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_with_first(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'tags/streams?first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getAllStreamTags('TEST_TOKEN', [], 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'tags/streams', 'TEST_TOKEN', [['key' => 'first', 'value' => 100]], [])->willReturn($request);
+        $this->getAllStreamTags('TEST_TOKEN', [], 100)->shouldBe($response);
     }
 
-    function it_should_get_all_tags_with_after(Client $guzzleClient, Response $response)
+    function it_should_get_all_tags_with_after(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'tags/streams?after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getAllStreamTags('TEST_TOKEN', [], null, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'tags/streams', 'TEST_TOKEN', [['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
+        $this->getAllStreamTags('TEST_TOKEN', [], null, 'abc')->shouldBe($response);
     }
 
-    function it_should_get_stream_tags(Client $guzzleClient, Response $response)
+    function it_should_get_stream_tags(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams/tags?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreamTags('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams/tags', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamTags('TEST_TOKEN', '123')->shouldBe($response);
     }
 }
