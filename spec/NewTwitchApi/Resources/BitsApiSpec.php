@@ -5,49 +5,50 @@ namespace spec\NewTwitchApi\Resources;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use NewTwitchApi\RequestGenerator;
 use PhpSpec\ObjectBehavior;
-use Psr\Http\Message\ResponseInterface;
 
 class BitsApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient)
+    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->beConstructedWith($guzzleClient);
+        $this->beConstructedWith($guzzleClient, $requestGenerator);
+        $guzzleClient->send($request)->willReturn($response);
     }
 
-    function it_should_getcheermotes(Client $guzzleClient, Response $response)
+    function it_should_getcheermotes(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'bits/cheermotes', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getCheermotes('TEST_TOKEN')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'bits/cheermotes', 'TEST_TOKEN', [], [])->willReturn($request);
+        $this->getCheermotes('TEST_TOKEN')->shouldBe($response);
     }
 
-    function it_should_getcheermotes_by_broadcaster_id(Client $guzzleClient, Response $response)
+    function it_should_getcheermotes_by_broadcaster_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'bits/cheermotes?broadcaster_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getCheermotes('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'bits/cheermotes', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getCheermotes('TEST_TOKEN', '123')->shouldBe($response);
     }
 
-    function it_should_extension_transactions(Client $guzzleClient, Response $response)
+    function it_should_extension_transactions(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'extensions/transactions?extension_id=1', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionTransactions('TEST_TOKEN', '1')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'extensions/transactions', 'TEST_TOKEN', [['key' => 'extension_id', 'value' => '1']], [])->willReturn($request);
+        $this->getExtensionTransactions('TEST_TOKEN', '1')->shouldBe($response);
     }
 
-    function it_should_extension_transactions_with_transaction_id(Client $guzzleClient, Response $response)
+    function it_should_extension_transactions_with_transaction_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'extensions/transactions?extension_id=1&id=321', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionTransactions('TEST_TOKEN', '1', ['321'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'extensions/transactions', 'TEST_TOKEN', [['key' => 'extension_id', 'value' => '1'], ['key' => 'id', 'value' => '321']], [])->willReturn($request);
+        $this->getExtensionTransactions('TEST_TOKEN', '1', ['321'])->shouldBe($response);
     }
 
-    function it_should_extension_transactions_with_first(Client $guzzleClient, Response $response)
+    function it_should_extension_transactions_with_first(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'extensions/transactions?extension_id=1&first=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionTransactions('TEST_TOKEN', '1', [], 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'extensions/transactions', 'TEST_TOKEN', [['key' => 'extension_id', 'value' => '1'], ['key' => 'first', 'value' => '100']], [])->willReturn($request);
+        $this->getExtensionTransactions('TEST_TOKEN', '1', [], 100)->shouldBe($response);
     }
 
-    function it_should_extension_transactions_with_after(Client $guzzleClient, Response $response)
+    function it_should_extension_transactions_with_after(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'extensions/transactions?extension_id=1&after=100', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getExtensionTransactions('TEST_TOKEN', '1', [], null, 100)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'extensions/transactions', 'TEST_TOKEN', [['key' => 'extension_id', 'value' => '1'], ['key' => 'after', 'value' => '100']], [])->willReturn($request);
+        $this->getExtensionTransactions('TEST_TOKEN', '1', [], null, 100)->shouldBe($response);
     }
 }
