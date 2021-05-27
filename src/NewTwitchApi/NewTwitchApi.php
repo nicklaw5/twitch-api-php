@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace NewTwitchApi;
 
 use GuzzleHttp\Client;
-use NewTwitchApi\RequestGenerator;
 use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
