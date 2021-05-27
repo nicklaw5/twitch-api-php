@@ -20,7 +20,7 @@ class OauthApi
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->guzzleClient = $guzzleClient ?? new AuthGuzzleClient();
+        $this->guzzleClient = $guzzleClient ?? AuthGuzzleClient::getClient();
     }
 
     /**
