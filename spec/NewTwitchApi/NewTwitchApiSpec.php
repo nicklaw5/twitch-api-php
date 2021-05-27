@@ -26,9 +26,9 @@ use PhpSpec\ObjectBehavior;
 
 class NewTwitchApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient, RequestGenerator $requestGenerator)
+    function let(Client $guzzleClient)
     {
-        $this->beConstructedWith($guzzleClient, $requestGenerator, 'client-id', 'client-secret');
+        $this->beConstructedWith($guzzleClient, 'client-id', 'client-secret');
     }
 
     function it_should_provide_oauth_api()
