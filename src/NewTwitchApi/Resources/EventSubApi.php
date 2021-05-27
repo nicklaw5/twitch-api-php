@@ -133,7 +133,7 @@ class EventSubApi extends AbstractResource
             $callback,
             'channel.unban',
             '1',
-            ['to_broadcaster_user_id' => $twitchId],
+            ['broadcaster_user_id' => $twitchId],
         );
     }
 
