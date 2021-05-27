@@ -11,9 +11,28 @@ class EventSubApi extends AbstractResource
 {
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/eventsub
+     * @link https://dev.twitch.tv/docs/api/reference#get-eventsub-subscriptions
      */
-    private function subscribe(string $bearer, string $secret, string $callback, string $type, string $version, array $condition): ResponseInterface
+    public function getEventSubSubscription(string $bearer, string $status = null, string $type = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        if ($status) {
+            $queryParamsMap[] = ['key' => 'status', 'value' => $status];
+        }
+
+        if ($type) {
+            $queryParamsMap[] = ['key' => 'type', 'value' => $type];
+        }
+
+        return $this->getApi('eventsub/subscriptions', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-eventsub-subscription
+     */
+    public function createEventSubSubscription(string $bearer, string $secret, string $callback, string $type, string $version, array $condition): ResponseInterface
     {
         $bodyParams = [];
 
@@ -33,11 +52,23 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#delete-eventsub-subscription
+     */
+    public function deleteEventSubSubscription(string $bearer, string $id): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'id', 'value' => $id];
+
+        return $this->deleteApi('eventsub/subscriptions', $bearer, $queryParamsMap);
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelupdate
      */
     public function subscribeToChannelUpdate(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -52,7 +83,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -67,7 +98,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelSubscribe(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -82,7 +113,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelUnsubscribe(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -97,7 +128,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelCheer(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -112,7 +143,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelRaid(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -127,7 +158,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelBan(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -142,7 +173,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToChannelUnban(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -154,7 +185,7 @@ class EventSubApi extends AbstractResource
 
     private function subscribeToChannelModerator(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -188,7 +219,7 @@ class EventSubApi extends AbstractResource
             $condition['reward_id'] = $rewardId;
         }
 
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -230,7 +261,7 @@ class EventSubApi extends AbstractResource
             $condition['reward_id'] = $rewardId;
         }
 
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -260,7 +291,7 @@ class EventSubApi extends AbstractResource
     {
         $condition = ['broadcaster_user_id' => $twitchId];
 
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -298,7 +329,7 @@ class EventSubApi extends AbstractResource
     {
         $condition = ['broadcaster_user_id' => $twitchId];
 
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -342,7 +373,7 @@ class EventSubApi extends AbstractResource
 
     private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -381,7 +412,7 @@ class EventSubApi extends AbstractResource
      */
     private function subscribeToStream(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -412,7 +443,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToUserAuthorizationRevoke(string $bearer, string $secret, string $callback, string $clientId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -427,7 +458,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToUserUpdate(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
@@ -442,7 +473,7 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToExtensionBitsTransactionCreate(string $bearer, string $secret, string $callback, string $extensionClientId): ResponseInterface
     {
-        return $this->subscribe(
+        return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
