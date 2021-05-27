@@ -256,6 +256,90 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToChannelPointsCustomRewardRedemption($bearer, $secret, $callback, $twitchId, $rewardId, 'update');
     }
 
+    private function subscribeToChannelPoll(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        return $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.poll.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpollbegin
+     */
+    public function subscribeToChannelPollBegin(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPoll($bearer, $secret, $callback, $twitchId, 'begin');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpollprogress
+     */
+    public function subscribeToChannelPollProgress(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPoll($bearer, $secret, $callback, $twitchId, 'progress');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpollend
+     */
+    public function subscribeToChannelPollEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPoll($bearer, $secret, $callback, $twitchId, 'end');
+    }
+
+    private function subscribeToChannelPrediction(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        return $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.prediction.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpredictionbegin
+     */
+    public function subscribeToChannelPredictionBegin(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPrediction($bearer, $secret, $callback, $twitchId, 'begin');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpredictionprogress
+     */
+    public function subscribeToChannelPredictionProgress(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPrediction($bearer, $secret, $callback, $twitchId, 'progress');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpredictionprogress
+     */
+    public function subscribeToChannelPredictionLock(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPrediction($bearer, $secret, $callback, $twitchId, 'lock');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelpredictionend
+     */
+    public function subscribeToChannelPredictionEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelPrediction($bearer, $secret, $callback, $twitchId, 'end');
+    }
+
     private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
     {
         return $this->subscribe(

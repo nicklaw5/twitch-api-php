@@ -57,7 +57,7 @@ class EventSubApiSpec extends ObjectBehavior
     function it_should_subscribe_to_channel_unsubscribe(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $this->generateRequest('channel.unsubscribe', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
-        $this->subscribeToChannelSubscribe($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+        $this->subscribeToChannelUnsubscribe($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
 
     function it_should_subscribe_to_channel_cheer(RequestGenerator $requestGenerator, Request $request, Response $response)
@@ -124,6 +124,48 @@ class EventSubApiSpec extends ObjectBehavior
     {
         $this->generateRequest('channel.channel_points_custom_reward_redemption.update', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
         $this->subscribeToChannelPointsCustomRewardRedemptionUpdate($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_poll_begin(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.poll.begin', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPollBegin($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_poll_progress(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.poll.progress', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPollProgress($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_poll_endn(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.poll.end', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPollEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_prediction_begin(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.prediction.begin', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPredictionBegin($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_prediction_progress(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.prediction.progress', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPredictionProgress($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_prediction_lock(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.prediction.lock', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPredictionLock($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_prediction_endn(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('channel.prediction.end', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelPredictionEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
 
     function it_should_subscribe_to_channel_hype_train_begin(RequestGenerator $requestGenerator, Request $request, Response $response)
