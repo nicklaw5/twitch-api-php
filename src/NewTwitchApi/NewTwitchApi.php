@@ -50,31 +50,30 @@ class NewTwitchApi
     private $videosApi;
     private $webhooksApi;
     private $webhooksSubscriptionApi;
-    private $requestGenerator;
 
     public function __construct(Client $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
     {
-        $this->requestGenerator = new RequestGenerator();
+        $requestGenerator = new RequestGenerator();
         $this->oauthApi = new OauthApi($clientId, $clientSecret, $authGuzzleClient);
-        $this->analyticsApi = new AnalyticsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->bitsApi = new BitsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->channelsApi = new ChannelsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->clipsApi = new ClipsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->gamesApi = new GamesApi($helixGuzzleClient, $this->requestGenerator);
-        $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient, $this->requestGenerator);
-        $this->moderationApi = new ModerationApi($helixGuzzleClient, $this->requestGenerator);
-        $this->pollsApi = new PollsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->searchApi = new SearchApi($helixGuzzleClient, $this->requestGenerator);
-        $this->streamsApi = new StreamsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->tagsApi = new TagsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->teamsApi = new TeamsApi($helixGuzzleClient, $this->requestGenerator);
-        $this->usersApi = new UsersApi($helixGuzzleClient, $this->requestGenerator);
-        $this->videosApi = new VideosApi($helixGuzzleClient, $this->requestGenerator);
-        $this->webhooksApi = new WebhooksApi($helixGuzzleClient, $this->requestGenerator);
+        $this->analyticsApi = new AnalyticsApi($helixGuzzleClient, $requestGenerator);
+        $this->bitsApi = new BitsApi($helixGuzzleClient, $requestGenerator);
+        $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient, $requestGenerator);
+        $this->channelsApi = new ChannelsApi($helixGuzzleClient, $requestGenerator);
+        $this->clipsApi = new ClipsApi($helixGuzzleClient, $requestGenerator);
+        $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $requestGenerator);
+        $this->gamesApi = new GamesApi($helixGuzzleClient, $requestGenerator);
+        $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient, $requestGenerator);
+        $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
+        $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
+        $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $requestGenerator);
+        $this->searchApi = new SearchApi($helixGuzzleClient, $requestGenerator);
+        $this->streamsApi = new StreamsApi($helixGuzzleClient, $requestGenerator);
+        $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient, $requestGenerator);
+        $this->tagsApi = new TagsApi($helixGuzzleClient, $requestGenerator);
+        $this->teamsApi = new TeamsApi($helixGuzzleClient, $requestGenerator);
+        $this->usersApi = new UsersApi($helixGuzzleClient, $requestGenerator);
+        $this->videosApi = new VideosApi($helixGuzzleClient, $requestGenerator);
+        $this->webhooksApi = new WebhooksApi($helixGuzzleClient, $requestGenerator);
         $this->webhooksSubscriptionApi = new WebhooksSubscriptionApi($clientId, $clientSecret, $helixGuzzleClient);
     }
 
