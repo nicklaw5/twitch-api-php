@@ -30,7 +30,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByGameId(string $bearer, string $gameId, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [$gameId], [], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [$gameId]);
     }
 
     /**
@@ -38,7 +38,7 @@ class StreamsApi extends AbstractResource
      */
     public function getStreamsByLanguage(string $bearer, string $language, int $first = null, string $before = null, string $after = null): ResponseInterface
     {
-        return $this->getStreams($bearer, [], [], [], [$language], $first, $before, $after);
+        return $this->getStreams($bearer, [], [], [], [$language]);
     }
 
     /**

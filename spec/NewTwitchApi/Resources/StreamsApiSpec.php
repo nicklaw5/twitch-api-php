@@ -5,103 +5,141 @@ namespace spec\NewTwitchApi\Resources;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use NewTwitchApi\RequestGenerator;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
 
 class StreamsApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient)
+    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->beConstructedWith($guzzleClient);
+        $this->beConstructedWith($guzzleClient, $requestGenerator);
+        $guzzleClient->send($request)->willReturn($response);
     }
 
-    function it_should_get_streams_by_ids(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_id=12345&user_id=98765', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', ['12345', '98765'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', ['123'])->shouldBe($response);
     }
 
-    function it_should_get_streams_by_usernames(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_id_with_helper(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_login=twitchuser&user_login=anotheruser', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], ['twitchuser', 'anotheruser'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamForUserId('TEST_TOKEN', '123')->shouldBe($response);
     }
 
-    function it_should_get_streams_by_id_and_username(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_ids(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_id=12345&user_id=98765&user_login=twitchuser&user_login=anotheruser', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', ['12345', '98765'], ['twitchuser', 'anotheruser'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'user_id', 'value' => '321']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', ['123', '321'])->shouldBe($response);
     }
 
-    function it_should_get_a_single_user_by_id(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_username(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_id=12345', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreamForUserId('TEST_TOKEN', '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_login', 'value' => 'test']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], ['test'])->shouldBe($response);
     }
 
-    function it_should_get_a_single_game_id(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_username_with_helper(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?game_id=12345', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreamsByGameId('TEST_TOKEN', '12345')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_login', 'value' => 'test']], [])->willReturn($request);
+        $this->getStreamForUsername('TEST_TOKEN', 'test')->shouldBe($response);
     }
 
-    function it_should_get_a_single_language(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_usernames(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?language=en', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreamsByLanguage('TEST_TOKEN', 'en')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_login', 'value' => 'test'], ['key' => 'user_login', 'value' => 'user']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], ['test', 'user'])->shouldBe($response);
     }
 
-    function it_should_get_a_single_user_by_username(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_id_and_username(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_login=twitchuser', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreamForUsername('TEST_TOKEN', 'twitchuser')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'user_login', 'value' => 'test']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', ['123'], ['test'])->shouldBe($response);
     }
 
-    function it_should_get_streams_by_game_ids(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_game_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?game_id=12345&game_id=98765', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], [], ['12345', '98765'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'game_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], [], ['123'])->shouldBe($response);
     }
 
-    function it_should_get_streams_by_languages(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_game_id_with_helper(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?language=en&language=de', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], [], [], ['en', 'de'])->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'game_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamsByGameId('TEST_TOKEN', '123')->shouldBe($response);
     }
 
-    function it_should_get_streams_page_by_first(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_game_ids(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?first=42', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], [], [], [], 42)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'game_id', 'value' => '123'], ['key' => 'game_id', 'value' => '456']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], [], ['123', '456'])->shouldBe($response);
     }
 
-    function it_should_get_streams_page_by_before(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_language(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?before=42', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], [], [], [], null, 42)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'language', 'value' => 'en']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], [], [], ['en'])->shouldBe($response);
     }
 
-    function it_should_get_streams_page_by_after(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_language_with_helper(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?after=42', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', [], [], [], [], null, null, 42)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'language', 'value' => 'en']], [])->willReturn($request);
+        $this->getStreamsByLanguage('TEST_TOKEN', 'en')->shouldBe($response);
     }
 
-    function it_should_get_streams_by_everything(Client $guzzleClient, Response $response)
+    function it_should_get_streams_by_languages(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams?user_id=12&user_id=34&user_login=twitchuser&user_login=anotheruser&game_id=56&game_id=78&language=en&language=de&first=100&before=200&after=300', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getStreams('TEST_TOKEN', ['12', '34'], ['twitchuser', 'anotheruser'], ['56', '78'], ['en', 'de'], 100, 200, 300)->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'language', 'value' => 'en'], ['key' => 'language', 'value' => 'fr']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], [], [], ['en', 'fr'])->shouldBe($response);
     }
 
-    function it_should_get_followed_streams(Client $guzzleClient, Response $response)
+    function it_should_get_streams_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams/followed?user_id=123', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getFollowedStreams('TEST_TOKEN', '123')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams', 'TEST_TOKEN', [['key' => 'first', 'value' => 100], ['key' => 'before', 'value' => 'abc'], ['key' => 'after', 'value' => 'def']], [])->willReturn($request);
+        $this->getStreams('TEST_TOKEN', [], [], [], [], 100, 'abc', 'def')->shouldBe($response);
     }
 
-    function it_should_get_followed_streams_with_everything(Client $guzzleClient, Response $response)
+    function it_should_get_stream_key(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $guzzleClient->send(new Request('GET', 'streams/followed?user_id=123&first=100&after=abc', ['Authorization' => 'Bearer TEST_TOKEN']))->willReturn($response);
-        $this->getFollowedStreams('TEST_TOKEN', '123', 100, 'abc')->shouldBeAnInstanceOf(ResponseInterface::class);
+        $requestGenerator->generate('GET', 'streams/key', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamKey('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_stream_markers_by_user_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/markers', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamMarkers('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_stream_markers_by_user_id_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/markers', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'first', 'value' => 100], ['key' => 'before', 'value' => 'abc'], ['key' => 'after', 'value' => 'def']], [])->willReturn($request);
+        $this->getStreamMarkers('TEST_TOKEN', '123', null, 100, 'abc', 'def')->shouldBe($response);
+    }
+
+    function it_should_get_stream_markers_by_video_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/markers', 'TEST_TOKEN', [['key' => 'video_id', 'value' => '123']], [])->willReturn($request);
+        $this->getStreamMarkers('TEST_TOKEN', null, '123')->shouldBe($response);
+    }
+
+    function it_should_get_stream_markers_by_video_id_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/markers', 'TEST_TOKEN', [['key' => 'video_id', 'value' => '123'], ['key' => 'first', 'value' => 100], ['key' => 'before', 'value' => 'abc'], ['key' => 'after', 'value' => 'def']], [])->willReturn($request);
+        $this->getStreamMarkers('TEST_TOKEN', null, '123', 100, 'abc', 'def')->shouldBe($response);
+    }
+
+    function it_should_get_followed_streams(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/followed', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getFollowedStreams('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_followed_streams_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'streams/followed', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
+        $this->getFollowedStreams('TEST_TOKEN', '123', 100, 'abc')->shouldBe($response);
     }
 }
