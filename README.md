@@ -66,6 +66,9 @@ $helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
 $newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 $oauth = $newTwitchApi->getOauthApi();
 
+// Get the code from URI
+$code = $_GET['code'];
+
 // Get the current URL, we'll use this to redirect them back to exactly where they came from
 $currentUri = explode('?', 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])[0];
 
@@ -84,9 +87,6 @@ if ($code == '') {
 
             // Your bearer token
             $twitch_access_token = $data->access_token ?? null;
-
-            // The scopes from the API
-            $twitch_scopes = $data->scope;
         } else {
             //TODO: Handle Error
         }
