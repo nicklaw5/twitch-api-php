@@ -14,7 +14,8 @@ class EventSubApiSpec extends ObjectBehavior
     private string $secret = 'SECRET';
     private string $callback = 'https://example.com/';
 
-    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator) {
+    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator)
+    {
         $bodyParams = [];
 
         $bodyParams[] = ['key' => 'type', 'value' => $type];
