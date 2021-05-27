@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use NewTwitchApi\RequestGenerator;
 use NewTwitchApi\Resources\UsersApi;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,7 @@ class UsersTest extends TestCase
 {
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
+        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
         $response = $users->getUserById('TEST_APP_ACCESS_TOKEN', '44322889');
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -25,7 +26,7 @@ class UsersTest extends TestCase
 
     public function testGetUserByUsernameShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse());
+        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
         $response = $users->getUserByUsername('TEST_APP_ACCESS_TOKEN', 'dallas');
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -58,5 +59,10 @@ JSON;
         $handler = HandlerStack::create($mock);
 
         return new Client(['handler' => $handler]);
+    }
+
+    private function getRequestGenerator(): RequestGenerator
+    {
+        return new RequestGenerator();
     }
 }
