@@ -54,7 +54,7 @@ class NewTwitchApi
 
     public function __construct(Client $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
     {
-        $this->requestGenerator = new RequestGenerator;
+        $this->requestGenerator = new RequestGenerator();
         $this->oauthApi = new OauthApi($clientId, $clientSecret, $authGuzzleClient);
         $this->analyticsApi = new AnalyticsApi($helixGuzzleClient, $this->requestGenerator);
         $this->bitsApi = new BitsApi($helixGuzzleClient, $this->requestGenerator);
