@@ -203,4 +203,10 @@ class EventSubApiSpec extends ObjectBehavior
         $this->generateRequest('user.update', '1', ['user_id' => '12345'], $requestGenerator)->willReturn($request);
         $this->subscribeToUserUpdate($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_extension_bits_transaction_create(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->generateRequest('extension.bits_transaction.create', 'beta', ['extension_client_id' => 'deadbeef'], $requestGenerator)->willReturn($request);
+        $this->subscribeToExtensionBitsTransactionCreate($this->bearer, $this->secret, $this->callback, 'deadbeef')->shouldBe($response);
+    }
 }

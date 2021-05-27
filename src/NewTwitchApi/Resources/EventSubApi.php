@@ -438,6 +438,21 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#extensionbits_transactioncreate-beta
+     */
+    public function subscribeToExtensionBitsTransactionCreate(string $bearer, string $secret, string $callback, string $extensionClientId): ResponseInterface
+    {
+        return $this->subscribe(
+            $bearer,
+            $secret,
+            $callback,
+            'extension.bits_transaction.create',
+            'beta',
+            ['extension_client_id' => $extensionClientId],
+        );
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub#verify-a-signature
      */
     public function verifySignature(string $signature, string $secret, string $messageId, string $timestamp, string $body): bool
