@@ -50,9 +50,6 @@ try {
 
     // Your bearer token
     $twitch_access_token = $data->access_token ?? null;
-
-    // The scopes from the API
-    $twitch_scopes = $data->scope;
 } catch (Exception $e) {
     //TODO: Handle Error
 }
