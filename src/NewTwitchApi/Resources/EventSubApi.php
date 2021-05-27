@@ -183,18 +183,6 @@ class EventSubApi extends AbstractResource
         );
     }
 
-    private function subscribeToChannelModerator(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
-    {
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.moderator.%s', $eventType),
-            '1',
-            ['broadcaster_user_id' => $twitchId],
-        );
-    }
-
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelmoderatoradd
      */
@@ -209,24 +197,6 @@ class EventSubApi extends AbstractResource
     public function subscribeToChannelModeratorRemove(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
         return $this->subscribeToChannelModerator($bearer, $secret, $callback, $twitchId, 'remove');
-    }
-
-    private function subscribeToChannelPointsCustomReward(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
-    {
-        $condition = ['broadcaster_user_id' => $twitchId];
-
-        if ($rewardId) {
-            $condition['reward_id'] = $rewardId;
-        }
-
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.channel_points_custom_reward.%s', $eventType),
-            '1',
-            $condition,
-        );
     }
 
     /**
@@ -253,24 +223,6 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToChannelPointsCustomReward($bearer, $secret, $callback, $twitchId, $rewardId, 'remove');
     }
 
-    private function subscribeToChannelPointsCustomRewardRedemption(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
-    {
-        $condition = ['broadcaster_user_id' => $twitchId];
-
-        if ($rewardId) {
-            $condition['reward_id'] = $rewardId;
-        }
-
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.channel_points_custom_reward_redemption.%s', $eventType),
-            '1',
-            $condition,
-        );
-    }
-
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelchannel_points_custom_reward_redemptionadd
      */
@@ -285,20 +237,6 @@ class EventSubApi extends AbstractResource
     public function subscribeToChannelPointsCustomRewardRedemptionUpdate(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null): ResponseInterface
     {
         return $this->subscribeToChannelPointsCustomRewardRedemption($bearer, $secret, $callback, $twitchId, $rewardId, 'update');
-    }
-
-    private function subscribeToChannelPoll(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
-    {
-        $condition = ['broadcaster_user_id' => $twitchId];
-
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.poll.%s', $eventType),
-            '1',
-            $condition,
-        );
     }
 
     /**
@@ -323,20 +261,6 @@ class EventSubApi extends AbstractResource
     public function subscribeToChannelPollEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
         return $this->subscribeToChannelPoll($bearer, $secret, $callback, $twitchId, 'end');
-    }
-
-    private function subscribeToChannelPrediction(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
-    {
-        $condition = ['broadcaster_user_id' => $twitchId];
-
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.prediction.%s', $eventType),
-            '1',
-            $condition,
-        );
     }
 
     /**
@@ -371,18 +295,6 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToChannelPrediction($bearer, $secret, $callback, $twitchId, 'end');
     }
 
-    private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
-    {
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('channel.hype_train.%s', $eventType),
-            '1',
-            ['broadcaster_user_id' => $twitchId],
-        );
-    }
-
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelhype_trainbegin
      */
@@ -405,21 +317,6 @@ class EventSubApi extends AbstractResource
     public function subscribeToChannelHypeTrainEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
         return $this->subscribeToChannelHypeTrain($bearer, $secret, $callback, $twitchId, 'end');
-    }
-
-    /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
-     */
-    private function subscribeToStream(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
-    {
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            sprintf('stream.%s', $eventType),
-            '1',
-            ['broadcaster_user_id' => $twitchId],
-        );
     }
 
     /**
@@ -492,5 +389,105 @@ class EventSubApi extends AbstractResource
         $generatedHash = hash_hmac($hashAlgorithm, $messageId.$timestamp.$body, $secret);
 
         return $expectedHash === $generatedHash;
+    }
+
+    private function subscribeToChannelModerator(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.moderator.%s', $eventType),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToChannelPointsCustomReward(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        if ($rewardId) {
+            $condition['reward_id'] = $rewardId;
+        }
+
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.channel_points_custom_reward.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    private function subscribeToChannelPointsCustomRewardRedemption(string $bearer, string $secret, string $callback, string $twitchId, string $rewardId = null, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        if ($rewardId) {
+            $condition['reward_id'] = $rewardId;
+        }
+
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.channel_points_custom_reward_redemption.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    private function subscribeToChannelPoll(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.poll.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    private function subscribeToChannelPrediction(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        $condition = ['broadcaster_user_id' => $twitchId];
+
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.prediction.%s', $eventType),
+            '1',
+            $condition,
+        );
+    }
+
+    private function subscribeToChannelHypeTrain(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.hype_train.%s', $eventType),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToStream(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('stream.%s', $eventType),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
     }
 }
