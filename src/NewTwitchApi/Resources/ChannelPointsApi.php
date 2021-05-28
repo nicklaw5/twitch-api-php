@@ -82,11 +82,9 @@ class ChannelPointsApi extends AbstractResource
     public function createCustomReward(string $bearer, string $broadcasterId, string $title, int $cost, $additionalBodyParams = []): ResponseInterface
     {
         // $additionalBodyParams should be a standard key => value format, eg. ['game_id' => '1'];
-        $queryParamsMap = [];
+        $queryParamsMap = $bodyParamsMap = [];
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-
-        $bodyParamsMap = [];
 
         $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
         $bodyParamsMap[] = ['key' => 'cost', 'value' => $cost];
@@ -105,12 +103,11 @@ class ChannelPointsApi extends AbstractResource
     public function updateCustomReward(string $bearer, string $broadcasterId, string $rewardId, $bodyParams = []): ResponseInterface
     {
         // $bodyParams should be a standard key => value format, eg. ['game_id' => '1'];
-        $queryParamsMap = [];
+        $queryParamsMap = $bodyParamsMap = [];
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'id', 'value' => $rewardId];
 
-        $bodyParamsMap = [];
         foreach ($bodyParams as $key => $value) {
             $bodyParamsMap[] = ['key' => $key, 'value' => $value];
         }

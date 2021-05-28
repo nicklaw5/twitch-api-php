@@ -42,11 +42,10 @@ class ChannelsApi extends AbstractResource
     public function modifyChannelInfo(string $bearer, string $broadcasterId, $bodyParams = []): ResponseInterface
     {
         // $bodyParams should be a standard key => value format, eg. ['game_id' => '1'];
-        $queryParamsMap = [];
+        $queryParamsMap = $bodyParamsMap = [];
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        $bodyParamsMap = [];
         foreach ($bodyParams as $key => $value) {
             $bodyParamsMap[] = ['key' => $key, 'value' => $value];
         }
