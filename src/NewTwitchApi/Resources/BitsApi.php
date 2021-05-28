@@ -61,7 +61,7 @@ class BitsApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'extension_id', 'value' => $extensionId];
 
-        foreach ($transactionIds as  $transactionId) {
+        foreach ($transactionIds as $transactionId) {
             $queryParamsMap[] = ['key' => 'id', 'value' => $transactionId];
         }
 
