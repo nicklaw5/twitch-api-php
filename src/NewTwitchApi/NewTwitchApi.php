@@ -11,6 +11,7 @@ use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
 use NewTwitchApi\Resources\ChannelsApi;
+use NewTwitchApi\Resources\ChatApi;
 use NewTwitchApi\Resources\ClipsApi;
 use NewTwitchApi\Resources\EntitlementsApi;
 use NewTwitchApi\Resources\EventSubApi;
@@ -37,6 +38,7 @@ class NewTwitchApi
     private $bitsApi;
     private $channelPointsApi;
     private $channelsApi;
+    private $chatApi;
     private $clipsApi;
     private $entitlementsApi;
     private $eventSubApi;
@@ -64,6 +66,7 @@ class NewTwitchApi
         $this->bitsApi = new BitsApi($helixGuzzleClient, $requestGenerator);
         $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient, $requestGenerator);
         $this->channelsApi = new ChannelsApi($helixGuzzleClient, $requestGenerator);
+        $this->chatApi = new ChatApi($helixGuzzleClient, $requestGenerator);
         $this->clipsApi = new ClipsApi($helixGuzzleClient, $requestGenerator);
         $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $requestGenerator);
         $this->eventSubApi = new EventSubApi($helixGuzzleClient, $requestGenerator);
@@ -111,6 +114,11 @@ class NewTwitchApi
     public function getChannelsApi(): ChannelsApi
     {
         return $this->channelsApi;
+    }
+
+    public function getChatApi(): ChatApi
+    {
+        return $this->chatApi;
     }
 
     public function getClipsApi(): ClipsApi
