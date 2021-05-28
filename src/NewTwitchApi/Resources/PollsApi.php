@@ -53,4 +53,19 @@ class PollsApi extends AbstractResource
 
         return $this->postApi('polls', $bearer, [], $bodyParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#end-poll
+     */
+    public function endPoll(string $bearer, string $broadcasterId, string $pollId, string $status): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'id', 'value' => $pollId];
+        $bodyParamsMap[] = ['key' => 'status', 'value' => $status];
+
+        return $this->patchApi('polls', $bearer, [], $bodyParamsMap);
+    }
 }
