@@ -111,4 +111,10 @@ class ChannelPointsApiSpec extends ObjectBehavior
         $requestGenerator->generate('DELETE', 'channel_points/custom_rewards', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'id', 'value' => '321']], [])->willReturn($request);
         $this->deleteCustomReward('TEST_TOKEN', '123', '321')->shouldBe($response);
     }
+
+    function it_should_update_redemption_status(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'channel_points/custom_rewards/redemptions', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'reward_id', 'value' => '456'], ['key' => 'id', 'value' => '789']], [['key' => 'status', 'value' => 'FULFILLED']])->willReturn($request);
+        $this->updateRedemptionStatus('TEST_TOKEN', '123', '456', '789', 'FULFILLED')->shouldBe($response);
+    }
 }
