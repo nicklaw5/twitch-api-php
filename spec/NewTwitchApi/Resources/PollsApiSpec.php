@@ -39,4 +39,22 @@ class PollsApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'polls', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'after', 'value' => 'abc'], ['key' => 'first', 'value' => 100]], [])->willReturn($request);
         $this->getPolls('TEST_TOKEN', '123', [], 'abc', 100)->shouldBe($response);
     }
+
+    function it_should_create_a_poll(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'polls', 'TEST_TOKEN', [], [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'title', 'value' => 'What is my name?'], ['key' => 'choices', 'value' => [['title' => 'John'], ['title' => 'Doe']]], ['key' => 'duration', 'value' => 15]])->willReturn($request);
+        $this->createPoll('TEST_TOKEN', '123', 'What is my name?', [['title' => 'John'], ['title' => 'Doe']], 15)->shouldBe($response);
+    }
+
+    function it_should_create_a_poll_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'polls', 'TEST_TOKEN', [], [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'title', 'value' => 'What is my name?'], ['key' => 'choices', 'value' => [['title' => 'John'], ['title' => 'Doe']]], ['key' => 'duration', 'value' => 15], ['key' => 'bits_voting_enabled', 'value' => 1]])->willReturn($request);
+        $this->createPoll('TEST_TOKEN', '123', 'What is my name?', [['title' => 'John'], ['title' => 'Doe']], 15, ['bits_voting_enabled' => 1])->shouldBe($response);
+    }
+
+    function it_should_end_a_poll(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'polls', 'TEST_TOKEN', [], [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'id', 'value' => '456'], ['key' => 'status', 'value' => 'TERMINATED']])->willReturn($request);
+        $this->endPoll('TEST_TOKEN', '123', '456', 'TERMINATED')->shouldBe($response);
+    }
 }

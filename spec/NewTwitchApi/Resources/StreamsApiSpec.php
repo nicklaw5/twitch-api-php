@@ -142,4 +142,16 @@ class StreamsApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'streams/followed', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
         $this->getFollowedStreams('TEST_TOKEN', '123', 100, 'abc')->shouldBe($response);
     }
+
+    function it_should_create_stream_marker(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'streams/markers', 'TEST_TOKEN', [], [['key' => 'user_id', 'value' => '123']])->willReturn($request);
+        $this->createStreamMarker('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_create_stream_marker_with_description(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'streams/markers', 'TEST_TOKEN', [], [['key' => 'user_id', 'value' => '123'], ['key' => 'description', 'value' => 'This is a marker']])->willReturn($request);
+        $this->createStreamMarker('TEST_TOKEN', '123', 'This is a marker')->shouldBe($response);
+    }
 }

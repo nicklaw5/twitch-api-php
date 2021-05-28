@@ -5,6 +5,7 @@ namespace spec\NewTwitchApi;
 use GuzzleHttp\Client;
 use NewTwitchApi\RequestGenerator;
 use NewTwitchApi\Auth\OauthApi;
+use NewTwitchApi\Resources\AdsApi;
 use NewTwitchApi\Resources\AnalyticsApi;
 use NewTwitchApi\Resources\BitsApi;
 use NewTwitchApi\Resources\ChannelPointsApi;
@@ -35,6 +36,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_oauth_api()
     {
         $this->getOauthApi()->shouldBeAnInstanceOf(OauthApi::class);
+    }
+
+    function it_should_provide_ads_api()
+    {
+        $this->getAdsApi()->shouldBeAnInstanceOf(AdsApi::class);
     }
 
     function it_should_provide_analytics_api()

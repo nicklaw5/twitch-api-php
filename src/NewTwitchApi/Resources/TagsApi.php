@@ -43,4 +43,21 @@ class TagsApi extends AbstractResource
 
         return $this->getApi('streams/tags', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#replace-stream-tags
+     */
+    public function replaceStreamTags(string $bearer, string $broadcasterId, $tags = []): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        if (count($tags) > 0) {
+            $bodyParamsMap[] = ['key' => 'tag_ids', 'value' => $tags];
+        }
+
+        return $this->putApi('streams/tags', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
 }

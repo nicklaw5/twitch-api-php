@@ -100,4 +100,36 @@ class ModerationApi extends AbstractResource
 
         return $this->getApi('moderation/moderators/events', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#check-automod-status
+     */
+    public function checkAutoModStatus(string $bearer, string $broadcasterId, string $msgId, string $msgText, string $userId): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $bodyParamsMap[] = ['key' => 'msg_id', 'value' => $msgId];
+        $bodyParamsMap[] = ['key' => 'msg_text', 'value' => $msgText];
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        return $this->postApi('moderation/enforcements/status', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#manage-held-automod-messages
+     */
+    public function manageHeldAutoModMessage(string $bearer, string $userId, string $msgId, string $action): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        $bodyParamsMap[] = ['key' => 'msg_id', 'value' => $msgId];
+        $bodyParamsMap[] = ['key' => 'action', 'value' => $action];
+
+        return $this->postApi('moderation/automod/message', $bearer, [], $bodyParamsMap);
+    }
 }

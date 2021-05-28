@@ -88,41 +88,6 @@ class StreamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference/#get-streams-metadata
-     */
-    public function getStreamsMetadata(string $bearer, array $userIds = [], array $usernames = [], array $gameIds = [], array $communityIds = [], array $languages = [], int $first = null, string $before = null, string $after = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-        foreach ($userIds as $id) {
-            $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
-        }
-        foreach ($usernames as $username) {
-            $queryParamsMap[] = ['key' => 'user_login', 'value' => $username];
-        }
-        foreach ($gameIds as $gameId) {
-            $queryParamsMap[] = ['key' => 'game_id', 'value' => $gameId];
-        }
-        foreach ($communityIds as $communityId) {
-            $queryParamsMap[] = ['key' => 'community_id', 'value' => $communityId];
-        }
-        foreach ($languages as $language) {
-            $queryParamsMap[] = ['key' => 'language', 'value' => $language];
-        }
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-        if ($before) {
-            $queryParamsMap[] = ['key' => 'before', 'value' => $before];
-        }
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
-
-        return $this->getApi('streams/metadata', $bearer, $queryParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-stream-markers
      */
     public function getStreamMarkers(string $bearer, string $userId = null, string $videoId = null, string $first = null, string $before = null, string $after = null): ResponseInterface
@@ -154,34 +119,6 @@ class StreamsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-channel-information
-     */
-    public function getChannelInfo(string $bearer, array $broadcasterIds): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        foreach ($broadcasterIds as $id) {
-            $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $id];
-        }
-
-        return $this->getApi('channels', $bearer, $queryParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference#get-stream-tags
-     */
-    public function getStreamTags(string $bearer, string $broadcasterId): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-
-        return $this->getApi('streams/tags', $bearer, $queryParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-followed-streams
      */
     public function getFollowedStreams(string $bearer, string $userId, int $first = null, string $after = null): ResponseInterface
@@ -199,5 +136,21 @@ class StreamsApi extends AbstractResource
         }
 
         return $this->getApi('streams/followed', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-stream-marker
+     */
+    public function createStreamMarker(string $bearer, string $userId, string $description = null): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        if ($description) {
+            $bodyParamsMap[] = ['key' => 'description', 'value' => $description];
+        }
+
+        return $this->postApi('streams/markers', $bearer, [], $bodyParamsMap);
     }
 }

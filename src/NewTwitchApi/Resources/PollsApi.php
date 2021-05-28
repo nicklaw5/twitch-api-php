@@ -33,4 +33,39 @@ class PollsApi extends AbstractResource
 
         return $this->getApi('polls', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-poll
+     */
+    public function createPoll(string $bearer, string $broadcasterId, string $title, array $choices, int $duration, $optionalBodyParams = []): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
+        $bodyParamsMap[] = ['key' => 'choices', 'value' => $choices];
+        $bodyParamsMap[] = ['key' => 'duration', 'value' => $duration];
+
+        foreach ($optionalBodyParams as $key => $value) {
+            $bodyParamsMap[] = ['key' => $key, 'value' => $value];
+        }
+
+        return $this->postApi('polls', $bearer, [], $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#end-poll
+     */
+    public function endPoll(string $bearer, string $broadcasterId, string $pollId, string $status): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'id', 'value' => $pollId];
+        $bodyParamsMap[] = ['key' => 'status', 'value' => $status];
+
+        return $this->patchApi('polls', $bearer, [], $bodyParamsMap);
+    }
 }

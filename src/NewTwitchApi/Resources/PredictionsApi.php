@@ -33,4 +33,39 @@ class PredictionsApi extends AbstractResource
 
         return $this->getApi('predictions', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-prediction
+     */
+    public function createPrediction(string $bearer, string $broadcasterId, string $title, array $outcomes, int $predictionWindow): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
+        $bodyParamsMap[] = ['key' => 'outcomes', 'value' => $outcomes];
+        $bodyParamsMap[] = ['key' => 'prediction_window', 'value' => $predictionWindow];
+
+        return $this->postApi('predictions', $bearer, [], $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#end-prediction
+     */
+    public function endPrediction(string $bearer, string $broadcasterId, string $pollId, string $status, string $winningOutcomeId = null): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'id', 'value' => $pollId];
+        $bodyParamsMap[] = ['key' => 'status', 'value' => $status];
+
+        if ($winningOutcomeId) {
+            $bodyParamsMap[] = ['key' => 'winning_outcome_id', 'value' => $winningOutcomeId];
+        }
+
+        return $this->patchApi('predictions', $bearer, [], $bodyParamsMap);
+    }
 }
