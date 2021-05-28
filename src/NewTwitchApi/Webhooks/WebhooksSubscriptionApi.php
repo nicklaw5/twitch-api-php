@@ -20,7 +20,7 @@ class WebhooksSubscriptionApi
     {
         $this->clientId = $clientId;
         $this->secret = $secret;
-        $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
+        $this->guzzleClient = $guzzleClient ?? HelixGuzzleClient::getClient($clientId);
     }
 
     public function subscribeToStream(string $twitchId, string $callback, string $bearer, int $leaseSeconds = 0): void

@@ -40,7 +40,7 @@ $twitch_client_id = 'TWITCH_CLIENT_ID';
 $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
+$helixGuzzleClient = \NewTwitchApi\HelixGuzzleClient::getClient($twitch_client_id);
 $newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 $oauth = $newTwitchApi->getOauthApi();
 
@@ -62,7 +62,7 @@ $twitch_client_id = 'TWITCH_CLIENT_ID';
 $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
+$helixGuzzleClient = \NewTwitchApi\HelixGuzzleClient::getClient($twitch_client_id);
 $newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 $oauth = $newTwitchApi->getOauthApi();
 
@@ -104,7 +104,7 @@ $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 $user_refresh_token = 'REFRESH_TOKEN';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
+$helixGuzzleClient = \NewTwitchApi\HelixGuzzleClient::getClient($twitch_client_id);
 $newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 $oauth = $newTwitchApi->getOauthApi();
 
@@ -140,7 +140,7 @@ $twitch_access_token = 'the token';
 
 // The Guzzle client used can be the included `HelixGuzzleClient` class, for convenience.
 // You can also use a mock, fake, or other double for testing, of course.
-$helixGuzzleClient = new HelixGuzzleClient($twitch_client_id);
+$helixGuzzleClient = \NewTwitchApi\HelixGuzzleClient::getClient($twitch_client_id);
 
 // Instantiate NewTwitchApi. Can be done in a service layer and injected as well.
 $newTwitchApi = new NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
