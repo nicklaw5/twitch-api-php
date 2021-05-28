@@ -33,4 +33,24 @@ class PollsApi extends AbstractResource
 
         return $this->getApi('polls', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#create-poll
+     */
+    public function createPoll(string $bearer, string $broadcasterId, string $title, array $choices, int $duration, $optionalBodyParams = []): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $bodyParamsMap[] = ['key' => 'title', 'value' => $title];
+        $bodyParamsMap[] = ['key' => 'choices', 'value' => $choices];
+        $bodyParamsMap[] = ['key' => 'duration', 'value' => $duration];
+
+        foreach ($optionalBodyParams as $key => $value) {
+            $bodyParamsMap[] = ['key' => $key, 'value' => $value];
+        }
+
+        return $this->postApi('polls', $bearer, [], $bodyParamsMap);
+    }
 }
