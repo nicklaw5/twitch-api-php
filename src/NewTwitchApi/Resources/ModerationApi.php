@@ -117,4 +117,19 @@ class ModerationApi extends AbstractResource
 
         return $this->postApi('moderation/enforcements/status', $bearer, $queryParamsMap, $bodyParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#manage-held-automod-messages
+     */
+    public function manageHeldAutoModMessage(string $bearer, string $userId, string $msgId, string $action): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        $bodyParamsMap[] = ['key' => 'msg_id', 'value' => $msgId];
+        $bodyParamsMap[] = ['key' => 'action', 'value' => $action];
+
+        return $this->postApi('moderation/automod/message', $bearer, [], $bodyParamsMap);
+    }
 }
