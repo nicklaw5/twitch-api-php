@@ -79,10 +79,10 @@ class EventSubApiSpec extends ObjectBehavior
         $this->subscribeToChannelSubscribe($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
 
-    function it_should_subscribe_to_channel_unsubscribe(RequestGenerator $requestGenerator, Request $request, Response $response)
+    function it_should_subscribe_to_channel_subscription_end(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->createEventSubSubscription('channel.unsubscribe', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
-        $this->subscribeToChannelUnsubscribe($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+        $this->createEventSubSubscription('channel.subscription.end', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelSubscriptionEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
 
     function it_should_subscribe_to_channel_cheer(RequestGenerator $requestGenerator, Request $request, Response $response)
