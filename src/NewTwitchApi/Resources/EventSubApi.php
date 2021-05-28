@@ -124,6 +124,21 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsubscriptiongift-beta
+     */
+    public function subscribeToChannelSubscriptionGift(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            'channel.subscription.gift',
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcheer
      */
     public function subscribeToChannelCheer(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
