@@ -58,7 +58,7 @@ JSON;
         $mock = new MockHandler([$db_response, $db_response]);
         $handler = HandlerStack::create($mock);
 
-        return new HelixGuzzleClient('123', ['handler' => $handler]);
+        return new HelixGuzzleClient('TEST_CLIENT_ID', ['handler' => $handler]);
     }
 
     private function getRequestGenerator(): RequestGenerator
