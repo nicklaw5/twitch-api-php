@@ -7,8 +7,8 @@ namespace NewTwitchApi\Tests\Resources;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use NewTwitchApi\RequestGenerator;
 use NewTwitchApi\HelixGuzzleClient;
+use NewTwitchApi\RequestGenerator;
 use NewTwitchApi\Resources\UsersApi;
 use PHPUnit\Framework\TestCase;
 
