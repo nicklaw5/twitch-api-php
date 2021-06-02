@@ -13,13 +13,13 @@ class HelixGuzzleClient
 
     public function __construct(string $clientId, array $config = [], string $baseUri = null)
     {
-        if ($baseUri === null) {
-            $baseUri = self::BASE_URI;
-        }
+      if($baseUri == null) {
+        $baseUri = self::BASE_URI;
+      }
 
         $headers = [
           'Client-ID' => $clientId,
-          'Accept' => 'application/json',
+          'Content-Type' => 'application/json',
         ];
 
         $client_config = [
@@ -36,9 +36,9 @@ class HelixGuzzleClient
         $this->client = new Client($client_config);
     }
 
-    public static function getClient(string $clientId, array $config = []): Client
+    public function getConfig($option = null)
     {
-        return $this->client;
+        return $this->client->getConfig($option);
     }
 
     public function send($request)

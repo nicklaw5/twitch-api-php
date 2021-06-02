@@ -2,15 +2,19 @@
 
 namespace spec\NewTwitchApi;
 
-use GuzzleHttp\Psr7\Uri;
+use NewTwitchApi\HelixGuzzleClient;
 use PhpSpec\ObjectBehavior;
 
 class HelixGuzzleClientSpec extends ObjectBehavior
 {
+    function let(HelixGuzzleClient $guzzleClient)
+    {
+        $this->beConstructedWith('TEST_CLIENT_ID');
+    }
+
     function it_should_have_correct_base_uri()
     {
-        $this->beConstructedThrough('getClient', ['client-id']);
-        $this->shouldHaveType('\GuzzleHttp\Client');
+        $this->shouldHaveType('\NewTwitchApi\HelixGuzzleClient');
 
         /** @var Uri $uri */
         $uri = $this->getConfig('base_uri');
@@ -21,22 +25,21 @@ class HelixGuzzleClientSpec extends ObjectBehavior
 
     function it_should_have_client_id_header()
     {
-        $this->beConstructedThrough('getClient', ['client-id']);
-        $this->shouldHaveType('\GuzzleHttp\Client');
-        $this->getConfig('headers')->shouldHaveKeyWithValue('Client-ID', 'client-id');
+        $this->shouldHaveType('\NewTwitchApi\HelixGuzzleClient');
+        $this->getConfig('headers')->shouldHaveKeyWithValue('Client-ID', 'TEST_CLIENT_ID');
     }
 
     function it_should_have_json_content_type_header()
     {
-        $this->beConstructedThrough('getClient', ['client-id']);
-        $this->shouldHaveType('\GuzzleHttp\Client');
+
+        $this->shouldHaveType('\NewTwitchApi\HelixGuzzleClient');
         $this->getConfig('headers')->shouldHaveKeyWithValue('Content-Type', 'application/json');
     }
 
     function it_should_have_passed_in_config_params_instead_of_defaults()
     {
-        $this->beConstructedThrough('getClient', ['client-id', ['base_uri' => 'https://different.url']]);
-        $this->shouldHaveType('\GuzzleHttp\Client');
+        $this->beConstructedWith('TEST_CLIENT_ID', ['base_uri' => 'https://different.url']);
+        $this->shouldHaveType('\NewTwitchApi\HelixGuzzleClient');
         $this->getConfig('base_uri')->getHost()->shouldBe('different.url');
     }
 }
