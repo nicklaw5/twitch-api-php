@@ -13,9 +13,9 @@ class HelixGuzzleClient
 
     public function __construct(string $clientId, array $config = [], string $baseUri = null)
     {
-      if($baseUri == null) {
-        $baseUri = self::BASE_URI;
-      }
+        if ($baseUri == null) {
+            $baseUri = self::BASE_URI;
+        }
 
         $headers = [
           'Client-ID' => $clientId,
