@@ -2,10 +2,10 @@
 
 namespace spec\NewTwitchApi\Resources;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use NewTwitchApi\RequestGenerator;
+use NewTwitchApi\HelixGuzzleClient;
 use PhpSpec\ObjectBehavior;
 
 class EventSubApiSpec extends ObjectBehavior
@@ -31,7 +31,7 @@ class EventSubApiSpec extends ObjectBehavior
         return $requestGenerator->generate('POST', 'eventsub/subscriptions', $this->bearer, [], $bodyParams);
     }
 
-    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
+    function let(HelixGuzzleClient $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $this->beConstructedWith($guzzleClient, $requestGenerator);
         $guzzleClient->send($request)->willReturn($response);

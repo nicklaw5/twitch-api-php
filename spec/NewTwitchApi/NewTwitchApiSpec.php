@@ -2,8 +2,8 @@
 
 namespace spec\NewTwitchApi;
 
-use GuzzleHttp\Client;
 use NewTwitchApi\RequestGenerator;
+use NewTwitchApi\HelixGuzzleClient;
 use NewTwitchApi\Auth\OauthApi;
 use NewTwitchApi\Resources\AdsApi;
 use NewTwitchApi\Resources\AnalyticsApi;
@@ -28,7 +28,7 @@ use PhpSpec\ObjectBehavior;
 
 class NewTwitchApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient)
+    function let(HelixGuzzleClient $guzzleClient)
     {
         $this->beConstructedWith($guzzleClient, 'client-id', 'client-secret');
     }
