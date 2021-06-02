@@ -19,13 +19,21 @@ class HelixGuzzleClient
 
         $headers = [
           'Client-ID' => $clientId,
+          'Accept' => 'application/json',
         ];
 
-        $this->client = new Client([
+        $client_config = [
             'base_uri' => $baseUri,
             'headers' => $headers,
-            'Accept' => 'application/json',
-        ]);
+        ];
+
+        if (isset($config['handler'])) {
+            $client_config = [];
+        }
+
+        $client_config = array_merge($client_config, $config);
+
+        $this->client = new Client($client_config);
     }
 
     public static function getClient(string $clientId, array $config = []): Client
