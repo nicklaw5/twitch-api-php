@@ -15,13 +15,15 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.4']
+        php: ['7.4', '8.0']
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: Set default PHP version
-        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php }}"
 
       # Cache Composer dependencies, based on the example at https://github.com/actions/cache/blob/main/examples.md#php---composer
       - name: Get Composer Cache Directory
