@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace NewTwitchApi\Tests\Resources;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use NewTwitchApi\RequestGenerator;
+use NewTwitchApi\HelixGuzzleClient;
 use NewTwitchApi\Resources\UsersApi;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ class UsersTest extends TestCase
 {
     public function testGetUserByIdShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
+        $users = new UsersApi($this->getHelixGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
         $response = $users->getUserById('TEST_APP_ACCESS_TOKEN', '44322889');
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -26,7 +26,7 @@ class UsersTest extends TestCase
 
     public function testGetUserByUsernameShouldReturnSuccessfulResponseWithUserData(): void
     {
-        $users = new UsersApi($this->getGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
+        $users = new UsersApi($this->getHelixGuzzleClientWithMockUserResponse(), $this->getRequestGenerator());
         $response = $users->getUserByUsername('TEST_APP_ACCESS_TOKEN', 'dallas');
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -34,7 +34,7 @@ class UsersTest extends TestCase
         $this->assertEquals(44322889, $contents->data[0]->id);
     }
 
-    private function getGuzzleClientWithMockUserResponse(): Client
+    private function getHelixGuzzleClientWithMockUserResponse(): HelixGuzzleClient
     {
         // Example response from https://dev.twitch.tv/docs/api/reference/#get-users
         $getUserReponseJson = <<<JSON
@@ -58,7 +58,7 @@ JSON;
         $mock = new MockHandler([$db_response, $db_response]);
         $handler = HandlerStack::create($mock);
 
-        return new Client(['handler' => $handler]);
+        return new HelixGuzzleClient('123', ['handler' => $handler]);
     }
 
     private function getRequestGenerator(): RequestGenerator
