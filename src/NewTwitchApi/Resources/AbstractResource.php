@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace NewTwitchApi\Resources;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use NewTwitchApi\HelixGuzzleClient;
 use NewTwitchApi\RequestGenerator;
 use Psr\Http\Message\ResponseInterface;
 
@@ -14,7 +14,7 @@ abstract class AbstractResource
     protected $guzzleClient;
     private $requestGenerator;
 
-    public function __construct(Client $guzzleClient, RequestGenerator $requestGenerator)
+    public function __construct(HelixGuzzleClient $guzzleClient, RequestGenerator $requestGenerator)
     {
         $this->guzzleClient = $guzzleClient;
         $this->requestGenerator = $requestGenerator;
