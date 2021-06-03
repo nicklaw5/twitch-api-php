@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace NewTwitchApi\Webhooks;
 
-use GuzzleHttp\Client;
 use NewTwitchApi\HelixGuzzleClient;
 
 class WebhooksSubscriptionApi
@@ -16,7 +15,7 @@ class WebhooksSubscriptionApi
     private $secret;
     private $guzzleClient;
 
-    public function __construct(string $clientId, string $secret, Client $guzzleClient = null)
+    public function __construct(string $clientId, string $secret, HelixGuzzleClient $guzzleClient = null)
     {
         $this->clientId = $clientId;
         $this->secret = $secret;

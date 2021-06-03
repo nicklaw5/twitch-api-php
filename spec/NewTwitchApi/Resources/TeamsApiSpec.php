@@ -2,16 +2,15 @@
 
 namespace spec\NewTwitchApi\Resources;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use NewTwitchApi\RequestGenerator;
+use NewTwitchApi\HelixGuzzleClient;
 use PhpSpec\ObjectBehavior;
-use Psr\Http\Message\ResponseInterface;
 
 class TeamsApiSpec extends ObjectBehavior
 {
-    function let(Client $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
+    function let(HelixGuzzleClient $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $this->beConstructedWith($guzzleClient, $requestGenerator);
         $guzzleClient->send($request)->willReturn($response);
