@@ -31,6 +31,14 @@ abstract class AbstractResource
     /**
      * @throws GuzzleException
      */
+    protected function getApiWithOptionalAuth(string $uriEndpoint, string $bearer = null, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    {
+        return $this->sendToApi('GET', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     protected function deleteApi(string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->sendToApi('DELETE', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
@@ -60,7 +68,7 @@ abstract class AbstractResource
         return $this->sendToApi('PUT', $uriEndpoint, $bearer, $queryParamsMap, $bodyParams);
     }
 
-    private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
+    private function sendToApi(string $httpMethod, string $uriEndpoint, string $bearer = null, array $queryParamsMap = [], array $bodyParams = []): ResponseInterface
     {
         return $this->guzzleClient->send($this->requestGenerator->generate($httpMethod, $uriEndpoint, $bearer, $queryParamsMap, $bodyParams));
     }
