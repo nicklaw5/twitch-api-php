@@ -16,6 +16,7 @@ use NewTwitchApi\Resources\GamesApi;
 use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\PollsApi;
 use NewTwitchApi\Resources\PredictionsApi;
+use NewTwitchApi\Resources\ScheduleApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\SubscriptionsApi;
 use NewTwitchApi\Resources\TagsApi;
@@ -86,6 +87,11 @@ class NewTwitchApiSpec extends ObjectBehavior
     function it_should_provide_predictions_api()
     {
         $this->getPredictionsApi()->shouldBeAnInstanceOf(PredictionsApi::class);
+    }
+
+    function it_should_provide_schedule_api()
+    {
+        $this->getScheduleApi()->shouldBeAnInstanceOf(ScheduleApi::class);
     }
 
     function it_should_provide_subscriptions_api()
