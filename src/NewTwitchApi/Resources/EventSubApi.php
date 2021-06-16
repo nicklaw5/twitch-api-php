@@ -148,7 +148,7 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             'channel.subscription.message',
-            'beta',
+            '1',
             ['broadcaster_user_id' => $twitchId],
         );
     }
