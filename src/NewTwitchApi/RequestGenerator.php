@@ -7,8 +7,16 @@ use Psr\Http\Message\RequestInterface;
 
 class RequestGenerator
 {
-    public function generate(string $httpMethod, string $uriEndpoint, string $bearer, array $queryParamsMap = [], array $bodyParams = []): RequestInterface
+    public function generate(string $httpMethod, string $uriEndpoint, string $bearer = null, array $queryParamsMap = [], array $bodyParams = []): RequestInterface
     {
+        $headers = [
+          'Accept' => 'application/json',
+        ];
+
+        if ($bearer) {
+            $headers['Authorization'] = sprintf('Bearer %s', $bearer);
+        }
+
         if (count($bodyParams) > 0) {
             $request = new Request(
                 $httpMethod,
@@ -17,7 +25,7 @@ class RequestGenerator
                     $uriEndpoint,
                     $this->generateQueryParams($queryParamsMap)
                 ),
-                ['Authorization' => sprintf('Bearer %s', $bearer), 'Accept' => 'application/json'],
+                $headers,
                 $this->generateBodyParams($bodyParams)
             );
         } else {
@@ -28,7 +36,7 @@ class RequestGenerator
                     $uriEndpoint,
                     $this->generateQueryParams($queryParamsMap)
                 ),
-                ['Authorization' => sprintf('Bearer %s', $bearer)]
+                $headers
             );
         }
 

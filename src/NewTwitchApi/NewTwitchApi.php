@@ -20,6 +20,7 @@ use NewTwitchApi\Resources\HypeTrainApi;
 use NewTwitchApi\Resources\ModerationApi;
 use NewTwitchApi\Resources\PollsApi;
 use NewTwitchApi\Resources\PredictionsApi;
+use NewTwitchApi\Resources\ScheduleApi;
 use NewTwitchApi\Resources\SearchApi;
 use NewTwitchApi\Resources\StreamsApi;
 use NewTwitchApi\Resources\SubscriptionsApi;
@@ -47,6 +48,7 @@ class NewTwitchApi
     private $moderationApi;
     private $pollsApi;
     private $predictionsApi;
+    private $scheduleApi;
     private $searchApi;
     private $streamsApi;
     private $subscriptionsApi;
@@ -75,6 +77,7 @@ class NewTwitchApi
         $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
         $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
         $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $requestGenerator);
+        $this->scheduleApi = new ScheduleApi($helixGuzzleClient, $requestGenerator);
         $this->searchApi = new SearchApi($helixGuzzleClient, $requestGenerator);
         $this->streamsApi = new StreamsApi($helixGuzzleClient, $requestGenerator);
         $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient, $requestGenerator);
@@ -159,6 +162,11 @@ class NewTwitchApi
     public function getPredictionsApi(): PredictionsApi
     {
         return $this->predictionsApi;
+    }
+
+    public function getScheduleApi(): ScheduleApi
+    {
+        return $this->scheduleApi;
     }
 
     public function getSearchApi(): SearchApi
