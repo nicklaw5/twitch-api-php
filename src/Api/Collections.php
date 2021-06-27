@@ -204,13 +204,13 @@ trait Collections
      *
      * @param string $collectionId
      * @param string $itemId
-     * @param string $itemType
      * @param string $accessToken
+     * @param string $itemType
      * @throws EndpointNotSupportedByApiVersionException
      * @throws InvalidTypeException
      * @return array|string
      */
-    public function addCollectionItem($collectionId, $itemId, $itemType = 'video', $accessToken)
+    public function addCollectionItem($collectionId, $itemId, $accessToken, $itemType = 'video')
     {
         if (!$this->apiVersionIsGreaterThanV3()) {
             throw new EndpointNotSupportedByApiVersionException();
