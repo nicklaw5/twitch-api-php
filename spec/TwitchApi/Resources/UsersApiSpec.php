@@ -94,30 +94,6 @@ class UsersApiSpec extends ObjectBehavior
         $this->getUsersFollows('TEST_TOKEN', '12345', '98765', 42, '99')->shouldBe($response);
     }
 
-    function it_should_create_a_follow(RequestGenerator $requestGenerator, Request $request, Response $response)
-    {
-        $requestGenerator->generate('POST', 'users/follows', 'TEST_TOKEN', [['key' => 'from_id', 'value' => '123'], ['key' => 'to_id', 'value' => '321']], [])->willReturn($request);
-        $this->createUserFollow('TEST_TOKEN', '123', '321')->shouldBe($response);
-    }
-
-    function it_should_create_a_follow_with_notifications(RequestGenerator $requestGenerator, Request $request, Response $response)
-    {
-        $requestGenerator->generate('POST', 'users/follows', 'TEST_TOKEN', [['key' => 'from_id', 'value' => '123'], ['key' => 'to_id', 'value' => '321'], ['key' => 'allow_notifications', 'value' => 1]], [])->willReturn($request);
-        $this->createUserFollow('TEST_TOKEN', '123', '321', true)->shouldBe($response);
-    }
-
-    function it_should_create_a_follow_without_notifications(RequestGenerator $requestGenerator, Request $request, Response $response)
-    {
-        $requestGenerator->generate('POST', 'users/follows', 'TEST_TOKEN', [['key' => 'from_id', 'value' => '123'], ['key' => 'to_id', 'value' => '321'], ['key' => 'allow_notifications', 'value' => 0]], [])->willReturn($request);
-        $this->createUserFollow('TEST_TOKEN', '123', '321', false)->shouldBe($response);
-    }
-
-    function it_should_delete_a_follow(RequestGenerator $requestGenerator, Request $request, Response $response)
-    {
-        $requestGenerator->generate('DELETE', 'users/follows', 'TEST_TOKEN', [['key' => 'from_id', 'value' => '123'], ['key' => 'to_id', 'value' => '321']], [])->willReturn($request);
-        $this->deleteUserFollow('TEST_TOKEN', '123', '321')->shouldBe($response);
-    }
-
     function it_should_update_user(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $requestGenerator->generate('PUT', 'users', 'TEST_TOKEN', [], [])->willReturn($request);
