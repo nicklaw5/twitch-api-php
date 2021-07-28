@@ -7,10 +7,10 @@ namespace TwitchApi\Tests\Resources;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
 use TwitchApi\HelixGuzzleClient;
 use TwitchApi\RequestGenerator;
 use TwitchApi\Resources\UsersApi;
-use PHPUnit\Framework\TestCase;
 
 class UsersTest extends TestCase
 {
