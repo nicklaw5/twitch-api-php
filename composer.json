@@ -1,44 +1,50 @@
 {
-    "name": "nicklaw5/twitch-api-php",
-    "type": "library",
-    "description": "A Twitch API client for PHP.",
-    "keywords": ["twitch", "twitch.tv", "twitch-tv", "twitch-api", "api"],
-    "homepage": "http://github.com/nicklaw5/twitch-api-php",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Nicholas Law",
-            "homepage": "https://github.com/nicklaw5"
-        },
-        {
-            "name": "Brian Zwahr",
-            "homepage": "https://github.com/echosa"
-        },
-        {
-            "name": "Brandin Arsenault",
-            "homepage": "https://github.com/brandinarsenault"
-        }
-    ],
-    "require": {
-        "php": ">=7.4.0",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "~6.0|~7.0"
+  "name": "nicklaw5/twitch-api-php",
+  "type": "library",
+  "description": "A Twitch API client for PHP.",
+  "keywords": [
+    "twitch",
+    "twitch.tv",
+    "twitch-tv",
+    "twitch-api",
+    "api"
+  ],
+  "homepage": "http://github.com/nicklaw5/twitch-api-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nicholas Law",
+      "homepage": "https://github.com/nicklaw5"
     },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.13",
-        "phpspec/phpspec": "^6.1",
-        "phpunit/phpunit": "^8.5"
+    {
+      "name": "Brian Zwahr",
+      "homepage": "https://github.com/echosa"
     },
-    "autoload": {
-        "psr-4": {
-            "TwitchApi\\": "src/",
-            "NewTwitchApi\\": "src/NewTwitchApi",
-            "NewTwitchApi\\Tests\\": "test/NewTwitchApi"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "test/"
-        }
+    {
+      "name": "Brandin Arsenault",
+      "homepage": "https://github.com/brandinarsenault"
     }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "~6.0|~7.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.13",
+    "phpspec/phpspec": "^6.1",
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "TwitchApi\\": "src/",
+      "TwitchApi\\Tests\\": "test/TwitchApi",
+      "NewTwitchApi\\": "src/NewTwitchApi"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "test/"
+    }
+  }
 }
