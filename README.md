@@ -41,8 +41,8 @@ $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
 $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
-$TwitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $TwitchApi->getOauthApi();
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 try {
     $token = $oauth->getAppAccessToken($twitch_scopes ?? '');
@@ -63,8 +63,8 @@ $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
 $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
-$TwitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $TwitchApi->getOauthApi();
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 // Get the code from URI
 $code = $_GET['code'];
@@ -105,8 +105,8 @@ $twitch_scopes = '';
 $user_refresh_token = 'REFRESH_TOKEN';
 
 $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
-$TwitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $TwitchApi->getOauthApi();
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 try {
     $token = $oauth->getAppAccessToken($twitch_scopes ?? '');
@@ -143,11 +143,11 @@ $twitch_access_token = 'the token';
 $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
 
 // Instantiate TwitchApi. Can be done in a service layer and injected as well.
-$TwitchApi = new TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$twitchApi = new TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 
 try {
     // Make the API call. A ResponseInterface object is returned.
-    $response = $TwitchApi->getUsersApi()->getUserByAccessToken($twitch_access_token);
+    $response = $twitchApi->getUsersApi()->getUserByAccessToken($twitch_access_token);
 
     // Get and decode the actual content sent by Twitch.
     $responseContent = json_decode($response->getBody()->getContents());
