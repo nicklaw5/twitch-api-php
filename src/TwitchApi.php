@@ -1,310 +1,216 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TwitchApi;
 
-use TwitchApi\Api\Authentication;
-use TwitchApi\Api\Bits;
-use TwitchApi\Api\ChannelFeed;
-use TwitchApi\Api\Channels;
-use TwitchApi\Api\Chat;
-use TwitchApi\Api\Clips;
-use TwitchApi\Api\Collections;
-use TwitchApi\Api\Communities;
-use TwitchApi\Api\Games;
-use TwitchApi\Api\Ingests;
-use TwitchApi\Api\Root;
-use TwitchApi\Api\Search;
-use TwitchApi\Api\Streams;
-use TwitchApi\Api\Teams;
-use TwitchApi\Api\Users;
-use TwitchApi\Api\Videos;
-use TwitchApi\Exceptions\ClientIdRequiredException;
-use TwitchApi\Exceptions\InvalidTypeException;
-use TwitchApi\Exceptions\UnsupportedApiVersionException;
+use GuzzleHttp\Client;
+use TwitchApi\Auth\OauthApi;
+use TwitchApi\Resources\AdsApi;
+use TwitchApi\Resources\AnalyticsApi;
+use TwitchApi\Resources\BitsApi;
+use TwitchApi\Resources\ChannelPointsApi;
+use TwitchApi\Resources\ChannelsApi;
+use TwitchApi\Resources\ChatApi;
+use TwitchApi\Resources\ClipsApi;
+use TwitchApi\Resources\EntitlementsApi;
+use TwitchApi\Resources\EventSubApi;
+use TwitchApi\Resources\GamesApi;
+use TwitchApi\Resources\HypeTrainApi;
+use TwitchApi\Resources\ModerationApi;
+use TwitchApi\Resources\PollsApi;
+use TwitchApi\Resources\PredictionsApi;
+use TwitchApi\Resources\ScheduleApi;
+use TwitchApi\Resources\SearchApi;
+use TwitchApi\Resources\StreamsApi;
+use TwitchApi\Resources\SubscriptionsApi;
+use TwitchApi\Resources\TagsApi;
+use TwitchApi\Resources\TeamsApi;
+use TwitchApi\Resources\UsersApi;
+use TwitchApi\Resources\VideosApi;
+use TwitchApi\Resources\WebhooksApi;
+use TwitchApi\Webhooks\WebhooksSubscriptionApi;
 
-class TwitchApi extends TwitchRequest
+class TwitchApi
 {
-    use Authentication;
-    use Bits;
-    use ChannelFeed;
-    use Channels;
-    use Chat;
-    use Clips;
-    use Collections;
-    use Communities;
-    use Games;
-    use Ingests;
-    use Root;
-    use Search;
-    use Streams;
-    use Teams;
-    use Users;
-    use Videos;
+    private $oauthApi;
+    private $adsApi;
+    private $analyticsApi;
+    private $bitsApi;
+    private $channelPointsApi;
+    private $channelsApi;
+    private $chatApi;
+    private $clipsApi;
+    private $entitlementsApi;
+    private $eventSubApi;
+    private $gamesApi;
+    private $hypeTrainApi;
+    private $moderationApi;
+    private $pollsApi;
+    private $predictionsApi;
+    private $scheduleApi;
+    private $searchApi;
+    private $streamsApi;
+    private $subscriptionsApi;
+    private $tagsApi;
+    private $teamsApi;
+    private $usersApi;
+    private $videosApi;
+    private $webhooksApi;
+    private $webhooksSubscriptionApi;
 
-    /**
-     * @var int
-     */
-    protected $defaultApiVersion = 5;
-
-    /**
-     * @var array
-     */
-    protected $supportedApiVersions = [3, 5];
-
-    /**
-     * @var string
-     */
-    protected $clientId;
-
-    /**
-     * @var string
-     */
-    protected $clientSecret;
-
-    /**
-     * @var int
-     */
-    protected $apiVersion;
-
-    /**
-     * @var string
-     */
-    protected $redirectUri;
-
-    /**
-     * @var array
-     */
-    protected $scope;
-
-    /**
-     * @var string
-     */
-    protected $state;
-
-    /**
-     * @var string
-     */
-    protected $accessToken;
-
-    /**
-     * Instantiate a new TwitchApi instance
-     *
-     * @param array $options
-     */
-    public function __construct(array $options)
+    public function __construct(HelixGuzzleClient $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
     {
-        if (!isset($options['client_id'])) {
-            throw new ClientIdRequiredException();
-        }
-
-        $this->setClientId($options['client_id']);
-        $this->setClientSecret(isset($options['client_secret']) ? $options['client_secret'] : null);
-        $this->setRedirectUri(isset($options['redirect_uri']) ? $options['redirect_uri'] : null);
-        $this->setApiVersion(isset($options['api_version']) ? $options['api_version'] : $this->getDefaultApiVersion());
-        $this->setScope(isset($options['scope']) ? $options['scope'] : []);
+        $requestGenerator = new RequestGenerator();
+        $this->oauthApi = new OauthApi($clientId, $clientSecret, $authGuzzleClient);
+        $this->adsApi = new AdsApi($helixGuzzleClient, $requestGenerator);
+        $this->analyticsApi = new AnalyticsApi($helixGuzzleClient, $requestGenerator);
+        $this->bitsApi = new BitsApi($helixGuzzleClient, $requestGenerator);
+        $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient, $requestGenerator);
+        $this->channelsApi = new ChannelsApi($helixGuzzleClient, $requestGenerator);
+        $this->chatApi = new ChatApi($helixGuzzleClient, $requestGenerator);
+        $this->clipsApi = new ClipsApi($helixGuzzleClient, $requestGenerator);
+        $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $requestGenerator);
+        $this->eventSubApi = new EventSubApi($helixGuzzleClient, $requestGenerator);
+        $this->gamesApi = new GamesApi($helixGuzzleClient, $requestGenerator);
+        $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient, $requestGenerator);
+        $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
+        $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
+        $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $requestGenerator);
+        $this->scheduleApi = new ScheduleApi($helixGuzzleClient, $requestGenerator);
+        $this->searchApi = new SearchApi($helixGuzzleClient, $requestGenerator);
+        $this->streamsApi = new StreamsApi($helixGuzzleClient, $requestGenerator);
+        $this->subscriptionsApi = new SubscriptionsApi($helixGuzzleClient, $requestGenerator);
+        $this->tagsApi = new TagsApi($helixGuzzleClient, $requestGenerator);
+        $this->teamsApi = new TeamsApi($helixGuzzleClient, $requestGenerator);
+        $this->usersApi = new UsersApi($helixGuzzleClient, $requestGenerator);
+        $this->videosApi = new VideosApi($helixGuzzleClient, $requestGenerator);
+        $this->webhooksApi = new WebhooksApi($helixGuzzleClient, $requestGenerator);
+        $this->webhooksSubscriptionApi = new WebhooksSubscriptionApi($clientId, $clientSecret, $helixGuzzleClient);
     }
 
-    /**
-     * Get defaultApiVersion
-     *
-     * @return int
-     */
-    public function getDefaultApiVersion()
+    public function getOauthApi(): OauthApi
     {
-        return $this->defaultApiVersion;
+        return $this->oauthApi;
     }
 
-    /**
-     * Get supportedApiVersions
-     *
-     * @return array
-     */
-    public function getSupportedApiVersions()
+    public function getAdsApi(): AdsApi
     {
-        return $this->supportedApiVersions;
+        return $this->adsApi;
     }
 
-    /**
-     * Set client ID
-     *
-     * @param string
-     */
-    public function setClientId($clientId)
+    public function getAnalyticsApi(): AnalyticsApi
     {
-        $this->clientId = (string) $clientId;
+        return $this->analyticsApi;
     }
 
-    /**
-     * Get client ID
-     *
-     * @return string
-     */
-    public function getClientId()
+    public function getBitsApi(): BitsApi
     {
-        return $this->clientId;
+        return $this->bitsApi;
     }
 
-    /**
-     * Set client secret
-     *
-     * @param string $clientSecret
-     */
-    public function setClientSecret($clientSecret)
+    public function getChannelPointsApi(): ChannelPointsApi
     {
-        $this->clientSecret = (string) $clientSecret;
+        return $this->channelPointsApi;
     }
 
-    /**
-     * Get client secret
-     *
-     * @return string
-     */
-    public function getClientSecret()
+    public function getChannelsApi(): ChannelsApi
     {
-        return $this->clientSecret;
+        return $this->channelsApi;
     }
 
-    /**
-     * Set API version
-     *
-     * @param string|int $apiVersion
-     * @throws UnsupportedApiVersionException
-     */
-    public function setApiVersion($apiVersion)
+    public function getChatApi(): ChatApi
     {
-        if (!in_array($apiVersion = intval($apiVersion), $this->getSupportedApiVersions())) {
-            throw new UnsupportedApiVersionException();
-        }
-
-        $this->apiVersion = $apiVersion;
+        return $this->chatApi;
     }
 
-    /**
-     * Get API version
-     *
-     * @return int
-     */
-    public function getApiVersion()
+    public function getClipsApi(): ClipsApi
     {
-        return $this->apiVersion;
+        return $this->clipsApi;
     }
 
-    /**
-     * Set redirect URI
-     *
-     * @param string $redirectUri
-     */
-    public function setRedirectUri($redirectUri)
+    public function getEntitlementsApi(): EntitlementsApi
     {
-        $this->redirectUri = (string) $redirectUri;
+        return $this->entitlementsApi;
     }
 
-    /**
-     * Get redirect URI
-     *
-     * @return string
-     */
-    public function getRedirectUri()
+    public function getEventSubApi(): EventSubApi
     {
-        return $this->redirectUri;
+        return $this->eventSubApi;
     }
 
-    /**
-     * Set scope
-     *
-     * @param array $scope
-     * @throws InvalidTypeException
-     */
-    public function setScope($scope)
+    public function getGamesApi(): GamesApi
     {
-        if (!is_array($scope)) {
-            throw new InvalidTypeException('Scope', 'array', gettype($scope));
-        }
-
-        $this->scope = $scope;
+        return $this->gamesApi;
     }
 
-    /**
-     * Get scope
-     *
-     * @return array
-     */
-    public function getScope()
+    public function getHypeTrainApi(): HypeTrainApi
     {
-        return $this->scope;
+        return $this->hypeTrainApi;
     }
 
-    /**
-     * Returns true if the set API version is greater than v3
-     *
-     * @return bool
-     */
-    protected function apiVersionIsGreaterThanV3()
+    public function getModerationApi(): ModerationApi
     {
-        return $this->getApiVersion() > 3;
+        return $this->moderationApi;
     }
 
-    /**
-     * Return true if the provided limit is valid
-     *
-     * @param string|int $limit
-     * @return bool
-     */
-    protected function isValidLimit($limit)
+    public function getPollsApi(): PollsApi
     {
-        return is_numeric($limit) && $limit > 0;
+        return $this->pollsApi;
     }
 
-    /**
-     * Return true if the provided offset is valid
-     *
-     * @param string|int $offset
-     * @return bool
-     */
-    protected function isValidOffset($offset)
+    public function getPredictionsApi(): PredictionsApi
     {
-        return is_numeric($offset) && $offset > -1;
+        return $this->predictionsApi;
     }
 
-    /**
-     * Return true if the provided direction is valid
-     *
-     * @param string $direction
-     * @return bool
-     */
-    protected function isValidDirection($direction)
+    public function getScheduleApi(): ScheduleApi
     {
-        return in_array(strtolower($direction), ['asc', 'desc']);
+        return $this->scheduleApi;
     }
 
-    /**
-     * Return true if the provided broadcast type is valid
-     *
-     * @param string $broadcastType
-     * @return bool
-     */
-    protected function isValidBroadcastType($broadcastType)
+    public function getSearchApi(): SearchApi
     {
-        $validBroadcastTypes = ['archive', 'highlight', 'upload'];
-
-        $broadcastTypeArray = explode(',', $broadcastType);
-        foreach ($broadcastTypeArray as $type) {
-            if (!in_array($type, $validBroadcastTypes)) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->searchApi;
     }
 
-    /**
-     * Return true if the provided stream type is valid
-     *
-     * @param string $streamType
-     * @return bool
-     */
-    protected function isValidStreamType($streamType)
+    public function getStreamsApi(): StreamsApi
     {
-        return in_array(strtolower($streamType), ['live', 'playlist', 'all']);
+        return $this->streamsApi;
+    }
+
+    public function getSubscriptionsApi(): SubscriptionsApi
+    {
+        return $this->subscriptionsApi;
+    }
+
+    public function getTagsApi(): TagsApi
+    {
+        return $this->tagsApi;
+    }
+
+    public function getTeamsApi(): TeamsApi
+    {
+        return $this->teamsApi;
+    }
+
+    public function getUsersApi(): UsersApi
+    {
+        return $this->usersApi;
+    }
+
+    public function getVideosApi(): VideosApi
+    {
+        return $this->videosApi;
+    }
+
+    public function getWebhooksApi(): WebhooksApi
+    {
+        return $this->webhooksApi;
+    }
+
+    public function getWebhooksSubscriptionApi(): WebhooksSubscriptionApi
+    {
+        return $this->webhooksSubscriptionApi;
     }
 }

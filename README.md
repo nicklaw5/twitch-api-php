@@ -40,9 +40,9 @@ $twitch_client_id = 'TWITCH_CLIENT_ID';
 $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
-$newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $newTwitchApi->getOauthApi();
+$helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 try {
     $token = $oauth->getAppAccessToken($twitch_scopes ?? '');
@@ -62,9 +62,9 @@ $twitch_client_id = 'TWITCH_CLIENT_ID';
 $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
-$newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $newTwitchApi->getOauthApi();
+$helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 // Get the code from URI
 $code = $_GET['code'];
@@ -104,9 +104,9 @@ $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
 $twitch_scopes = '';
 $user_refresh_token = 'REFRESH_TOKEN';
 
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
-$newTwitchApi = new \NewTwitchApi\NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
-$oauth = $newTwitchApi->getOauthApi();
+$helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
+$twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+$oauth = $twitchApi->getOauthApi();
 
 try {
     $token = $oauth->getAppAccessToken($twitch_scopes ?? '');
@@ -124,11 +124,11 @@ try {
 
 ### Usage of the API Classes
 
-Everything stems from the `NewTwitchApi` class. However, if you want to individually instantiate `UsersApi`, `OauthApi`, etc. you are free to do so.
+Everything stems from the `TwitchApi` class. However, if you want to individually instantiate `UsersApi`, `OauthApi`, etc. you are free to do so.
 
 The API calls generally return an object implementing `ResponseInterface`. Since you are getting the full `Response` object, you'll need to handle its contents, e.g. by decoding then into an object with `json_decode()`. This library does not assume this is what you want to do, so it does not do this for you automatically. This library simply acts as a middleman between your code and Twitch, providing you with the raw responses the Twitch API returns.
 
-The individual API classes that can be called from `NewTwitchApi` correspond to the [Twitch API documentation](https://dev.twitch.tv/docs/api/). The rest of the API classes are based on the resources listed [here](https://dev.twitch.tv/docs/api/reference/). The methods in the classes generally correspond to the endpoints for each resource. The naming convention was chosen to try and match the Twitch documentation. Each primary endpoint method (not convenience or helper methods) should have an `@link` annotation with a URL to that endpoint's specific documentation.
+The individual API classes that can be called from `TwitchApi` correspond to the [Twitch API documentation](https://dev.twitch.tv/docs/api/). The rest of the API classes are based on the resources listed [here](https://dev.twitch.tv/docs/api/reference/). The methods in the classes generally correspond to the endpoints for each resource. The naming convention was chosen to try and match the Twitch documentation. Each primary endpoint method (not convenience or helper methods) should have an `@link` annotation with a URL to that endpoint's specific documentation.
 
 Here is a sample of retrieving a users table from their access token:
 
@@ -140,14 +140,14 @@ $twitch_access_token = 'the token';
 
 // The Guzzle client used can be the included `HelixGuzzleClient` class, for convenience.
 // You can also use a mock, fake, or other double for testing, of course.
-$helixGuzzleClient = new \NewTwitchApi\HelixGuzzleClient($twitch_client_id);
+$helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
 
-// Instantiate NewTwitchApi. Can be done in a service layer and injected as well.
-$newTwitchApi = new NewTwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+// Instantiate TwitchApi. Can be done in a service layer and injected as well.
+$twitchApi = new TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
 
 try {
     // Make the API call. A ResponseInterface object is returned.
-    $response = $newTwitchApi->getUsersApi()->getUserByAccessToken($twitch_access_token);
+    $response = $twitchApi->getUsersApi()->getUserByAccessToken($twitch_access_token);
 
     // Get and decode the actual content sent by Twitch.
     $responseContent = json_decode($response->getBody()->getContents());
