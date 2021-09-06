@@ -13,7 +13,7 @@ class EventSubApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-eventsub-subscriptions
      */
-    public function getEventSubSubscription(string $bearer, string $status = null, string $type = null): ResponseInterface
+    public function getEventSubSubscription(string $bearer, string $status = null, string $type = null, string $after = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -23,6 +23,10 @@ class EventSubApi extends AbstractResource
 
         if ($type) {
             $queryParamsMap[] = ['key' => 'type', 'value' => $type];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
 
         return $this->getApi('eventsub/subscriptions', $bearer, $queryParamsMap);
