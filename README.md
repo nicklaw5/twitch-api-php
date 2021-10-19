@@ -11,13 +11,13 @@ The Twitch API PHP Library allows you to interact through HTTP to a number of [T
 
 - [Twitch API Documentation](https://dev.twitch.tv/docs/api/)
 - [TwitchDev Discord](https://link.twitch.tv/devchat)
-- [Twitch Libraries Discord](https://discord.gg/8NXaEyV)
+- [Twitch API Community Discord](https://discord.gg/PKE8cPA3zb)
 
 ## Getting Started
 
 ### Requirements
 
-- PHP 7.4 - The library has been shown to work on earlier versions but we encoruage you to use the latest versions of PHP that are tested with our library. - The requirement will be increased to PHP 8.0 in the future, so you should develop for the latest version of PHP.
+- PHP 7.4 - The library has been shown to work on earlier versions but we encourage you to use the latest versions of PHP that are tested with our library. - The requirement will be increased to PHP 8.0 in the future, so you should develop for the latest version of PHP.
 - Composer
 - `ext-json: *`
 - [guzzlehttp/guzzle](https://github.com/guzzle/guzzle) `~6.0|~7.0`
