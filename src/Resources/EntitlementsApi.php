@@ -72,6 +72,20 @@ class EntitlementsApi extends AbstractResource
 
     /**
      * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-drops-entitlements
+     */
+    public function updateDropsEntitlements(string $bearer, array $entitlement_ids = null, string $fulfillment_status = null): ResponseInterface
+    {
+        $bodyParamsMap = [];
+
+        $bodyParamsMap[] = ['key' => 'entitlement_ids', 'value' => $entitlement_ids];
+        $bodyParamsMap[] = ['key' => 'fulfillment_status', 'value' => $fulfillment_status];
+
+        return $this->patchApi('entitlements/drops', $bearer, [], $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#redeem-code
      */
     public function redeemCode(string $bearer, int $userId, array $codes = []): ResponseInterface
