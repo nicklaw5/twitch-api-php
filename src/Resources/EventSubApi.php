@@ -147,7 +147,7 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelsubscriptionmessage-beta
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelsubscriptionmessage
      */
     public function subscribeToChannelSubscriptionMessage(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
@@ -407,7 +407,7 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#extensionbits_transactioncreate-beta
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#extensionbits_transactioncreate
      */
     public function subscribeToExtensionBitsTransactionCreate(string $bearer, string $secret, string $callback, string $extensionClientId): ResponseInterface
     {
@@ -416,7 +416,7 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             'extension.bits_transaction.create',
-            'beta',
+            '1',
             ['extension_client_id' => $extensionClientId],
         );
     }
