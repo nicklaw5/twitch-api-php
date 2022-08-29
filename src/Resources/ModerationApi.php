@@ -86,4 +86,25 @@ class ModerationApi extends AbstractResource
 
         return $this->postApi('moderation/automod/message', $bearer, [], $bodyParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#ban-user
+     */
+    public function banUser(string $bearer, string $broadcasterId, string $moderatorId, string $userId, string $reason, int $duration = null): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        $bodyParamsMap[] = ['key' => 'reason', 'value' => $reason];
+
+        if ($duration) {
+            $bodyParamsMap[] = ['key' => 'duration', 'value' => $duration];
+        }
+
+        return $this->postApi('moderation/bans', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
 }
