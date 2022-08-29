@@ -8,7 +8,7 @@ use TwitchApi\RequestGenerator;
 use TwitchApi\HelixGuzzleClient;
 use PhpSpec\ObjectBehavior;
 
-class RaidApiSpec extends ObjectBehavior
+class RaidsApiSpec extends ObjectBehavior
 {
     function let(HelixGuzzleClient $guzzleClient, RequestGenerator $requestGenerator, Request $request, Response $response)
     {
@@ -18,7 +18,7 @@ class RaidApiSpec extends ObjectBehavior
 
     function it_should_start_a_raid(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $requestGenerator->generate('POST', 'raids', 'TEST_TOKEN', [['key' => 'to_broadcaster_id', 'value' => '123'], ['key' => 'from_broadcaster_id', 'value' => '456']], [])->willReturn($request);
+        $requestGenerator->generate('POST', 'raids', 'TEST_TOKEN', [['key' => 'from_broadcaster_id', 'value' => '123'], ['key' => 'to_broadcaster_id', 'value' => '456']], [])->willReturn($request);
         $this->startRaid('TEST_TOKEN', '123', '456')->shouldBe($response);
     }
 
