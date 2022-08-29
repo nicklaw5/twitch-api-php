@@ -26,6 +26,7 @@ use TwitchApi\Resources\TeamsApi;
 use TwitchApi\Resources\UsersApi;
 use TwitchApi\Resources\VideosApi;
 use TwitchApi\Resources\WebhooksApi;
+use TwitchApi\Resources\WhispersApi;
 use TwitchApi\Webhooks\WebhooksSubscriptionApi;
 use PhpSpec\ObjectBehavior;
 
@@ -143,6 +144,11 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_webhooks_api()
     {
         $this->getWebhooksApi()->shouldBeAnInstanceOf(WebhooksApi::class);
+    }
+
+    function it_should_provide_whispers_api()
+    {
+        $this->getWhispersApi()->shouldBeAnInstanceOf(WhispersApi::class);
     }
 
     function it_should_provide_webhooks_subscription_api()

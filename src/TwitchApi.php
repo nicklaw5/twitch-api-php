@@ -30,6 +30,7 @@ use TwitchApi\Resources\TeamsApi;
 use TwitchApi\Resources\UsersApi;
 use TwitchApi\Resources\VideosApi;
 use TwitchApi\Resources\WebhooksApi;
+use TwitchApi\Resources\WhispersApi;
 use TwitchApi\Webhooks\WebhooksSubscriptionApi;
 
 class TwitchApi
@@ -59,6 +60,7 @@ class TwitchApi
     private $usersApi;
     private $videosApi;
     private $webhooksApi;
+    private $whispersApi;
     private $webhooksSubscriptionApi;
 
     public function __construct(HelixGuzzleClient $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
@@ -89,6 +91,7 @@ class TwitchApi
         $this->usersApi = new UsersApi($helixGuzzleClient, $requestGenerator);
         $this->videosApi = new VideosApi($helixGuzzleClient, $requestGenerator);
         $this->webhooksApi = new WebhooksApi($helixGuzzleClient, $requestGenerator);
+        $this->whispersApi = new WhispersApi($helixGuzzleClient, $requestGenerator);
         $this->webhooksSubscriptionApi = new WebhooksSubscriptionApi($clientId, $clientSecret, $helixGuzzleClient);
     }
 
@@ -215,6 +218,11 @@ class TwitchApi
     public function getWebhooksApi(): WebhooksApi
     {
         return $this->webhooksApi;
+    }
+
+    public function getWhispersApi(): WhispersApi
+    {
+        return $this->whispersApi;
     }
 
     public function getWebhooksSubscriptionApi(): WebhooksSubscriptionApi
