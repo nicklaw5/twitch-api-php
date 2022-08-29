@@ -17,6 +17,7 @@ use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
+use TwitchApi\Resources\RaidsApi;
 use TwitchApi\Resources\ScheduleApi;
 use TwitchApi\Resources\StreamsApi;
 use TwitchApi\Resources\SubscriptionsApi;
@@ -84,6 +85,11 @@ class TwitchApiSpec extends ObjectBehavior
         $this->getHypeTrainApi()->shouldBeAnInstanceOf(HypeTrainApi::class);
     }
 
+    function it_should_provide_moderation_api()
+    {
+        $this->getModerationApi()->shouldBeAnInstanceOf(ModerationApi::class);
+    }
+
     function it_should_provide_polls_api()
     {
         $this->getPollsApi()->shouldBeAnInstanceOf(PollsApi::class);
@@ -92,6 +98,11 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_predictions_api()
     {
         $this->getPredictionsApi()->shouldBeAnInstanceOf(PredictionsApi::class);
+    }
+
+    function it_should_provide_raids_api()
+    {
+        $this->getRaidsApi()->shouldBeAnInstanceOf(RaidsApi::class);
     }
 
     function it_should_provide_schedule_api()

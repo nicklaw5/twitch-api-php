@@ -20,6 +20,7 @@ use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
+use TwitchApi\Resources\RaidsApi;
 use TwitchApi\Resources\ScheduleApi;
 use TwitchApi\Resources\SearchApi;
 use TwitchApi\Resources\StreamsApi;
@@ -48,6 +49,7 @@ class TwitchApi
     private $moderationApi;
     private $pollsApi;
     private $predictionsApi;
+    private $raidsApi;
     private $scheduleApi;
     private $searchApi;
     private $streamsApi;
@@ -77,6 +79,7 @@ class TwitchApi
         $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
         $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
         $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $requestGenerator);
+        $this->raidsApi = new RaidsApi($helixGuzzleClient, $requestGenerator);
         $this->scheduleApi = new ScheduleApi($helixGuzzleClient, $requestGenerator);
         $this->searchApi = new SearchApi($helixGuzzleClient, $requestGenerator);
         $this->streamsApi = new StreamsApi($helixGuzzleClient, $requestGenerator);
@@ -162,6 +165,11 @@ class TwitchApi
     public function getPredictionsApi(): PredictionsApi
     {
         return $this->predictionsApi;
+    }
+
+    public function getRaidsApi(): RaidsApi
+    {
+        return $this->raidsApi;
     }
 
     public function getScheduleApi(): ScheduleApi
