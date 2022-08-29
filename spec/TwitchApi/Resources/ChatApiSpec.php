@@ -57,4 +57,52 @@ class ChatApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'chat/badges/global', 'TEST_TOKEN', [], [])->willReturn($request);
         $this->getGlobalChatBadges('TEST_TOKEN')->shouldBe($response);
     }
+
+    function it_should_get_chat_settings(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'chat/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getChatSettings('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_chat_settings_with_moderator_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'chat/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->getChatSettings('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_update_chat_settings_with_one_setting(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'chat/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], ['emote_mode' => true])->willReturn($request);
+        $this->updateChatSettings('TEST_TOKEN', '123', '456', ['emote_mode' => true])->shouldBe($response);
+    }
+
+    function it_should_update_chat_settings_with_multiple_settings(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'chat/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], ['emote_mode' => true, 'slow_mode_wait_time' => 10])->willReturn($request);
+        $this->updateChatSettings('TEST_TOKEN', '123', '456', ['emote_mode' => true, 'slow_mode_wait_time' => 10])->shouldBe($response);
+    }
+
+    function it_should_send_a_chat_announcement(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'chat/announcements', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], ['message' => 'Hello World'])->willReturn($request);
+        $this->sendChatAnnouncement('TEST_TOKEN', '123', 'Hello World')->shouldBe($response);
+    }
+
+    function it_should_send_a_chat_announcement_with_a_color(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'chat/announcements', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], ['message' => 'Hello World', 'color' => 'red'])->willReturn($request);
+        $this->sendChatAnnouncement('TEST_TOKEN', '123', 'Hello World', 'red')->shouldBe($response);
+    }
+
+    function it_should_get_a_users_chat_color(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'chat/color', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getUserChatColor('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_update_a_users_chat_color(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PUT', 'chat/color', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'color', 'value' => 'red']], [])->willReturn($request);
+        $this->updateUserChatColor('TEST_TOKEN', '123', 'red')->shouldBe($response);
+    }
 }
