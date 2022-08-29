@@ -55,6 +55,12 @@ class EventSubApiSpec extends ObjectBehavior
         $this->getEventSubSubscription('TEST_TOKEN', null, 'channel.update')->shouldBe($response);
     }
 
+    function it_should_get_event_sub_subscription_with_user_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'eventsub/subscriptions', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '789']], [])->willReturn($request);
+        $this->getEventSubSubscription('TEST_TOKEN', null, null, null, '789')->shouldBe($response);
+    }
+
     function it_should_get_event_sub_subscription_with_after(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $requestGenerator->generate('GET', 'eventsub/subscriptions', 'TEST_TOKEN', [['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
