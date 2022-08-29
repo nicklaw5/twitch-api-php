@@ -9,7 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class ModerationApi extends AbstractResource
 {
-
     /**
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-banned-users
@@ -65,7 +64,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-        
+
         return $this->postApi('moderation/moderators', $bearer, $queryParamsMap);
     }
 
@@ -78,7 +77,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-        
+
         return $this->deleteApi('moderation/moderators', $bearer, $queryParamsMap);
     }
 
@@ -240,7 +239,7 @@ class ModerationApi extends AbstractResource
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
-        
+
         if ($messageId) {
             $queryParamsMap[] = ['key' => 'message_id', 'value' => $messageId];
         }
@@ -256,8 +255,8 @@ class ModerationApi extends AbstractResource
     {
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-        
-        foreach($users as $user) {
+
+        foreach ($users as $user) {
             $queryParamsMap[] = ['key' => 'user_id', 'value' => $user];
         }
 
@@ -268,7 +267,7 @@ class ModerationApi extends AbstractResource
         if ($after) {
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
         }
-        
+
         return $this->getApi('channels/vips', $bearer, $queryParamsMap);
     }
 
@@ -282,7 +281,7 @@ class ModerationApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-        
+
         return $this->postApi('channels/vips', $bearer, $queryParamsMap);
     }
 
@@ -293,10 +292,10 @@ class ModerationApi extends AbstractResource
     public function removeChannelVip(string $bearer, string $broadcasterId, string $userId): ResponseInterface
     {
         $queryParamsMap = [];
-        
+
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
-        
+
         return $this->deleteApi('channels/vips', $bearer, $queryParamsMap);
     }
 }

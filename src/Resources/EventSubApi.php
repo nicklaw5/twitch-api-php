@@ -373,8 +373,6 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToStream($bearer, $secret, $callback, $twitchId, 'offline');
     }
 
-
-
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userauthorizationrevoke
      */
@@ -578,5 +576,5 @@ class EventSubApi extends AbstractResource
             '1',
             ['broadcaster_user_id' => $twitchId],
         );
-    }    
+    }
 }
