@@ -94,14 +94,12 @@ class ChatApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#update-chat-settings
      */
-    public function updateChatSettings(string $bearer, string $broadcasterId, array $chatSettings, string $moderatorId = null): ResponseInterface
+    public function updateChatSettings(string $bearer, string $broadcasterId, string $moderatorId, array $chatSettings): ResponseInterface
     {
         $queryParamsMap = $bodyParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
 
-        if ($moderatorId) {
-            $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
-        }
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
 
         foreach ($chatSettings as $key => $value) {
             $bodyParamsMap[] = ['key' => $key, 'value' => $value];
