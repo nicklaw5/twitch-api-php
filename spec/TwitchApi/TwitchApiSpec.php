@@ -13,6 +13,7 @@ use TwitchApi\Resources\ChannelsApi;
 use TwitchApi\Resources\EntitlementsApi;
 use TwitchApi\Resources\EventSubApi;
 use TwitchApi\Resources\GamesApi;
+use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
@@ -77,6 +78,10 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_games_api()
     {
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
+    }
+
+    function it_should_provide_hype_train_api() {
+        $this->getHypeTrainApi()->shouldBeAnInstanceOf(HypeTrainApi::class);
     }
 
     function it_should_provide_polls_api()
