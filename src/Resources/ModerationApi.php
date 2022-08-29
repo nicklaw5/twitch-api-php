@@ -58,6 +58,32 @@ class ModerationApi extends AbstractResource
 
     /**
      * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#add-channel-moderator
+     */
+    public function addChannelModerator(string $bearer, string $broadcasterId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        
+        return $this->postApi('moderation/moderators', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#remove-channel-moderator
+     */
+    public function removeChannelModerator(string $bearer, string $broadcasterId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        
+        return $this->deleteApi('moderation/moderators', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#check-automod-status
      */
     public function checkAutoModStatus(string $bearer, string $broadcasterId, string $msgId, string $msgText): ResponseInterface
@@ -220,5 +246,57 @@ class ModerationApi extends AbstractResource
         }
 
         return $this->deleteApi('moderation/chat', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-vips
+     */
+    public function getVips(string $bearer, string $broadcasterId, array $users = [], int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        
+        foreach($users as $user) {
+            $queryParamsMap[] = ['key' => 'user_id', 'value' => $user];
+        }
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+        
+        return $this->getApi('channels/vips', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#add-channel-vip
+     */
+    public function addChannelVip(string $bearer, string $broadcasterId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        
+        return $this->postApi('channels/vips', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#remove-channel-vip
+     */
+    public function removeChannelVip(string $bearer, string $broadcasterId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+        
+        return $this->deleteApi('channels/vips', $bearer, $queryParamsMap);
     }
 }

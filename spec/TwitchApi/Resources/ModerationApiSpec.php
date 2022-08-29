@@ -99,4 +99,52 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('DELETE', 'moderation/chat', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'message_id', 'value' => '789']], [])->willReturn($request);
         $this->deleteChatMessages('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
     }
+
+    function it_should_add_a_channel_moderator(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'moderation/moderators', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
+        $this->addChannelModerator('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_remove_a_channel_moderator(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'moderation/moderators', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
+        $this->removeChannelModerator('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_get_vips_for_a_channel(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getVips('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_vips_for_a_channel_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
+        $this->getVips('TEST_TOKEN', '123', [], 100, 'abc')->shouldBe($response);
+    }
+
+    function it_should_get_vips_for_a_channel_with_one_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
+        $this->getVips('TEST_TOKEN', '123', ['456'])->shouldBe($response);
+    }
+
+    function it_should_get_vips_for_a_channel_with_multipe_ids(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456'], ['key' => 'user_id', 'value' => '789']], [])->willReturn($request);
+        $this->getVips('TEST_TOKEN', '123', ['456', '789'])->shouldBe($response);
+    }
+
+    function it_should_add_vip_for_a_channel(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
+        $this->addChannelVip('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_remove_vip_for_a_channel(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
+        $this->removeChannelVip('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
 }
