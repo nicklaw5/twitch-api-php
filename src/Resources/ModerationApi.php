@@ -9,30 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class ModerationApi extends AbstractResource
 {
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference/#get-banned-events
-     */
-    public function getBannedEvents(string $bearer, string $broadcasterId, array $ids = [], string $first = null, string $after = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-
-        foreach ($ids as $id) {
-            $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
-        }
-
-        if ($first) {
-            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
-        }
-
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
-
-        return $this->getApi('moderation/banned/events', $bearer, $queryParamsMap);
-    }
 
     /**
      * @throws GuzzleException
@@ -78,27 +54,6 @@ class ModerationApi extends AbstractResource
         }
 
         return $this->getApi('moderation/moderators', $bearer, $queryParamsMap);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @link https://dev.twitch.tv/docs/api/reference/#get-moderator-events
-     */
-    public function getModeratorEvents(string $bearer, string $broadcasterId, array $ids = [], string $after = null): ResponseInterface
-    {
-        $queryParamsMap = [];
-
-        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-
-        foreach ($ids as $id) {
-            $queryParamsMap[] = ['key' => 'user_id', 'value' => $id];
-        }
-
-        if ($after) {
-            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
-        }
-
-        return $this->getApi('moderation/moderators/events', $bearer, $queryParamsMap);
     }
 
     /**
