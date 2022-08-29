@@ -122,4 +122,86 @@ class ModerationApi extends AbstractResource
 
         return $this->deleteApi('moderation/bans', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-automod-settings
+     */
+    public function getAutoModSettings(string $bearer, string $broadcasterId, string $moderatorId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        return $this->getApi('moderation/automod/settings', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-automod-settings
+     */
+    public function updateAutoModSettings(string $bearer, string $broadcasterId, string $moderatorId, array $settings): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        foreach ($settings as $key => $value) {
+            $bodyParamsMap[] = ['key' => $key, 'value' => $value];
+        }
+
+        return $this->putApi('moderation/automod/settings', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-blocked-terms
+     */
+    public function getBlockedTerms(string $bearer, string $broadcasterId, string $moderatorId, int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        return $this->getApi('moderation/blocked_terms', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#add-blocked-term
+     */
+    public function addBlockedTerm(string $bearer, string $broadcasterId, string $moderatorId, string $term): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        $bodyParamsMap[] = ['key' => 'term', 'value' => $term];
+
+        return $this->postApi('moderation/blocked_terms', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#remove-blocked-term
+     */
+    public function removeBlockedTerm(string $bearer, string $broadcasterId, string $moderatorId, string $termId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+        $queryParamsMap[] = ['key' => 'id', 'value' => $termId];
+        
+        return $this->deleteApi('moderation/blocked_terms', $bearer, $queryParamsMap);
+    }
 }

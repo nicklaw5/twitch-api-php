@@ -45,4 +45,46 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('DELETE', 'moderation/bans', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'user_id', 'value' => '789']], [])->willReturn($request);
         $this->unbanUser('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
     }
+
+    function it_should_get_automod_settings(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/automod/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->getAutoModSettings('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_update_automod_settings_with_one_setting(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PUT', 'moderation/automod/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [['key' => 'aggression', 'value' => 1]])->willReturn($request);
+        $this->updateAutoModSettings('TEST_TOKEN', '123', '456', ['aggression' => 1])->shouldBe($response);
+    }
+
+    function it_should_update_automod_settings_with_multiple_settings(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PUT', 'moderation/automod/settings', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [['key' => 'aggression', 'value' => 1], ['key' => 'bullying', 'value' => 2]])->willReturn($request);
+        $this->updateAutoModSettings('TEST_TOKEN', '123', '456', ['aggression' => 1, 'bullying' => 2])->shouldBe($response);
+    }
+
+    function it_should_get_blocked_terms(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/blocked_terms', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->getBlockedTerms('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_get_blocked_terms_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/blocked_terms', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
+        $this->getBlockedTerms('TEST_TOKEN', '123', '456', 100, 'abc')->shouldBe($response);
+    }
+
+    function it_should_add_a_blocked_term(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'moderation/blocked_terms', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [['key' => 'term', 'value' => 'abc']])->willReturn($request);
+        $this->addBlockedTerm('TEST_TOKEN', '123', '456', 'abc')->shouldBe($response);
+    }
+
+    function it_should_remove_a_blocked_term(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'moderation/blocked_terms', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'id', 'value' => '789']], [])->willReturn($request);
+        $this->removeBlockedTerm('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
+    }
 }
