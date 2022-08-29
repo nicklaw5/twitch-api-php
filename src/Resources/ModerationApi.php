@@ -201,7 +201,24 @@ class ModerationApi extends AbstractResource
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
         $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
         $queryParamsMap[] = ['key' => 'id', 'value' => $termId];
-        
+
         return $this->deleteApi('moderation/blocked_terms', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#delete-chat-messages
+     */
+    public function deleteChatMessages(string $bearer, string $broadcasterId, string $moderatorId, string $messageId = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+        
+        if ($messageId) {
+            $queryParamsMap[] = ['key' => 'message_id', 'value' => $messageId];
+        }
+
+        return $this->deleteApi('moderation/chat', $bearer, $queryParamsMap);
     }
 }

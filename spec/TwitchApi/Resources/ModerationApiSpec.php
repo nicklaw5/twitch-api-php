@@ -87,4 +87,16 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('DELETE', 'moderation/blocked_terms', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'id', 'value' => '789']], [])->willReturn($request);
         $this->removeBlockedTerm('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
     }
+
+    function it_should_delete_chat_messages(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'moderation/chat', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->deleteChatMessages('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_delete_chat_messages_with_message_id(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'moderation/chat', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'message_id', 'value' => '789']], [])->willReturn($request);
+        $this->deleteChatMessages('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
+    }
 }
