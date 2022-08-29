@@ -73,4 +73,87 @@ class ChatApi extends AbstractResource
     {
         return $this->getApi('chat/badges/global', $bearer);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-chat-settings
+     */
+    public function getChatSettings(string $bearer, string $broadcasterId, string $moderatorId = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        if ($moderatorId) {
+            $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+        }
+
+        return $this->getApi('chat/settings', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-chat-settings
+     */
+    public function updateChatSettings(string $bearer, string $broadcasterId, string $moderatorId, array $chatSettings): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        foreach ($chatSettings as $key => $value) {
+            $bodyParamsMap[] = ['key' => $key, 'value' => $value];
+        }
+
+        return $this->patchApi('chat/settings', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#send-chat-announcement
+     */
+    public function sendChatAnnouncement(string $bearer, string $broadcasterId, string $moderatorId, string $message, string $color = null): ResponseInterface
+    {
+        $queryParamsMap = $bodyParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        $bodyParamsMap[] = ['key' => 'message', 'value' => $message];
+
+        if ($color) {
+            $bodyParamsMap[] = ['key' => 'color', 'value' => $color];
+        }
+
+        return $this->postApi('chat/announcements', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-user-chat-color
+     */
+    public function getUserChatColor(string $bearer, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        return $this->getApi('chat/color', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-user-chat-color
+     */
+    public function updateUserChatColor(string $bearer, string $userId, string $color): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        $queryParamsMap[] = ['key' => 'color', 'value' => $color];
+
+        return $this->putApi('chat/color', $bearer, $queryParamsMap);
+    }
 }

@@ -20,6 +20,7 @@ use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
+use TwitchApi\Resources\RaidsApi;
 use TwitchApi\Resources\ScheduleApi;
 use TwitchApi\Resources\SearchApi;
 use TwitchApi\Resources\StreamsApi;
@@ -29,6 +30,7 @@ use TwitchApi\Resources\TeamsApi;
 use TwitchApi\Resources\UsersApi;
 use TwitchApi\Resources\VideosApi;
 use TwitchApi\Resources\WebhooksApi;
+use TwitchApi\Resources\WhispersApi;
 use TwitchApi\Webhooks\WebhooksSubscriptionApi;
 
 class TwitchApi
@@ -48,6 +50,7 @@ class TwitchApi
     private $moderationApi;
     private $pollsApi;
     private $predictionsApi;
+    private $raidsApi;
     private $scheduleApi;
     private $searchApi;
     private $streamsApi;
@@ -57,6 +60,7 @@ class TwitchApi
     private $usersApi;
     private $videosApi;
     private $webhooksApi;
+    private $whispersApi;
     private $webhooksSubscriptionApi;
 
     public function __construct(HelixGuzzleClient $helixGuzzleClient, string $clientId, string $clientSecret, Client $authGuzzleClient = null)
@@ -77,6 +81,7 @@ class TwitchApi
         $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
         $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
         $this->predictionsApi = new PredictionsApi($helixGuzzleClient, $requestGenerator);
+        $this->raidsApi = new RaidsApi($helixGuzzleClient, $requestGenerator);
         $this->scheduleApi = new ScheduleApi($helixGuzzleClient, $requestGenerator);
         $this->searchApi = new SearchApi($helixGuzzleClient, $requestGenerator);
         $this->streamsApi = new StreamsApi($helixGuzzleClient, $requestGenerator);
@@ -86,6 +91,7 @@ class TwitchApi
         $this->usersApi = new UsersApi($helixGuzzleClient, $requestGenerator);
         $this->videosApi = new VideosApi($helixGuzzleClient, $requestGenerator);
         $this->webhooksApi = new WebhooksApi($helixGuzzleClient, $requestGenerator);
+        $this->whispersApi = new WhispersApi($helixGuzzleClient, $requestGenerator);
         $this->webhooksSubscriptionApi = new WebhooksSubscriptionApi($clientId, $clientSecret, $helixGuzzleClient);
     }
 
@@ -164,6 +170,11 @@ class TwitchApi
         return $this->predictionsApi;
     }
 
+    public function getRaidsApi(): RaidsApi
+    {
+        return $this->raidsApi;
+    }
+
     public function getScheduleApi(): ScheduleApi
     {
         return $this->scheduleApi;
@@ -207,6 +218,11 @@ class TwitchApi
     public function getWebhooksApi(): WebhooksApi
     {
         return $this->webhooksApi;
+    }
+
+    public function getWhispersApi(): WhispersApi
+    {
+        return $this->whispersApi;
     }
 
     public function getWebhooksSubscriptionApi(): WebhooksSubscriptionApi

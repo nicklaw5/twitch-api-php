@@ -13,7 +13,7 @@ class EventSubApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-eventsub-subscriptions
      */
-    public function getEventSubSubscription(string $bearer, string $status = null, string $type = null, string $after = null): ResponseInterface
+    public function getEventSubSubscription(string $bearer, string $status = null, string $type = null, string $after = null, string $userId = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -27,6 +27,10 @@ class EventSubApi extends AbstractResource
 
         if ($after) {
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        if ($userId) {
+            $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
         }
 
         return $this->getApi('eventsub/subscriptions', $bearer, $queryParamsMap);
@@ -143,7 +147,7 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelsubscriptionmessage-beta
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelsubscriptionmessage
      */
     public function subscribeToChannelSubscriptionMessage(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
     {
@@ -374,14 +378,15 @@ class EventSubApi extends AbstractResource
      */
     public function subscribeToUserAuthorizationRevoke(string $bearer, string $secret, string $callback, string $clientId): ResponseInterface
     {
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            'user.authorization.revoke',
-            '1',
-            ['client_id' => $clientId],
-        );
+        return $this->subscribeToUserAuthorization($bearer, $secret, $callback, $clientId, 'revoke');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userauthorizationgrant
+     */
+    public function subscribeToUserAuthorizationGrant(string $bearer, string $secret, string $callback, string $clientId): ResponseInterface
+    {
+        return $this->subscribeToUserAuthorization($bearer, $secret, $callback, $clientId, 'grant');
     }
 
     /**
@@ -400,7 +405,7 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#extensionbits_transactioncreate-beta
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#extensionbits_transactioncreate
      */
     public function subscribeToExtensionBitsTransactionCreate(string $bearer, string $secret, string $callback, string $extensionClientId): ResponseInterface
     {
@@ -409,9 +414,33 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             'extension.bits_transaction.create',
-            'beta',
+            '1',
             ['extension_client_id' => $extensionClientId],
         );
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalbegin
+     */
+    public function subscribeToChannelGoalBegin(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'begin');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalprogress
+     */
+    public function subscribeToChannelGoalProgress(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'progress');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalend
+     */
+    public function subscribeToChannelGoalEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'end');
     }
 
     /**
@@ -520,6 +549,30 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             sprintf('stream.%s', $eventType),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToUserAuthorization(string $bearer, string $secret, string $callback, string $clientId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('user.authorization.%s', $eventType),
+            '1',
+            ['client_id' => $clientId],
+        );
+    }
+
+    private function subscribeToChannelGoal(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.goal.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
         );

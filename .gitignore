@@ -4,6 +4,6 @@ composer-test.lock
 vendor/
 .idea
 .DS_STORE
-.php_cs.cache
+.php-cs-fixer.cache
 .phpunit.result.cache
 composer.lock

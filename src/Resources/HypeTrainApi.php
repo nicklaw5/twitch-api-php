@@ -13,7 +13,7 @@ class HypeTrainApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-hype-train-events
      */
-    public function getHypeTrainEvents(string $bearer, string $broadcasterId, int $first = null, string $id = null, string $cursor = null): ResponseInterface
+    public function getHypeTrainEvents(string $bearer, string $broadcasterId, int $first = null, string $cursor = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -23,14 +23,10 @@ class HypeTrainApi extends AbstractResource
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }
 
-        if ($id) {
-            $queryParamsMap[] = ['key' => 'id', 'value' => $id];
-        }
-
         if ($cursor) {
             $queryParamsMap[] = ['key' => 'cursor', 'value' => $cursor];
         }
 
-        return $this->getApi('bits/cheermotes', $bearer, $queryParamsMap);
+        return $this->getApi('hypetrain/events', $bearer, $queryParamsMap);
     }
 }

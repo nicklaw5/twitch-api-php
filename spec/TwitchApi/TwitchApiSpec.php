@@ -13,9 +13,11 @@ use TwitchApi\Resources\ChannelsApi;
 use TwitchApi\Resources\EntitlementsApi;
 use TwitchApi\Resources\EventSubApi;
 use TwitchApi\Resources\GamesApi;
+use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
+use TwitchApi\Resources\RaidsApi;
 use TwitchApi\Resources\ScheduleApi;
 use TwitchApi\Resources\StreamsApi;
 use TwitchApi\Resources\SubscriptionsApi;
@@ -24,6 +26,7 @@ use TwitchApi\Resources\TeamsApi;
 use TwitchApi\Resources\UsersApi;
 use TwitchApi\Resources\VideosApi;
 use TwitchApi\Resources\WebhooksApi;
+use TwitchApi\Resources\WhispersApi;
 use TwitchApi\Webhooks\WebhooksSubscriptionApi;
 use PhpSpec\ObjectBehavior;
 
@@ -79,6 +82,15 @@ class TwitchApiSpec extends ObjectBehavior
         $this->getGamesApi()->shouldBeAnInstanceOf(GamesApi::class);
     }
 
+    function it_should_provide_hype_train_api() {
+        $this->getHypeTrainApi()->shouldBeAnInstanceOf(HypeTrainApi::class);
+    }
+
+    function it_should_provide_moderation_api()
+    {
+        $this->getModerationApi()->shouldBeAnInstanceOf(ModerationApi::class);
+    }
+
     function it_should_provide_polls_api()
     {
         $this->getPollsApi()->shouldBeAnInstanceOf(PollsApi::class);
@@ -87,6 +99,11 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_predictions_api()
     {
         $this->getPredictionsApi()->shouldBeAnInstanceOf(PredictionsApi::class);
+    }
+
+    function it_should_provide_raids_api()
+    {
+        $this->getRaidsApi()->shouldBeAnInstanceOf(RaidsApi::class);
     }
 
     function it_should_provide_schedule_api()
@@ -127,6 +144,11 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_webhooks_api()
     {
         $this->getWebhooksApi()->shouldBeAnInstanceOf(WebhooksApi::class);
+    }
+
+    function it_should_provide_whispers_api()
+    {
+        $this->getWhispersApi()->shouldBeAnInstanceOf(WhispersApi::class);
     }
 
     function it_should_provide_webhooks_subscription_api()

@@ -31,9 +31,9 @@
     "guzzlehttp/guzzle": "~6.0|~7.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.13",
-    "phpspec/phpspec": "^6.1",
-    "phpunit/phpunit": "^8.5"
+    "friendsofphp/php-cs-fixer": "^3.10",
+    "phpspec/phpspec": "^7.2",
+    "phpunit/phpunit": "^9.5"
   },
   "autoload": {
     "psr-4": {
