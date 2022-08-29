@@ -60,7 +60,7 @@ class ModerationApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#check-automod-status
      */
-    public function checkAutoModStatus(string $bearer, string $broadcasterId, string $msgId, string $msgText, string $userId): ResponseInterface
+    public function checkAutoModStatus(string $bearer, string $broadcasterId, string $msgId, string $msgText): ResponseInterface
     {
         $queryParamsMap = $bodyParamsMap = [];
 
@@ -68,7 +68,6 @@ class ModerationApi extends AbstractResource
 
         $bodyParamsMap[] = ['key' => 'msg_id', 'value' => $msgId];
         $bodyParamsMap[] = ['key' => 'msg_text', 'value' => $msgText];
-        $bodyParamsMap[] = ['key' => 'user_id', 'value' => $userId];
 
         return $this->postApi('moderation/enforcements/status', $bearer, $queryParamsMap, $bodyParamsMap);
     }
