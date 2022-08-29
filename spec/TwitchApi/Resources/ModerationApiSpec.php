@@ -39,4 +39,10 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('POST', 'moderation/bans', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [['key' => 'user_id', 'value' => '789'], ['key' => 'reason', 'value' => 'abc'], ['key' => 'duration', 'value' => 300]])->willReturn($request);
         $this->banUser('TEST_TOKEN', '123', '456', '789', 'abc', 300)->shouldBe($response);
     }
+
+    function it_should_unban_a_user(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('DELETE', 'moderation/bans', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'], ['key' => 'user_id', 'value' => '789']], [])->willReturn($request);
+        $this->unbanUser('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
+    }
 }

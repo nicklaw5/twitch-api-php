@@ -107,4 +107,19 @@ class ModerationApi extends AbstractResource
 
         return $this->postApi('moderation/bans', $bearer, $queryParamsMap, $bodyParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#unban-user
+     */
+    public function unbanUser(string $bearer, string $broadcasterId, string $moderatorId, string $userId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+        $queryParamsMap[] = ['key' => 'user_id', 'value' => $userId];
+
+        return $this->deleteApi('moderation/bans', $bearer, $queryParamsMap);
+    }
 }
