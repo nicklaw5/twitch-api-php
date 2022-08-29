@@ -5,8 +5,9 @@ $finder = PhpCsFixer\Finder::create()
     ->in('test/')
 ;
 
-return PhpCsFixer\Config::create()
-    ->setRules([
+$config = new PhpCsFixer\Config();
+
+return $config->setRules([
         '@PSR2' => true,
         '@Symfony' => true,
         'phpdoc_annotation_without_dot' => false,
