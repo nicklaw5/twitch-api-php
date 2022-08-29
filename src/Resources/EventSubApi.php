@@ -373,19 +373,22 @@ class EventSubApi extends AbstractResource
         return $this->subscribeToStream($bearer, $secret, $callback, $twitchId, 'offline');
     }
 
+
+
     /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userauthorizationrevoke
      */
     public function subscribeToUserAuthorizationRevoke(string $bearer, string $secret, string $callback, string $clientId): ResponseInterface
     {
-        return $this->createEventSubSubscription(
-            $bearer,
-            $secret,
-            $callback,
-            'user.authorization.revoke',
-            '1',
-            ['client_id' => $clientId],
-        );
+        return $this->subscribeToUserAuthorization($bearer, $secret, $callback, $clientId, 'revoke');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#userauthorizationgrant
+     */
+    public function subscribeToUserAuthorizationGrant(string $bearer, string $secret, string $callback, string $clientId): ResponseInterface
+    {
+        return $this->subscribeToUserAuthorization($bearer, $secret, $callback, $clientId, 'grant');
     }
 
     /**
@@ -526,6 +529,18 @@ class EventSubApi extends AbstractResource
             sprintf('stream.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToUserAuthorization(string $bearer, string $secret, string $callback, string $clientId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('user.authorization.%s', $eventType),
+            '1',
+            ['client_id' => $clientId],
         );
     }
 }

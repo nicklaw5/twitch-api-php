@@ -258,4 +258,16 @@ class EventSubApiSpec extends ObjectBehavior
         $this->createEventSubSubscription('extension.bits_transaction.create', 'beta', ['extension_client_id' => 'deadbeef'], $requestGenerator)->willReturn($request);
         $this->subscribeToExtensionBitsTransactionCreate($this->bearer, $this->secret, $this->callback, 'deadbeef')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_user_authorization_revoke(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('user.authorization.revoke', '1', ['client_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToUserAuthorizationRevoke($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_user_authorization_grant(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('user.authorization.grant', '1', ['client_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToUserAuthorizationGrant($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
 }
