@@ -422,6 +422,30 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalbegin
+     */
+    public function subscribeToChannelGoalBegin(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'begin');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalprogress
+     */
+    public function subscribeToChannelGoalProgress(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'progress');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelgoalend
+     */
+    public function subscribeToChannelGoalEnd(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelGoal($bearer, $secret, $callback, $twitchId, 'end');
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub#verify-a-signature
      */
     public function verifySignature(string $signature, string $secret, string $messageId, string $timestamp, string $body): bool
@@ -543,4 +567,16 @@ class EventSubApi extends AbstractResource
             ['client_id' => $clientId],
         );
     }
+
+    private function subscribeToChannelGoal(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.goal.%s', $eventType),
+            '1',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }    
 }

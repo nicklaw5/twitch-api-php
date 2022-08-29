@@ -270,4 +270,22 @@ class EventSubApiSpec extends ObjectBehavior
         $this->createEventSubSubscription('user.authorization.grant', '1', ['client_id' => '12345'], $requestGenerator)->willReturn($request);
         $this->subscribeToUserAuthorizationGrant($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_channel_goal_begin(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.goal.begin', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelGoalBegin($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_goal_progress(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.goal.progress', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelGoalProgress($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_goal_end(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.goal.end', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelGoalEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
 }
