@@ -10,6 +10,8 @@ use TwitchApi\Resources\AnalyticsApi;
 use TwitchApi\Resources\BitsApi;
 use TwitchApi\Resources\ChannelPointsApi;
 use TwitchApi\Resources\ChannelsApi;
+use TwitchApi\Resources\ChatApi;
+use TwitchApi\Resources\ClipsApi;
 use TwitchApi\Resources\EntitlementsApi;
 use TwitchApi\Resources\EventSubApi;
 use TwitchApi\Resources\GamesApi;
@@ -19,6 +21,7 @@ use TwitchApi\Resources\PollsApi;
 use TwitchApi\Resources\PredictionsApi;
 use TwitchApi\Resources\RaidsApi;
 use TwitchApi\Resources\ScheduleApi;
+use TwitchApi\Resources\SearchApi;
 use TwitchApi\Resources\StreamsApi;
 use TwitchApi\Resources\SubscriptionsApi;
 use TwitchApi\Resources\TagsApi;
@@ -67,6 +70,16 @@ class TwitchApiSpec extends ObjectBehavior
         $this->getChannelsApi()->shouldBeAnInstanceOf(ChannelsApi::class);
     }
 
+    function it_should_provide_chat_api()
+    {
+        $this->getChatApi()->shouldBeAnInstanceOf(ChatApi::class);
+    }
+
+    function it_should_provide_clips_api()
+    {
+        $this->getClipsApi()->shouldBeAnInstanceOf(ClipsApi::class);
+    }
+
     function it_should_provide_entitlements_api()
     {
         $this->getEntitlementsApi()->shouldBeAnInstanceOf(EntitlementsApi::class);
@@ -111,14 +124,19 @@ class TwitchApiSpec extends ObjectBehavior
         $this->getScheduleApi()->shouldBeAnInstanceOf(ScheduleApi::class);
     }
 
-    function it_should_provide_subscriptions_api()
+    function it_should_provide_search_api()
     {
-        $this->getSubscriptionsApi()->shouldBeAnInstanceOf(SubscriptionsApi::class);
+        $this->getSearchApi()->shouldBeAnInstanceOf(SearchApi::class);
     }
 
     function it_should_provide_streams_api()
     {
         $this->getStreamsApi()->shouldBeAnInstanceOf(StreamsApi::class);
+    }
+
+    function it_should_provide_subscriptions_api()
+    {
+        $this->getSubscriptionsApi()->shouldBeAnInstanceOf(SubscriptionsApi::class);
     }
 
     function it_should_provide_tags_api()
