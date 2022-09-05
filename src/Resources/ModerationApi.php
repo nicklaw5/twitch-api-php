@@ -13,7 +13,7 @@ class ModerationApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference/#get-banned-users
      */
-    public function getBannedUsers(string $bearer, string $broadcasterId, array $ids = [], string $before = null, string $after = null): ResponseInterface
+    public function getBannedUsers(string $bearer, string $broadcasterId, array $ids = [], string $before = null, string $after = null, string $first = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -29,6 +29,10 @@ class ModerationApi extends AbstractResource
 
         if ($after) {
             $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }
 
         return $this->getApi('moderation/banned', $bearer, $queryParamsMap);
