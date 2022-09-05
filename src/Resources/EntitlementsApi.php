@@ -78,8 +78,13 @@ class EntitlementsApi extends AbstractResource
     {
         $bodyParamsMap = [];
 
-        $bodyParamsMap[] = ['key' => 'entitlement_ids', 'value' => $entitlement_ids];
-        $bodyParamsMap[] = ['key' => 'fulfillment_status', 'value' => $fulfillment_status];
+        if ($entitlement_ids) {
+            $bodyParamsMap[] = ['key' => 'entitlement_ids', 'value' => $entitlement_ids];
+        }
+
+        if ($fulfillment_status) {
+            $bodyParamsMap[] = ['key' => 'fulfillment_status', 'value' => $fulfillment_status];
+        }
 
         return $this->patchApi('entitlements/drops', $bearer, [], $bodyParamsMap);
     }
