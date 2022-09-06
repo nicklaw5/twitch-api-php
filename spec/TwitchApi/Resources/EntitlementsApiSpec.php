@@ -81,4 +81,22 @@ class EntitlementsApiSpec extends ObjectBehavior
         $requestGenerator->generate('POST', 'entitlements/code', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'code', 'value' => 'abc'], ['key' => 'code', 'value' => 'def']], [])->willReturn($request);
         $this->redeemCode('TEST_TOKEN', '123', ['abc', 'def'])->shouldBe($response);
     }
+
+    function it_should_update_drop_entitlements(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'entitlements/drops', 'TEST_TOKEN', [], [])->willReturn($request);
+        $this->updateDropsEntitlements('TEST_TOKEN')->shouldBe($response);
+    }
+
+    function it_should_update_one_drop_entitlements(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'entitlements/drops', 'TEST_TOKEN', [], [['key' => 'entitlement_ids', 'value' => ['123']], ['key' => 'fulfillment_status', 'value' => 'FULFILLED']])->willReturn($request);
+        $this->updateDropsEntitlements('TEST_TOKEN', ['123'], 'FULFILLED')->shouldBe($response);
+    }
+
+    function it_should_update_multiple_drop_entitlements(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PATCH', 'entitlements/drops', 'TEST_TOKEN', [], [['key' => 'entitlement_ids', 'value' => ['123', '456']], ['key' => 'fulfillment_status', 'value' => 'FULFILLED']])->willReturn($request);
+        $this->updateDropsEntitlements('TEST_TOKEN', ['123', '456'], 'FULFILLED')->shouldBe($response);
+    }
 }

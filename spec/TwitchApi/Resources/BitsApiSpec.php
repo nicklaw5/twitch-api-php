@@ -51,4 +51,16 @@ class BitsApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'extensions/transactions', 'TEST_TOKEN', [['key' => 'extension_id', 'value' => '1'], ['key' => 'after', 'value' => '100']], [])->willReturn($request);
         $this->getExtensionTransactions('TEST_TOKEN', '1', [], null, 100)->shouldBe($response);
     }
+
+    function it_should_get_bits_leaderboard(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'bits/leaderboard', 'TEST_TOKEN', [], [])->willReturn($request);
+        $this->getBitsLeaderboard('TEST_TOKEN')->shouldBe($response);
+    }
+
+    function it_should_get_bits_leaderboard_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'bits/leaderboard', 'TEST_TOKEN', [['key' => 'count', 'value' => '100'], ['key' => 'period', 'value' => 'all'], ['key' => 'started_at', 'value' => '2019-10-12T07:20:50.52Z'], ['key' => 'user_id', 'value' => '123']], [])->willReturn($request);
+        $this->getBitsLeaderboard('TEST_TOKEN', 100, 'all', '2019-10-12T07:20:50.52Z', '123')->shouldBe($response);
+    }
 }

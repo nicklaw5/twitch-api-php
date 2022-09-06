@@ -288,4 +288,16 @@ class EventSubApiSpec extends ObjectBehavior
         $this->createEventSubSubscription('channel.goal.end', '1', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
         $this->subscribeToChannelGoalEnd($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_drop_entitelement_grant(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToDropEntitlementGrant($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_drop_entitelement_grant_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '123', 'category_id' => '456', 'campaign_id' => '789'], $requestGenerator)->willReturn($request);
+        $this->subscribeToDropEntitlementGrant($this->bearer, $this->secret, $this->callback, '123', '456', '789')->shouldBe($response);
+    }
 }

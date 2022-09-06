@@ -147,4 +147,28 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('DELETE', 'channels/vips', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => '456']], [])->willReturn($request);
         $this->removeChannelVip('TEST_TOKEN', '123', '456')->shouldBe($response);
     }
+
+    function it_should_get_banned_users(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/banned', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getBannedUsers('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_banned_users_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/banned', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => 'abc'], ['key' => 'user_id', 'value' => 'def'], ['key' => 'before', 'value' => 'abc'], ['key' => 'after', 'value' => 'def'], ['key' => 'first', 'value' => '100']], [])->willReturn($request);
+        $this->getBannedUsers('TEST_TOKEN', '123', ['abc', 'def'], 'abc', 'def', '100')->shouldBe($response);
+    }
+
+    function it_should_get_moderators(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/moderators', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
+        $this->getModerators('TEST_TOKEN', '123')->shouldBe($response);
+    }
+
+    function it_should_get_moderators_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/moderators', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => 'abc'], ['key' => 'user_id', 'value' => 'def'], ['key' => 'after', 'value' => 'abc'], ['key' => 'first', 'value' => '100']], [])->willReturn($request);
+        $this->getModerators('TEST_TOKEN', '123', ['abc', 'def'], 'abc', '100')->shouldBe($response);
+    }
 }

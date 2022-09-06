@@ -444,6 +444,29 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#dropentitlementgrant
+     */
+    public function subscribeToDropEntitlementGrant(string $bearer, string $secret, string $callback, string $organizationId, string $categoryId = null, string $campaign_id = null): ResponseInterface
+    {
+        $condition = ['organization_id' => $organizationId];
+        if ($categoryId) {
+            $condition['category_id'] = $categoryId;
+        }
+        if ($campaign_id) {
+            $condition['campaign_id'] = $campaign_id;
+        }
+
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            'drop.entitlement.grant',
+            '1',
+            $condition,
+        );
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub#verify-a-signature
      */
     public function verifySignature(string $signature, string $secret, string $messageId, string $timestamp, string $body): bool
