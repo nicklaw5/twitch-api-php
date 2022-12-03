@@ -306,4 +306,33 @@ class ModerationApi extends AbstractResource
 
         return $this->deleteApi('channels/vips', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-shield-mode-status
+     */
+    public function getShieldModeStatus(string $bearer, string $broadcasterId, string $moderatorId): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        return $this->getApi('moderation/shield_mode', $bearer, $queryParamsMap);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#update-shield-mode-status
+     */
+    public function updateShieldModeStatus(string $bearer, string $broadcasterId, string $moderatorId, bool $isActive): ResponseInterface
+    {
+        $queryParamsMap = [];
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        $bodyParamsMap = [];
+        $bodyParamsMap[] = ['key' => 'is_active', 'value' => $isActive];
+
+        return $this->putApi('moderation/shield_mode', $bearer, $queryParamsMap, $bodyParamsMap);
+    }
 }

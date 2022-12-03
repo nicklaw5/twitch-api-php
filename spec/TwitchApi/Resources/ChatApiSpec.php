@@ -105,4 +105,16 @@ class ChatApiSpec extends ObjectBehavior
         $requestGenerator->generate('PUT', 'chat/color', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'color', 'value' => 'red']], [])->willReturn($request);
         $this->updateUserChatColor('TEST_TOKEN', '123', 'red')->shouldBe($response);
     }
+
+    function it_should_get_chatters(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'chat/chatters', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->getChatters('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_get_chatters_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'chat/chatters', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'],['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
+        $this->getChatters('TEST_TOKEN', '123', '456', 100, 'abc')->shouldBe($response);
+    }
 }

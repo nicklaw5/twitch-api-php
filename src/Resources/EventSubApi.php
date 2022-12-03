@@ -444,6 +444,54 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcharity_campaignstart
+     */
+    public function subscribeToChannelCharityCampaignStart(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelCharityCampaign($bearer, $secret, $callback, $twitchId, 'start');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcharity_campaignprogress
+     */
+    public function subscribeToChannelCharityCampaignProgress(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelCharityCampaign($bearer, $secret, $callback, $twitchId, 'progress');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcharity_campaignstop
+     */
+    public function subscribeToChannelCharityCampaignStop(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelCharityCampaign($bearer, $secret, $callback, $twitchId, 'stop');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelcharity_campaigndonate
+     */
+    public function subscribeToChannelCharityCampaignDonate(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    {
+        return $this->subscribeToChannelCharityCampaign($bearer, $secret, $callback, $twitchId, 'donate');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelshield_modebegin
+     */
+    public function subscribeToChannelShieldModeBegin(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
+    {
+        return $this->subscribeToChannelShieldMode($bearer, $secret, $callback, $twitchId, $moderatorId, 'begin');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelshield_modeend
+     */
+    public function subscribeToChannelShieldModeEnd(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
+    {
+        return $this->subscribeToChannelShieldMode($bearer, $secret, $callback, $twitchId, $moderatorId, 'end');
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#dropentitlementgrant
      */
     public function subscribeToDropEntitlementGrant(string $bearer, string $secret, string $callback, string $organizationId, string $categoryId = null, string $campaign_id = null): ResponseInterface
@@ -598,6 +646,33 @@ class EventSubApi extends AbstractResource
             sprintf('channel.goal.%s', $eventType),
             '1',
             ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToChannelCharityCampaign(string $bearer, string $secret, string $callback, string $twitchId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.charity_campaign.%s', $eventType),
+            'beta',
+            ['broadcaster_user_id' => $twitchId],
+        );
+    }
+
+    private function subscribeToChannelShieldMode(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.shield_mode.%s', $eventType),
+            'beta',
+            [
+                'broadcaster_user_id' => $twitchId,
+                'moderator_user_id' => $moderatorId
+            ],
         );
     }
 }
