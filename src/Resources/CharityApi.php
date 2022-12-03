@@ -29,7 +29,7 @@ class CharityApi extends AbstractResource
     {
         $queryParamsMap = [];
         $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
-        
+
         if ($first) {
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
         }

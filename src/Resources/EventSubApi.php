@@ -671,7 +671,7 @@ class EventSubApi extends AbstractResource
             'beta',
             [
                 'broadcaster_user_id' => $twitchId,
-                'moderator_user_id' => $moderatorId
+                'moderator_user_id' => $moderatorId,
             ],
         );
     }
