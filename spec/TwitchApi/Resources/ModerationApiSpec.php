@@ -171,4 +171,16 @@ class ModerationApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'moderation/moderators', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'user_id', 'value' => 'abc'], ['key' => 'user_id', 'value' => 'def'], ['key' => 'after', 'value' => 'abc'], ['key' => 'first', 'value' => '100']], [])->willReturn($request);
         $this->getModerators('TEST_TOKEN', '123', ['abc', 'def'], 'abc', '100')->shouldBe($response);
     }
+
+    function it_should_get_shield_mode_status(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'moderation/shield_mode', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [])->willReturn($request);
+        $this->getShieldModeStatus('TEST_TOKEN', '123', '456')->shouldBe($response);
+    }
+
+    function it_should_update_shield_mode_status(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('PUT', 'moderation/shield_mode', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456']], [['key' => 'is_active', 'value' => true]])->willReturn($request);
+        $this->updateShieldModeStatus('TEST_TOKEN', '123', '456', true)->shouldBe($response);
+    }
 }

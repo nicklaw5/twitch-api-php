@@ -10,6 +10,7 @@ use TwitchApi\Resources\AnalyticsApi;
 use TwitchApi\Resources\BitsApi;
 use TwitchApi\Resources\ChannelPointsApi;
 use TwitchApi\Resources\ChannelsApi;
+use TwitchApi\Resources\CharityApi;
 use TwitchApi\Resources\ChatApi;
 use TwitchApi\Resources\ClipsApi;
 use TwitchApi\Resources\EntitlementsApi;
@@ -68,6 +69,11 @@ class TwitchApiSpec extends ObjectBehavior
     function it_should_provide_channels_api()
     {
         $this->getChannelsApi()->shouldBeAnInstanceOf(ChannelsApi::class);
+    }
+
+    function it_should_provide_charity_api()
+    {
+        $this->getCharityApi()->shouldBeAnInstanceOf(CharityApi::class);
     }
 
     function it_should_provide_chat_api()

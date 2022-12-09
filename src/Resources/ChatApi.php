@@ -156,4 +156,27 @@ class ChatApi extends AbstractResource
 
         return $this->putApi('chat/color', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference#get-chatters
+     */
+    public function getChatters(string $bearer, string $broadcasterId, string $moderatorId, int $first = null, string $after = null): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'broadcaster_id', 'value' => $broadcasterId];
+
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        if ($first) {
+            $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($after) {
+            $queryParamsMap[] = ['key' => 'after', 'value' => $after];
+        }
+
+        return $this->getApi('chat/chatters', $bearer, $queryParamsMap);
+    }
 }

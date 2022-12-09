@@ -11,6 +11,7 @@ use TwitchApi\Resources\AnalyticsApi;
 use TwitchApi\Resources\BitsApi;
 use TwitchApi\Resources\ChannelPointsApi;
 use TwitchApi\Resources\ChannelsApi;
+use TwitchApi\Resources\CharityApi;
 use TwitchApi\Resources\ChatApi;
 use TwitchApi\Resources\ClipsApi;
 use TwitchApi\Resources\EntitlementsApi;
@@ -41,6 +42,7 @@ class TwitchApi
     private $bitsApi;
     private $channelPointsApi;
     private $channelsApi;
+    private $charityApi;
     private $chatApi;
     private $clipsApi;
     private $entitlementsApi;
@@ -72,6 +74,7 @@ class TwitchApi
         $this->bitsApi = new BitsApi($helixGuzzleClient, $requestGenerator);
         $this->channelPointsApi = new ChannelPointsApi($helixGuzzleClient, $requestGenerator);
         $this->channelsApi = new ChannelsApi($helixGuzzleClient, $requestGenerator);
+        $this->charityApi = new CharityApi($helixGuzzleClient, $requestGenerator);
         $this->chatApi = new ChatApi($helixGuzzleClient, $requestGenerator);
         $this->clipsApi = new ClipsApi($helixGuzzleClient, $requestGenerator);
         $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $requestGenerator);
@@ -123,6 +126,11 @@ class TwitchApi
     public function getChannelsApi(): ChannelsApi
     {
         return $this->channelsApi;
+    }
+
+    public function getCharityApi(): CharityApi
+    {
+        return $this->charityApi;
     }
 
     public function getChatApi(): ChatApi

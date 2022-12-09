@@ -300,4 +300,40 @@ class EventSubApiSpec extends ObjectBehavior
         $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '123', 'category_id' => '456', 'campaign_id' => '789'], $requestGenerator)->willReturn($request);
         $this->subscribeToDropEntitlementGrant($this->bearer, $this->secret, $this->callback, '123', '456', '789')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_channel_charity_campaign_start(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.charity_campaign.start', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelCharityCampaignStart($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_charity_campaign_progress(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.charity_campaign.progress', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelCharityCampaignProgress($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_charity_campaign_stop(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.charity_campaign.stop', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelCharityCampaignStop($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_charity_campaign_donate(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.charity_campaign.donate', 'beta', ['broadcaster_user_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelCharityCampaignDonate($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_shield_mode_begin(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.shield_mode.begin', 'beta', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelShieldModeBegin($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_shield_mode_end(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.shield_mode.end', 'beta', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelShieldModeEnd($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
+    }
 }
