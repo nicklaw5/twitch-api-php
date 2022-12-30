@@ -17,6 +17,7 @@ use TwitchApi\Resources\ClipsApi;
 use TwitchApi\Resources\EntitlementsApi;
 use TwitchApi\Resources\EventSubApi;
 use TwitchApi\Resources\GamesApi;
+use TwitchApi\Resources\GoalsApi;
 use TwitchApi\Resources\HypeTrainApi;
 use TwitchApi\Resources\ModerationApi;
 use TwitchApi\Resources\PollsApi;
@@ -48,6 +49,7 @@ class TwitchApi
     private $entitlementsApi;
     private $eventSubApi;
     private $gamesApi;
+    private $goalsApi;
     private $hypeTrainApi;
     private $moderationApi;
     private $pollsApi;
@@ -80,6 +82,7 @@ class TwitchApi
         $this->entitlementsApi = new EntitlementsApi($helixGuzzleClient, $requestGenerator);
         $this->eventSubApi = new EventSubApi($helixGuzzleClient, $requestGenerator);
         $this->gamesApi = new GamesApi($helixGuzzleClient, $requestGenerator);
+        $this->goalsApi = new GoalsApi($helixGuzzleClient, $requestGenerator);
         $this->hypeTrainApi = new HypeTrainApi($helixGuzzleClient, $requestGenerator);
         $this->moderationApi = new ModerationApi($helixGuzzleClient, $requestGenerator);
         $this->pollsApi = new PollsApi($helixGuzzleClient, $requestGenerator);
@@ -156,6 +159,11 @@ class TwitchApi
     public function getGamesApi(): GamesApi
     {
         return $this->gamesApi;
+    }
+
+    public function getGoalsApi(): GoalsApi
+    {
+        return $this->goalsApi;
     }
 
     public function getHypeTrainApi(): HypeTrainApi
