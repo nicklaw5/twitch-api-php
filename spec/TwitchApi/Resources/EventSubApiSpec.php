@@ -14,19 +14,25 @@ class EventSubApiSpec extends ObjectBehavior
     private string $secret = 'SECRET';
     private string $callback = 'https://example.com/';
 
-    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator)
+    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator, bool $isBatchingEnabled = null)
     {
         $bodyParams = [];
 
         $bodyParams[] = ['key' => 'type', 'value' => $type];
         $bodyParams[] = ['key' => 'version', 'value' => $version];
         $bodyParams[] = ['key' => 'condition', 'value' => $condition];
-        $bodyParams[] = ['key' => 'transport', 'value' => [
-          'method' => 'webhook',
-          'callback' => $this->callback,
-          'secret' => $this->secret,
-          ]
+        $bodyParams[] = [
+            'key' => 'transport',
+            'value' => [
+                'method' => 'webhook',
+                'callback' => $this->callback,
+                'secret' => $this->secret,
+            ],
         ];
+
+        if (null !== $isBatchingEnabled) {
+            $bodyParams[] = ['key' => 'is_batching_enabled', 'value' => $isBatchingEnabled];
+        }
 
         return $requestGenerator->generate('POST', 'eventsub/subscriptions', $this->bearer, [], $bodyParams);
     }
@@ -291,13 +297,13 @@ class EventSubApiSpec extends ObjectBehavior
 
     function it_should_subscribe_to_drop_entitelement_grant(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '12345'], $requestGenerator)->willReturn($request);
+        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '12345'], $requestGenerator, true)->willReturn($request);
         $this->subscribeToDropEntitlementGrant($this->bearer, $this->secret, $this->callback, '12345')->shouldBe($response);
     }
 
     function it_should_subscribe_to_drop_entitelement_grant_with_opts(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '123', 'category_id' => '456', 'campaign_id' => '789'], $requestGenerator)->willReturn($request);
+        $this->createEventSubSubscription('drop.entitlement.grant', '1', ['organization_id' => '123', 'category_id' => '456', 'campaign_id' => '789'], $requestGenerator, true)->willReturn($request);
         $this->subscribeToDropEntitlementGrant($this->bearer, $this->secret, $this->callback, '123', '456', '789')->shouldBe($response);
     }
 
