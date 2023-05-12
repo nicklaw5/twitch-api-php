@@ -40,14 +40,13 @@ class EventSubApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#create-eventsub-subscription
      */
-    public function createEventSubSubscription(string $bearer, string $secret, string $callback, string $type, string $version, array $condition, bool $isBatchingEnabled = false): ResponseInterface
+    public function createEventSubSubscription(string $bearer, string $secret, string $callback, string $type, string $version, array $condition, bool $isBatchingEnabled = null): ResponseInterface
     {
         $bodyParams = [];
 
         $bodyParams[] = ['key' => 'type', 'value' => $type];
         $bodyParams[] = ['key' => 'version', 'value' => $version];
         $bodyParams[] = ['key' => 'condition', 'value' => $condition];
-        $bodyParams[] = ['key' => 'is_batching_enabled', 'value' => $isBatchingEnabled];
         $bodyParams[] = [
             'key' => 'transport',
             'value' => [
@@ -56,6 +55,10 @@ class EventSubApi extends AbstractResource
                 'secret' => $secret,
             ],
         ];
+
+        if (null !== $isBatchingEnabled) {
+            $bodyParams[] = ['key' => 'is_batching_enabled', 'value' => $isBatchingEnabled];
+        }
 
         return $this->postApi('eventsub/subscriptions', $bearer, [], $bodyParams);
     }

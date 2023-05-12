@@ -14,20 +14,25 @@ class EventSubApiSpec extends ObjectBehavior
     private string $secret = 'SECRET';
     private string $callback = 'https://example.com/';
 
-    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator, bool $isBatchingEnabled = false)
+    private function createEventSubSubscription(string $type, string $version, array $condition, RequestGenerator $requestGenerator, bool $isBatchingEnabled = null)
     {
         $bodyParams = [];
 
         $bodyParams[] = ['key' => 'type', 'value' => $type];
         $bodyParams[] = ['key' => 'version', 'value' => $version];
         $bodyParams[] = ['key' => 'condition', 'value' => $condition];
-        $bodyParams[] = ['key' => 'is_batching_enabled', 'value' => $isBatchingEnabled];
-        $bodyParams[] = ['key' => 'transport', 'value' => [
-          'method' => 'webhook',
-          'callback' => $this->callback,
-          'secret' => $this->secret,
-          ]
+        $bodyParams[] = [
+            'key' => 'transport',
+            'value' => [
+                'method' => 'webhook',
+                'callback' => $this->callback,
+                'secret' => $this->secret,
+            ],
         ];
+
+        if (null !== $isBatchingEnabled) {
+            $bodyParams[] = ['key' => 'is_batching_enabled', 'value' => $isBatchingEnabled];
+        }
 
         return $requestGenerator->generate('POST', 'eventsub/subscriptions', $this->bearer, [], $bodyParams);
     }
