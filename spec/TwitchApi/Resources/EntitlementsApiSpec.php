@@ -70,6 +70,12 @@ class EntitlementsApiSpec extends ObjectBehavior
         $this->getDropsEntitlements('TEST_TOKEN', null, null, '123', 'abc', 100)->shouldBe($response);
     }
 
+    function it_should_get_drop_entitlements_by_status(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('GET', 'entitlements/drops', 'TEST_TOKEN', [['key' => 'fulfillment_status', 'value' => 'CLAIMED']], [])->willReturn($request);
+        $this->getDropsEntitlements('TEST_TOKEN', null, null, null, null, null, 'CLAIMED')->shouldBe($response);
+    }
+
     function it_should_redeem_code(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $requestGenerator->generate('POST', 'entitlements/code', 'TEST_TOKEN', [['key' => 'user_id', 'value' => '123'], ['key' => 'code', 'value' => 'abc']], [])->willReturn($request);
