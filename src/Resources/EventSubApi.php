@@ -673,7 +673,7 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             sprintf('channel.shield_mode.%s', $eventType),
-            'beta',
+            '1',
             [
                 'broadcaster_user_id' => $twitchId,
                 'moderator_user_id' => $moderatorId,
