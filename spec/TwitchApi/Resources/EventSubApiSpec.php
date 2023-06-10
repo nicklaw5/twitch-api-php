@@ -87,7 +87,7 @@ class EventSubApiSpec extends ObjectBehavior
 
     function it_should_subscribe_to_channel_follow(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
-        $this->createEventSubSubscription('channel.follow', '2', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '543231'], $requestGenerator)->willReturn($request);
+        $this->createEventSubSubscription('channel.follow', '2', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
         $this->subscribeToChannelFollow($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
     }
 
