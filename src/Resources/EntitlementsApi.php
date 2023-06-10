@@ -43,7 +43,7 @@ class EntitlementsApi extends AbstractResource
      * @throws GuzzleException
      * @link https://dev.twitch.tv/docs/api/reference#get-drops-entitlements
      */
-    public function getDropsEntitlements(string $bearer, string $id = null, string $userId = null, string $gameId = null, string $after = null, int $first = null): ResponseInterface
+    public function getDropsEntitlements(string $bearer, string $id = null, string $userId = null, string $gameId = null, string $after = null, int $first = null, string $fulfillmentStatus = null): ResponseInterface
     {
         $queryParamsMap = [];
 
@@ -65,6 +65,10 @@ class EntitlementsApi extends AbstractResource
 
         if ($first) {
             $queryParamsMap[] = ['key' => 'first', 'value' => $first];
+        }
+
+        if ($fulfillmentStatus) {
+            $queryParamsMap[] = ['key' => 'fulfillment_status', 'value' => $fulfillmentStatus];
         }
 
         return $this->getApi('entitlements/drops', $bearer, $queryParamsMap);
