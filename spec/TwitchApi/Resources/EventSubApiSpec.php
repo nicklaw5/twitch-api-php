@@ -342,4 +342,16 @@ class EventSubApiSpec extends ObjectBehavior
         $this->createEventSubSubscription('channel.shield_mode.end', '1', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
         $this->subscribeToChannelShieldModeEnd($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
     }
+
+    function it_should_subscribe_to_channel_shoutout_create(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.shoutout.create', '1', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelShoutoutCreate($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
+    }
+
+    function it_should_subscribe_to_channel_shoutout_receive(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $this->createEventSubSubscription('channel.shoutout.receive', '1', ['broadcaster_user_id' => '12345', 'moderator_user_id' => '54321'], $requestGenerator)->willReturn($request);
+        $this->subscribeToChannelShoutoutReceive($this->bearer, $this->secret, $this->callback, '12345', '54321')->shouldBe($response);
+    }
 }
