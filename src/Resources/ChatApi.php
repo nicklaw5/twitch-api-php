@@ -190,7 +190,7 @@ class ChatApi extends AbstractResource
 
         $queryParamsMap[] = ['key' => 'from_broadcaster_id', 'value' => $fromBroadcasterId];
 
-        $bodyParamsMap[] = ['key' => 'to_broadcaster_id', 'value' => $toBroadcasterId];
+        $queryParamsMap[] = ['key' => 'to_broadcaster_id', 'value' => $toBroadcasterId];
 
         $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
 
