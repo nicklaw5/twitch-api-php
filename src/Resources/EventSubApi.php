@@ -680,7 +680,7 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             sprintf('channel.charity_campaign.%s', $eventType),
-            'beta',
+            '1',
             ['broadcaster_user_id' => $twitchId],
         );
     }
