@@ -179,4 +179,21 @@ class ChatApi extends AbstractResource
 
         return $this->getApi('chat/chatters', $bearer, $queryParamsMap);
     }
+
+    /**
+     * @throws GuzzleException
+     * @link https://dev.twitch.tv/docs/api/reference/#send-a-shoutout
+     */
+    public function sendShoutout(string $bearer, string $fromBroadcasterId, string $toBroadcasterId, string $moderatorId): ResponseInterface
+    {
+        $queryParamsMap = [];
+
+        $queryParamsMap[] = ['key' => 'from_broadcaster_id', 'value' => $fromBroadcasterId];
+
+        $bodyParamsMap[] = ['key' => 'to_broadcaster_id', 'value' => $toBroadcasterId];
+
+        $queryParamsMap[] = ['key' => 'moderator_id', 'value' => $moderatorId];
+
+        return $this->postApi('chat/shoutouts', $bearer, $queryParamsMap);
+    }
 }
