@@ -91,17 +91,20 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelfollow
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelfollow
      */
-    public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
     {
         return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
             'channel.follow',
-            '1',
-            ['broadcaster_user_id' => $twitchId],
+            '2',
+            [
+                'broadcaster_user_id' => $twitchId,
+                'moderator_user_id' => $moderatorId,
+            ],
         );
     }
 
