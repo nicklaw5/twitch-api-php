@@ -91,17 +91,20 @@ class EventSubApi extends AbstractResource
     }
 
     /**
-     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channelfollow
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelfollow
      */
-    public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId): ResponseInterface
+    public function subscribeToChannelFollow(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
     {
         return $this->createEventSubSubscription(
             $bearer,
             $secret,
             $callback,
             'channel.follow',
-            '1',
-            ['broadcaster_user_id' => $twitchId],
+            '2',
+            [
+                'broadcaster_user_id' => $twitchId,
+                'moderator_user_id' => $moderatorId,
+            ],
         );
     }
 
@@ -496,6 +499,22 @@ class EventSubApi extends AbstractResource
     }
 
     /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshoutoutcreate
+     */
+    public function subscribeToChannelShoutoutCreate(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
+    {
+        return $this->subscribeToChannelShoutout($bearer, $secret, $callback, $twitchId, $moderatorId, 'create');
+    }
+
+    /**
+     * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshoutoutreceive
+     */
+    public function subscribeToChannelShoutoutReceive(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId): ResponseInterface
+    {
+        return $this->subscribeToChannelShoutout($bearer, $secret, $callback, $twitchId, $moderatorId, 'receive');
+    }
+
+    /**
      * @link https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#dropentitlementgrant
      */
     public function subscribeToDropEntitlementGrant(string $bearer, string $secret, string $callback, string $organizationId, string $categoryId = null, string $campaign_id = null): ResponseInterface
@@ -661,7 +680,7 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             sprintf('channel.charity_campaign.%s', $eventType),
-            'beta',
+            '1',
             ['broadcaster_user_id' => $twitchId],
         );
     }
@@ -673,7 +692,22 @@ class EventSubApi extends AbstractResource
             $secret,
             $callback,
             sprintf('channel.shield_mode.%s', $eventType),
-            'beta',
+            '1',
+            [
+                'broadcaster_user_id' => $twitchId,
+                'moderator_user_id' => $moderatorId,
+            ],
+        );
+    }
+
+    private function subscribeToChannelShoutout(string $bearer, string $secret, string $callback, string $twitchId, string $moderatorId, string $eventType): ResponseInterface
+    {
+        return $this->createEventSubSubscription(
+            $bearer,
+            $secret,
+            $callback,
+            sprintf('channel.shoutout.%s', $eventType),
+            '1',
             [
                 'broadcaster_user_id' => $twitchId,
                 'moderator_user_id' => $moderatorId,

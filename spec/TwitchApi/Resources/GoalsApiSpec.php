@@ -19,7 +19,7 @@ class GoalsApiSpec extends ObjectBehavior
     function it_should_get_goals_by_broadcaster_id(RequestGenerator $requestGenerator, Request $request, Response $response)
     {
         $requestGenerator->generate('GET', 'goals', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123']], [])->willReturn($request);
-        $this->getGoals('TEST_TOKEN', ['123'])->shouldBe($response);
+        $this->getGoals('TEST_TOKEN', '123')->shouldBe($response);
     }
 
 }

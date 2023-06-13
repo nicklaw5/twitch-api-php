@@ -117,4 +117,10 @@ class ChatApiSpec extends ObjectBehavior
         $requestGenerator->generate('GET', 'chat/chatters', 'TEST_TOKEN', [['key' => 'broadcaster_id', 'value' => '123'], ['key' => 'moderator_id', 'value' => '456'],['key' => 'first', 'value' => 100], ['key' => 'after', 'value' => 'abc']], [])->willReturn($request);
         $this->getChatters('TEST_TOKEN', '123', '456', 100, 'abc')->shouldBe($response);
     }
+
+    function it_should_send_a_shoutout(RequestGenerator $requestGenerator, Request $request, Response $response)
+    {
+        $requestGenerator->generate('POST', 'chat/shoutouts', 'TEST_TOKEN', [['key' => 'from_broadcaster_id', 'value' => '123'], ['key' => 'to_broadcaster_id', 'value' => '456'], ['key' => 'moderator_id', 'value' => '789']], [])->willReturn($request);
+        $this->sendShoutout('TEST_TOKEN', '123', '456', '789')->shouldBe($response);
+    }
 }
